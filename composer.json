@@ -1,0 +1,7 @@
+{
+    "name": "ghostwriter/wip",
+    "description": "Here be dragons",
+    "require": {
+        "php": ">=7.4"
+    }
+}

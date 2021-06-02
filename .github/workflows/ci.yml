@@ -1,0 +1,101 @@
+# https://docs.github.com/en/actions
+
+name: "CI"
+
+on:
+  create:
+  pull_request:
+  push:
+
+jobs:
+  quality-assurance:
+    name: "Quality Assurance"
+    runs-on: ${{ matrix.operating-system }}
+    continue-on-error: ${{ matrix.dependencies == matrix.experimental | matrix.php-version == matrix.experimental }}
+    strategy:
+      fail-fast: false
+      matrix:
+        dependencies:
+          - "highest"
+          - "locked"
+          - "lowest"
+
+        experimental:
+          - "highest"
+          - "8.1"
+
+        php-version:
+          - "7.3"
+          - "7.4"
+          - "8.0"
+          # - "8.1"
+
+        operating-system:
+          - "macos-latest"
+          - "ubuntu-latest"
+          - "windows-latest"
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
+
+      - name: "Fetch github.base_ref (for diffing)"
+        if: ${{ github.base_ref != '' }}
+        run: git fetch --depth=1 origin +refs/heads/${{github.base_ref}}:refs/remotes/origin/${{github.base_ref}}
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "pcov"
+          php-version: "${{ matrix.php-version }}"
+          ini-values: memory_limit=-1
+
+      - name: "Determine composer cache directory"
+        id: "determine-composer-cache-directory"
+        run: 'echo "::set-output name=directory::$(composer config cache-dir)"'
+
+      - name: "Cache dependencies"
+        uses: "actions/cache@v2"
+        with:
+          path: ${{ steps.determine-composer-cache-directory.outputs.directory }}
+          key: "php-${{ matrix.php-version }}-${{ matrix.dependencies }}-${{ matrix.operating-system }}"
+          restore-keys: "php-${{ matrix.php-version }}-${{ matrix.dependencies }}-${{ matrix.operating-system }}"
+
+      - name: "Install lowest dependencies"
+        if: ${{ matrix.dependencies == 'lowest' }}
+        run: "composer update --prefer-lowest --no-interaction --no-progress --no-suggest"
+
+      - name: "Install highest dependencies"
+        if: ${{ matrix.dependencies == 'highest' }}
+        run: "composer update --no-interaction --no-progress --no-suggest"
+
+      - name: "Install locked dependencies"
+        if: ${{ matrix.dependencies == 'locked' }}
+        run: "composer install --no-interaction --no-progress --no-suggest"
+
+      - name: "PHP Coding Standard"
+        run: "vendor/bin/phpcs"
+
+      - name: "PHPUnit"
+        run: "vendor/bin/phpunit"
+
+      - name: "Psalm"
+        run: "vendor/bin/psalm --shepherd --stats"
+
+      - name: "Infection"
+        if: ${{ github.base_ref != '' }}
+        run: |
+          vendor/bin/roave-infection-static-analysis-plugin \
+            --ignore-msi-with-no-mutations \
+            --git-diff-filter=AM \
+            --git-diff-base=origin/${{ github.base_ref }}
+        env:
+          INFECTION_BADGE_API_KEY: ${{ secrets.INFECTION_BADGE_API_KEY }}
+          STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
+
+      - name: "Infection"
+        if: ${{ github.base_ref == '' }}
+        run: vendor/bin/roave-infection-static-analysis-plugin --ignore-msi-with-no-mutations
+        env:
+          INFECTION_BADGE_API_KEY: ${{ secrets.INFECTION_BADGE_API_KEY }}
+          STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}

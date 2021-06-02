@@ -11,7 +11,7 @@ jobs:
   quality-assurance:
     name: "[QA]PHP ${{ matrix.php-version }} ${{ matrix.dependencies }} on ${{ matrix.operating-system }}"
     runs-on: ${{ matrix.operating-system }}
-    continue-on-error: ${{ matrix.dependencies == matrix.experimental || matrix.php-version == matrix.experimental }}
+    continue-on-error: ${{ matrix.dependencies != matrix.experimental }} && ${{ matrix.php-version != matrix.experimental }}
     strategy:
       fail-fast: false
       matrix:

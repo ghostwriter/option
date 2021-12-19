@@ -14,8 +14,28 @@
         "roave/security-advisories": "dev-latest",
         "vimeo/psalm": "^4.15.0"
     },
+    "prefer-stable": true,
     "scripts": {
+        "check": [
+            "@format",
+            "@cs-check",
+            "@cs-fix",
+            "@psalm",
+            "@infection",
+            "@test"
+        ],
+        "clean": [
+            "@format",
+            "@cs-fix",
+            "@psalm"
+        ],
         "cs-check": "phpcs",
-        "cs-fix": "phpcbf"
+        "cs-fix": "phpcbf",
+        "format": "composer normalize --no-check-lock --no-update-lock",
+        "infection": "roave-infection-static-analysis-plugin",
+        "psalm": "psalm",
+        "psalm-fix-all": "psalm --alter --issues=all",
+        "test": "phpunit --color --testdox --stop-on-failure",
+        "test-coverage": "phpunit --color --coverage-clover clover.xml"
     }
 }

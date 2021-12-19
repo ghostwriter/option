@@ -2,6 +2,12 @@
     "name": "ghostwriter/wip",
     "description": "Here be dragons",
     "license": "BSD-3-Clause",
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/ghostwriter"
+        }
+    ],
     "require": {
         "php": ">=7.4,<8.2.0",
         "nikic/php-parser": "^4.13.2"

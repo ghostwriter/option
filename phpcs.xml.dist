@@ -3,9 +3,24 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd"
 >
+    <arg name="basepath" value="."/>
+    <arg name="cache" value=".phpcs-cache"/>
+    <arg name="colors"/>
+    <arg name="extensions" value="php"/>
+    <arg name="parallel" value="80"/>
+
+    <!-- Show progress -->
+    <arg value="p"/>
+
+    <!-- Paths to check -->
+    <file>config</file>
     <file>src</file>
     <file>tests</file>
-    <exclude-pattern>*/.github/*</exclude-pattern>
-    <exclude-pattern>*/docs/*</exclude-pattern>
+    <exclude-pattern>.github/*</exclude-pattern>
+    <exclude-pattern>docs/*</exclude-pattern>
+    <exclude-pattern>tests/Fixtures/*</exclude-pattern>
+
     <rule ref="PSR12"></rule>
+    <!-- Include all rules from the Laminas Coding Standard -->
+    <rule ref="LaminasCodingStandard"/>
 </ruleset>

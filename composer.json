@@ -10,17 +10,28 @@
     ],
     "require": {
         "php": ">=7.4,<8.2.0",
-        "nikic/php-parser": "^4.13.2"
+        "nikic/php-parser": "^4.13"
     },
     "require-dev": {
-        "laminas/laminas-coding-standard": "^2.3.0",
+        "laminas/laminas-coding-standard": "^2.3",
+        "phpbench/phpbench": "^1.2",
         "phpunit/phpunit": "^9.5",
-        "psalm/plugin-phpunit": "^0.16.1",
-        "roave/infection-static-analysis-plugin": "^1.13.0",
+        "psalm/plugin-phpunit": "^0.16",
+        "roave/infection-static-analysis-plugin": "^1.14",
         "roave/security-advisories": "dev-latest",
-        "vimeo/psalm": "^4.15.0"
+        "vimeo/psalm": "^4.18"
     },
     "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
+    },
     "scripts": {
         "check": [
             "@format",
@@ -28,6 +39,7 @@
             "@cs-fix",
             "@psalm",
             "@infection",
+            "@phpbench",
             "@test"
         ],
         "clean": [
@@ -38,10 +50,17 @@
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",
         "format": "composer normalize --no-check-lock --no-update-lock",
-        "infection": "roave-infection-static-analysis-plugin",
+        "infection": [
+            "@putenv XDEBUG_MODE=coverage",
+            "roave-infection-static-analysis-plugin"
+        ],
+        "phpbench": "phpbench run",
         "psalm": "psalm",
         "psalm-fix-all": "psalm --alter --issues=all",
-        "test": "phpunit --color --testdox --stop-on-failure",
-        "test-coverage": "phpunit --color --coverage-clover clover.xml"
+        "test": "phpunit --colors=always --testdox --stop-on-failure",
+        "test-coverage": [
+            "@putenv XDEBUG_MODE=coverage",
+            "phpunit --color --coverage-clover clover.xml"
+        ]
     }
 }

@@ -2,6 +2,12 @@
     "name": "ghostwriter/wip",
     "description": "Here be dragons",
     "license": "BSD-3-Clause",
+    "support": {
+        "issues": "https://github.com/ghostwriter/wip/issues",
+        "source": "https://github.com/ghostwriter/wip",
+        "docs": "https://github.com/ghostwriter/wip",
+        "rss": "https://github.com/ghostwriter/wip/releases.atom"
+    },
     "funding": [
         {
             "type": "github",
@@ -9,7 +15,7 @@
         }
     ],
     "require": {
-        "php": ">=7.4, <8.2",
+        "php": ">=7.4,<8.2",
         "nikic/php-parser": "^4.13"
     },
     "require-dev": {
@@ -31,6 +37,14 @@
         "psr-4": {
             "App\\Tests\\": "tests/"
         }
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "infection/extension-installer": true
+        },
+        "preferred-install": "dist",
+        "sort-packages": true
     },
     "scripts": {
         "check": [

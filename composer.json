@@ -56,6 +56,7 @@
         ],
         "phpbench": "phpbench run",
         "psalm": "psalm",
+        "psalm-baseline": "psalm --set-baseline=psalm-baseline.xml",
         "psalm-fix-all": "psalm --alter --issues=all",
         "test": "phpunit --colors=always --testdox --stop-on-failure",
         "test-coverage": [

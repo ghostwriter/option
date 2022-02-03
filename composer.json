@@ -2,8 +2,22 @@
     "name": "ghostwriter/wip",
     "description": "Here be dragons",
     "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Nathanael Esayeas",
+            "email": "nathanael.esayeas@protonmail.com",
+            "homepage": "https://github.com/ghostwriter",
+            "role": "Developer"
+        },
+        {
+            "name": "Contributors",
+            "homepage": "https://github.com/ghostwriter/wip/contributors",
+            "role": "Contributor"
+        }
+    ],
     "support": {
         "issues": "https://github.com/ghostwriter/wip/issues",
+        "forum": "https://github.com/ghostwriter/wip/discussions",
         "source": "https://github.com/ghostwriter/wip",
         "docs": "https://github.com/ghostwriter/wip",
         "rss": "https://github.com/ghostwriter/wip/releases.atom"

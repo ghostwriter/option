@@ -19,7 +19,13 @@
             <directory name="vendor"/>
         </ignoreFiles>
     </projectFiles>
-
+    <issueHandlers>
+        <MissingConstructor>
+            <errorLevel type="suppress">
+                <directory name="tests" />
+            </errorLevel>
+        </MissingConstructor>
+    </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
     </plugins>

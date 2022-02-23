@@ -29,17 +29,17 @@
         }
     ],
     "require": {
-        "php": ">=7.4,<8.2",
-        "nikic/php-parser": "^4.13"
+        "php": ">=7.4, <8.2",
+        "nikic/php-parser": "^4.13.2"
     },
     "require-dev": {
-        "laminas/laminas-coding-standard": "^2.3",
-        "phpbench/phpbench": "^1.2",
-        "phpunit/phpunit": "^9.5",
-        "psalm/plugin-phpunit": "^0.16",
-        "roave/infection-static-analysis-plugin": "^1.16",
+        "laminas/laminas-coding-standard": "^2.3.0",
+        "phpbench/phpbench": "^1.2.3",
+        "phpunit/phpunit": "^9.5.14",
+        "psalm/plugin-phpunit": "^0.16.1",
+        "roave/infection-static-analysis-plugin": "^1.17.0",
         "roave/security-advisories": "dev-latest",
-        "vimeo/psalm": "^4.20"
+        "vimeo/psalm": "^4.21.0"
     },
     "prefer-stable": true,
     "autoload": {

@@ -35,11 +35,11 @@
     "require-dev": {
         "laminas/laminas-coding-standard": "^2.3.0",
         "phpbench/phpbench": "^1.2.3",
-        "phpunit/phpunit": "^9.5.14",
+        "phpunit/phpunit": "^9.5.16",
         "psalm/plugin-phpunit": "^0.16.1",
         "roave/infection-static-analysis-plugin": "^1.17.0",
         "roave/security-advisories": "dev-latest",
-        "vimeo/psalm": "^4.21.0"
+        "vimeo/psalm": "^4.22.0"
     },
     "prefer-stable": true,
     "autoload": {

@@ -8,13 +8,9 @@
             "email": "nathanael.esayeas@protonmail.com",
             "homepage": "https://github.com/ghostwriter",
             "role": "Developer"
-        },
-        {
-            "name": "Contributors",
-            "homepage": "https://github.com/ghostwriter/wip/contributors",
-            "role": "Contributor"
         }
     ],
+    "homepage": "https://github.com/ghostwriter/wip",
     "support": {
         "issues": "https://github.com/ghostwriter/wip/issues",
         "forum": "https://github.com/ghostwriter/wip/discussions",
@@ -29,11 +25,11 @@
         }
     ],
     "require": {
-        "php": ">=7.4, <8.2",
-        "nikic/php-parser": "^4.13.2"
+        "php": ">=7.4,<8.2"
     },
     "require-dev": {
         "laminas/laminas-coding-standard": "^2.3.0",
+        "nikic/php-parser": "^4.13.2",
         "phpbench/phpbench": "^1.2.5",
         "phpunit/phpunit": "^9.5.19",
         "psalm/plugin-phpunit": "^0.16.1",
@@ -41,6 +37,8 @@
         "roave/security-advisories": "dev-latest",
         "vimeo/psalm": "^4.22.0"
     },
+    "replace": {},
+    "minimum-stability": "dev",
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
@@ -57,7 +55,12 @@
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "infection/extension-installer": true
         },
+        "classmap-authoritative": true,
+        "discard-changes": true,
+        "optimize-autoloader": true,
         "preferred-install": "dist",
+        "prepend-autoloader": true,
+        "process-timeout": 5000,
         "sort-packages": true
     },
     "scripts": {

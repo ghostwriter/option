@@ -31,7 +31,7 @@
         "laminas/laminas-coding-standard": "^2.3.0",
         "nikic/php-parser": "^4.13.2",
         "phpbench/phpbench": "^1.2.5",
-        "phpunit/phpunit": "^9.5.19",
+        "phpunit/phpunit": "^9.5.20",
         "psalm/plugin-phpunit": "^0.16.1",
         "roave/infection-static-analysis-plugin": "^1.18.0",
         "roave/security-advisories": "dev-latest",

@@ -41,6 +41,10 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "autoload": {
+        "files": [
+            "src/constants.php",
+            "src/functions.php"
+        ],
         "psr-4": {
             "App\\": "src/"
         }

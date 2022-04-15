@@ -7,8 +7,9 @@
     <arg name="colors"/>
     <arg name="extensions" value="php"/>
     <arg name="parallel" value="80"/>
-
     <arg value="nps"/>
+
+    <config name="php_version" value="70400"/>
 
     <exclude-pattern>*/.github/*</exclude-pattern>
     <exclude-pattern>*/docs/*</exclude-pattern>

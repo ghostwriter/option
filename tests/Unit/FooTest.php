@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit;
+namespace Ghostwriter\wip\Tests\Unit;
 
-use App\Foo;
-use App\Tests\AbstractTestCase;
+use Ghostwriter\wip\Foo;
 
-/** @coversDefaultClass \App\Foo */
+/** @coversDefaultClass \Ghostwriter\wip\Foo */
 class FooTest extends AbstractTestCase
 {
     /** @covers ::test */

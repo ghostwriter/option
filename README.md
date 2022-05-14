@@ -22,17 +22,17 @@ composer require ghostwriter/wip
 // wip
 ```
 
-### Testing
+## Testing
 
 ``` bash
 composer test
 ```
 
-### Changelog
+## Changelog
 
 Please see [CHANGELOG.md](./CHANGELOG.md) for more information what has changed recently.
 
-### Security
+## Security
 
 If you discover any security related issues, please email `nathanael.esayeas@protonmail.com` instead of using the issue tracker.
 
@@ -44,11 +44,11 @@ Maintaining open source software is a thankless, time-consuming job.
 
 Sponsorships are one of the best ways to contribute to the long-term sustainability of an open-source licensed project.
 
-Please consider giving back, to fund continued development of `ghostwriter/wip`, by sponsoring me here on GitHub.
+Please consider giving back, to fund the continued development of `ghostwriter/wip`, by sponsoring me here on GitHub.
 
 [[Become a GitHub Sponsor](https://github.com/sponsors/ghostwriter)]
 
-#### For Developers
+### For Developers
 
 Please consider helping your company become a GitHub Sponsor, to support the open-source licensed project that runs your business.
 

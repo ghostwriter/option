@@ -4,7 +4,10 @@
         "directories": [
             "src"
         ],
-        "excludes": []
+        "excludes": [
+            "tests/Fixture",
+            "vendor"
+        ]
     },
     "mutators": {
         "@default": true
@@ -14,6 +17,6 @@
         "text": "php:\/\/stderr",
         "github": true
     },
-    "minMsi": 100,
-    "minCoveredMsi": 100
+    "minMsi": 0,
+    "minCoveredMsi": 0
 }

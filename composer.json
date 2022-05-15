@@ -1,11 +1,11 @@
 {
-    "name": "ghostwriter/wip",
-    "description": "Here be dragons",
-    "license": "BSD-3-Clause",
+    "name": "ghostwriter/option-type",
+    "description": "Provides an implementation of Rust's Option type",
+    "license": "MIT",
     "type": "library",
     "keywords": [
         "ghostwriter",
-        "wip"
+        "option-type"
     ],
     "authors": [
         {
@@ -15,13 +15,13 @@
             "role": "Developer"
         }
     ],
-    "homepage": "https://github.com/ghostwriter/wip",
+    "homepage": "https://github.com/ghostwriter/option-type",
     "support": {
-        "issues": "https://github.com/ghostwriter/wip/issues",
-        "forum": "https://github.com/ghostwriter/wip/discussions",
-        "source": "https://github.com/ghostwriter/wip",
-        "docs": "https://github.com/ghostwriter/wip",
-        "rss": "https://github.com/ghostwriter/wip/releases.atom"
+        "issues": "https://github.com/ghostwriter/option-type/issues",
+        "forum": "https://github.com/ghostwriter/option-type/discussions",
+        "source": "https://github.com/ghostwriter/option-type",
+        "docs": "https://github.com/ghostwriter/option-type",
+        "rss": "https://github.com/ghostwriter/option-type/releases.atom"
     },
     "funding": [
         {
@@ -30,9 +30,7 @@
         }
     ],
     "require": {
-        "php": ">=8.0, <8.2",
-        "ghostwriter/container": "^0.3",
-        "ghostwriter/event-dispatcher": "^0.1"
+        "php": ">=8.0,<8.2"
     },
     "require-dev": {
         "phpbench/phpbench": "^1.2.5",
@@ -49,7 +47,7 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "Ghostwriter\\wip\\": "src/"
+            "Ghostwriter\\OptionType\\": "src/"
         },
         "files": [
             "src/constants.php",
@@ -58,7 +56,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Ghostwriter\\wip\\Tests\\": "tests/"
+            "Ghostwriter\\OptionType\\Tests\\": "tests/"
         }
     },
     "config": {

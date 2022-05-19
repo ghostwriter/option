@@ -4,254 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cf843525e35009e8e39fb389450312d4",
-    "packages": [
-        {
-            "name": "ghostwriter/container",
-            "version": "0.3.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ghostwriter/container.git",
-                "reference": "824e29e197753600a6c04483c8557366d6a70002"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ghostwriter/container/zipball/824e29e197753600a6c04483c8557366d6a70002",
-                "reference": "824e29e197753600a6c04483c8557366d6a70002",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.0, <8.2",
-                "psr/container": "^1.1 || ^2.0"
-            },
-            "conflict": {
-                "ext-psr": "*"
-            },
-            "provide": {
-                "psr/container-implementation": "^1.1 || ^2.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^9.5",
-                "psalm/plugin-phpunit": "^0.16",
-                "rector/rector": "^0.12",
-                "roave/security-advisories": "dev-latest",
-                "symplify/easy-coding-standard": "^10.2",
-                "vimeo/psalm": "^4.23"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Ghostwriter\\Container\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Nathanael Esayeas",
-                    "email": "nathanael.esayeas@protonmail.com",
-                    "homepage": "https://github.com/ghostwriter",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Provides an extensible PSR-11, Dependency Injection Service Container for Automated Object Composition, Interception, and Lifetime Management.",
-            "homepage": "https://github.com/ghostwriter/container",
-            "keywords": [
-                "PSR-11",
-                "container",
-                "ghostwriter"
-            ],
-            "support": {
-                "issues": "https://github.com/ghostwriter/container/issues",
-                "source": "https://github.com/ghostwriter/container/tree/0.3.1"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/sponsors/ghostwriter",
-                    "type": "github"
-                }
-            ],
-            "time": "2022-05-09T16:54:13+00:00"
-        },
-        {
-            "name": "ghostwriter/event-dispatcher",
-            "version": "0.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ghostwriter/event-dispatcher.git",
-                "reference": "c9bbb12e3f61e9ff19ae9c88b9b2472016deeccb"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ghostwriter/event-dispatcher/zipball/c9bbb12e3f61e9ff19ae9c88b9b2472016deeccb",
-                "reference": "c9bbb12e3f61e9ff19ae9c88b9b2472016deeccb",
-                "shasum": ""
-            },
-            "require": {
-                "ghostwriter/container": "^0.3.1",
-                "php": ">=8.0, <8.2",
-                "psr/container": "^1.0 || ^2.0",
-                "psr/event-dispatcher": "^1.0,<2.0"
-            },
-            "conflict": {
-                "ext-psr": "*"
-            },
-            "provide": {
-                "psr/event-dispatcher-implementation": "^1.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^9.5.20",
-                "psalm/plugin-phpunit": "^0.16.1",
-                "rector/rector": "^0.12.23",
-                "roave/security-advisories": "dev-latest",
-                "symplify/easy-coding-standard": "^10.2.3",
-                "vimeo/psalm": "^4.23.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Ghostwriter\\EventDispatcher\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Nathanael Esayeas",
-                    "email": "nathanael.esayeas@protonmail.com",
-                    "homepage": "https://github.com/ghostwriter",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Provides a PSR-14 Event Dispatcher implementation.",
-            "keywords": [
-                "event-dispatcher",
-                "ghostwriter",
-                "psr-14"
-            ],
-            "support": {
-                "docs": "https://github.com/ghostwriter/event-dispatcher",
-                "forum": "https://github.com/ghostwriter/event-dispatcher/discussions",
-                "issues": "https://github.com/ghostwriter/event-dispatcher/issues",
-                "rss": "https://github.com/ghostwriter/event-dispatcher/releases.atom",
-                "source": "https://github.com/ghostwriter/event-dispatcher"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/sponsors/ghostwriter",
-                    "type": "github"
-                }
-            ],
-            "time": "2022-05-11T23:32:23+00:00"
-        },
-        {
-            "name": "psr/container",
-            "version": "2.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-fig/container.git",
-                "reference": "c71ecc56dfe541dbd90c5360474fbc405f8d5963"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/container/zipball/c71ecc56dfe541dbd90c5360474fbc405f8d5963",
-                "reference": "c71ecc56dfe541dbd90c5360474fbc405f8d5963",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.4.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Psr\\Container\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "PHP-FIG",
-                    "homepage": "https://www.php-fig.org/"
-                }
-            ],
-            "description": "Common Container Interface (PHP FIG PSR-11)",
-            "homepage": "https://github.com/php-fig/container",
-            "keywords": [
-                "PSR-11",
-                "container",
-                "container-interface",
-                "container-interop",
-                "psr"
-            ],
-            "support": {
-                "issues": "https://github.com/php-fig/container/issues",
-                "source": "https://github.com/php-fig/container/tree/2.0.2"
-            },
-            "time": "2021-11-05T16:47:00+00:00"
-        },
-        {
-            "name": "psr/event-dispatcher",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-fig/event-dispatcher.git",
-                "reference": "dbefd12671e8a14ec7f180cab83036ed26714bb0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/event-dispatcher/zipball/dbefd12671e8a14ec7f180cab83036ed26714bb0",
-                "reference": "dbefd12671e8a14ec7f180cab83036ed26714bb0",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Psr\\EventDispatcher\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
-                }
-            ],
-            "description": "Standard interfaces for event handling.",
-            "keywords": [
-                "events",
-                "psr",
-                "psr-14"
-            ],
-            "support": {
-                "issues": "https://github.com/php-fig/event-dispatcher/issues",
-                "source": "https://github.com/php-fig/event-dispatcher/tree/1.0.0"
-            },
-            "time": "2019-01-08T18:20:26+00:00"
-        }
-    ],
+    "content-hash": "4f1178c87b08e48f7471ace3d3559b67",
+    "packages": [],
     "packages-dev": [
         {
             "name": "amphp/amp",
@@ -2843,6 +2597,59 @@
             "time": "2021-02-03T23:26:27+00:00"
         },
         {
+            "name": "psr/container",
+            "version": "2.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/container.git",
+                "reference": "c71ecc56dfe541dbd90c5360474fbc405f8d5963"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/container/zipball/c71ecc56dfe541dbd90c5360474fbc405f8d5963",
+                "reference": "c71ecc56dfe541dbd90c5360474fbc405f8d5963",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Container\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https://www.php-fig.org/"
+                }
+            ],
+            "description": "Common Container Interface (PHP FIG PSR-11)",
+            "homepage": "https://github.com/php-fig/container",
+            "keywords": [
+                "PSR-11",
+                "container",
+                "container-interface",
+                "container-interop",
+                "psr"
+            ],
+            "support": {
+                "issues": "https://github.com/php-fig/container/issues",
+                "source": "https://github.com/php-fig/container/tree/2.0.2"
+            },
+            "time": "2021-11-05T16:47:00+00:00"
+        },
+        {
             "name": "psr/log",
             "version": "3.0.0",
             "source": {
@@ -3009,12 +2816,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "2ed308386e65cafaadd54723f5b57775374c2ae8"
+                "reference": "c491d086242983f784b8af91cbb9de43d3374971"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/2ed308386e65cafaadd54723f5b57775374c2ae8",
-                "reference": "2ed308386e65cafaadd54723f5b57775374c2ae8",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/c491d086242983f784b8af91cbb9de43d3374971",
+                "reference": "c491d086242983f784b8af91cbb9de43d3374971",
                 "shasum": ""
             },
             "conflict": {
@@ -3047,6 +2854,7 @@
                 "bolt/core": "<=4.2",
                 "bottelet/flarepoint": "<2.2.1",
                 "brightlocal/phpwhois": "<=4.2.5",
+                "brotkrueml/codehighlight": "<2.7",
                 "buddypress/buddypress": "<7.2.1",
                 "bugsnag/bugsnag-laravel": ">=2,<2.0.2",
                 "bytefury/crater": "<6.0.2",
@@ -3491,7 +3299,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-05-11T11:06:18+00:00"
+            "time": "2022-05-16T08:10:11+00:00"
         },
         {
             "name": "sanmai/later",
@@ -5640,20 +5448,20 @@
         },
         {
             "name": "symplify/easy-coding-standard",
-            "version": "10.2.3",
+            "version": "10.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/easy-coding-standard.git",
-                "reference": "7303e9b0a6ac61b2a0cf5185a2078b7af25fba9d"
+                "reference": "8875d8cd438756c9719fcdcc3b7d0c1d06515dd5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/easy-coding-standard/zipball/7303e9b0a6ac61b2a0cf5185a2078b7af25fba9d",
-                "reference": "7303e9b0a6ac61b2a0cf5185a2078b7af25fba9d",
+                "url": "https://api.github.com/repos/symplify/easy-coding-standard/zipball/8875d8cd438756c9719fcdcc3b7d0c1d06515dd5",
+                "reference": "8875d8cd438756c9719fcdcc3b7d0c1d06515dd5",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1"
+                "php": ">=7.2"
             },
             "conflict": {
                 "friendsofphp/php-cs-fixer": "<3.0",
@@ -5679,7 +5487,7 @@
             ],
             "description": "Prefixed scoped version of ECS package",
             "support": {
-                "source": "https://github.com/symplify/easy-coding-standard/tree/10.2.3"
+                "source": "https://github.com/symplify/easy-coding-standard/tree/10.2.6"
             },
             "funding": [
                 {
@@ -5691,7 +5499,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-05-03T14:07:44+00:00"
+            "time": "2022-05-17T07:11:50+00:00"
         },
         {
             "name": "thecodingmachine/safe",

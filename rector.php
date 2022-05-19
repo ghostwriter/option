@@ -6,6 +6,7 @@ use Rector\CodeQuality\Rector\Array_\CallableThisArrayToAnonymousFunctionRector;
 use Rector\Config\RectorConfig;
 use Rector\Core\ValueObject\PhpVersion;
 use Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
+use Rector\Php74\Rector\Property\RestoreDefaultNullToNullableTypePropertyRector;
 use Rector\Php74\Rector\Property\TypedPropertyRector;
 use Rector\PHPUnit\Rector\Class_\AddSeeTestAnnotationRector;
 use Rector\PHPUnit\Rector\Class_\ConstructClassMethodToSetUpTestCaseRector;
@@ -48,25 +49,16 @@ use Rector\Set\ValueObject\DowngradeLevelSetList;
 use Rector\Set\ValueObject\DowngradeSetList;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
-use Rector\Visibility\Rector\ClassConst\ChangeConstantVisibilityRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->importNames();
     $rectorConfig->importShortClasses();
     $rectorConfig->parallel();
-
-    $rectorConfig->import(PHPUnitLevelSetList::UP_TO_PHPUNIT_90);
-    $rectorConfig->import(DowngradeLevelSetList::DOWN_TO_PHP_80);
-    $rectorConfig->import(DowngradeSetList::PHP_80);
-//    $rectorConfig->import(DowngradeSetList::PHP_81);
-    $rectorConfig->import(LevelSetList::UP_TO_PHP_80);
-//    $rectorConfig->import(LevelSetList::UP_TO_PHP_81);
-    $rectorConfig->import(SetList::PHP_80);
-//    $rectorConfig->import(SetList::PHP_81);
-
-    $rectorConfig->paths([__DIR__ . '/src', __DIR__ . '/tests']);
-    $rectorConfig->phpVersion(PhpVersion::PHP_80);
     $rectorConfig->sets([
+        PHPUnitLevelSetList::UP_TO_PHPUNIT_100,
+        //        DowngradeLevelSetList::DOWN_TO_PHP_80,
+        DowngradeSetList::PHP_81,
+        LevelSetList::UP_TO_PHP_81,
         SetList::CODE_QUALITY,
         SetList::CODING_STYLE,
         SetList::DEAD_CODE,
@@ -76,32 +68,29 @@ return static function (RectorConfig $rectorConfig): void {
         SetList::TYPE_DECLARATION,
         SetList::TYPE_DECLARATION_STRICT,
         SetList::EARLY_RETURN,
-        SetList::PHP_52,
-        SetList::PHP_53,
-        SetList::PHP_54,
-        SetList::PHP_55,
-        SetList::PHP_56,
-        SetList::PHP_70,
-        SetList::PHP_71,
-        SetList::PHP_72,
-        SetList::PHP_73,
-        SetList::PHP_74,
-        SetList::PHP_80,
-        //        SetList::PHP_81,
+        SetList::PHP_81,
         SetList::RECTOR_CONFIG,
     ]);
+    $rectorConfig->paths([
+        __DIR__ . '/bin',
+        __DIR__ . '/src',
+        __DIR__ . '/tests',
+        __DIR__ . '/ecs.php',
+        __DIR__ . '/rector.php',
+    ]);
+    $rectorConfig->phpVersion(PhpVersion::PHP_80);
     $rectorConfig->skip([
+        __DIR__ . '*/tests/Fixture/*',
         __DIR__ . '*/vendor/*',
-        //        CallableThisArrayToAnonymousFunctionRector::class,
+        CallableThisArrayToAnonymousFunctionRector::class,
         PseudoNamespaceToNamespaceRector::class,
         StringClassNameToClassConstantRector::class,
         AddDoesNotPerformAssertionToNonAssertingTestRector::class,
     ]);
     // register single rule
     $rectorConfig->rule(TypedPropertyRector::class);
-    $rectorConfig->rule(ChangeConstantVisibilityRector::class);
+    $rectorConfig->rule(RestoreDefaultNullToNullableTypePropertyRector::class);
     $rectorConfig->rule(AddSeeTestAnnotationRector::class);
-    $rectorConfig->rule(TypedPropertyRector::class);
     $rectorConfig->rule(AssertCompareToSpecificMethodRector::class);
     $rectorConfig->rule(AssertComparisonToSpecificMethodRector::class);
     $rectorConfig->rule(AssertEqualsParameterToSpecificMethodsTypeRector::class);

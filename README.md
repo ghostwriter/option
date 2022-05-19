@@ -1,12 +1,12 @@
-# OptionType
+# Option
 
 [![Continuous Integration](https://github.com/ghostwriter/option/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/ghostwriter/option/actions/workflows/continuous-integration.yml)
-[![Supported PHP Version](https://badgen.net/packagist/php/ghostwriter/option?color=8892bf)](https://www.php.net/supported-versions)
+[![Supported PHP Version](https://badgen.net/packagist/php/ghostwriter/option?color=8892bf&cache=600&)](https://www.php.net/supported-versions)
 [![Type Coverage](https://shepherd.dev/github/ghostwriter/option/coverage.svg)](https://shepherd.dev/github/ghostwriter/option)
-[![Latest Version on Packagist](https://badgen.net/packagist/v/ghostwriter/option)](https://packagist.org/packages/ghostwriter/option)
-[![Downloads](https://badgen.net/packagist/dt/ghostwriter/option?color=blue)](https://packagist.org/packages/ghostwriter/option)
+[![Latest Version on Packagist](https://badgen.net/packagist/v/ghostwriter/option?cache=600)](https://packagist.org/packages/ghostwriter/option)
+[![Downloads](https://badgen.net/packagist/dt/ghostwriter/option?cache=600&color=blue)](https://packagist.org/packages/ghostwriter/option)
 
-Provides an implementation of Rust's Result type
+Provides an Option type implementation for PHP
 
 ## Installation
 

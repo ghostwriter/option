@@ -1,2 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.22.0@fc2c6ab4d5fa5d644d8617089f012f3bb84b8703"/>
+<files psalm-version="4.23.0@f1fe6ff483bf325c803df9f510d09a03fd796f88">
+  <file src="src/None.php">
+    <PropertyNotSetInConstructor occurrences="1">
+      <code>None</code>
+    </PropertyNotSetInConstructor>
+  </file>
+  <file src="tests/Unit/NoneTest.php">
+    <InvalidArgument occurrences="1">
+      <code>static fn () =&gt; 0</code>
+    </InvalidArgument>
+  </file>
+  <file src="tests/Unit/SomeTest.php">
+    <MissingClosureReturnType occurrences="1">
+      <code>static fn ($x) =&gt; $x</code>
+    </MissingClosureReturnType>
+    <MixedArgumentTypeCoercion occurrences="1">
+      <code>static fn ($x) =&gt; $x</code>
+    </MixedArgumentTypeCoercion>
+  </file>
+</files>

@@ -11,4 +11,12 @@ namespace Ghostwriter\Option\Contract;
  */
 interface SomeInterface extends OptionInterface
 {
+    /**
+     * @template TSomeValue
+     *
+     * @param TSomeValue $value
+     *
+     * @return self<TSomeValue>
+     */
+    public static function create(mixed $value): self;
 }

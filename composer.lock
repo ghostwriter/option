@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fdb65fe80997c02f0a99ea5938cf2234",
+    "content-hash": "b44c2f9e0929c402f20d48d8947a6a29",
     "packages": [],
     "packages-dev": [
         {
@@ -5465,16 +5465,16 @@
         },
         {
             "name": "symplify/easy-coding-standard",
-            "version": "10.2.6",
+            "version": "11.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/easy-coding-standard.git",
-                "reference": "8875d8cd438756c9719fcdcc3b7d0c1d06515dd5"
+                "reference": "452134abc6bc80482a9e2a85bc4f300fe773879b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/easy-coding-standard/zipball/8875d8cd438756c9719fcdcc3b7d0c1d06515dd5",
-                "reference": "8875d8cd438756c9719fcdcc3b7d0c1d06515dd5",
+                "url": "https://api.github.com/repos/symplify/easy-coding-standard/zipball/452134abc6bc80482a9e2a85bc4f300fe773879b",
+                "reference": "452134abc6bc80482a9e2a85bc4f300fe773879b",
                 "shasum": ""
             },
             "require": {
@@ -5490,7 +5490,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "9.5-dev"
+                    "dev-main": "10.3-dev"
                 }
             },
             "autoload": {
@@ -5504,7 +5504,7 @@
             ],
             "description": "Prefixed scoped version of ECS package",
             "support": {
-                "source": "https://github.com/symplify/easy-coding-standard/tree/10.2.6"
+                "source": "https://github.com/symplify/easy-coding-standard/tree/11.0.3"
             },
             "funding": [
                 {
@@ -5516,7 +5516,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-05-17T07:11:50+00:00"
+            "time": "2022-06-13T23:35:50+00:00"
         },
         {
             "name": "thecodingmachine/safe",

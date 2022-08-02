@@ -4,31 +4,28 @@ declare(strict_types=1);
 
 namespace Ghostwriter\Option;
 
-use Closure;
 use Ghostwriter\Option\Contract\NoneInterface;
 use Ghostwriter\Option\Contract\OptionInterface;
 use Ghostwriter\Option\Contract\SomeInterface;
 use Ghostwriter\Option\Exception\InvalidReturnTypeException;
 use Ghostwriter\Option\Exception\NullPointerException;
-use ReflectionClass;
-use ReflectionFunction;
-use ReflectionNamedType;
 use Throwable;
 use Traversable;
-use function array_key_exists;
-use function is_array;
-use function is_callable;
 
 /**
  * @template TValue
+ * @immutable
  * @implements OptionInterface<TValue>
  */
 abstract class AbstractOption implements OptionInterface
 {
     /**
-     * @var TValue
+     * @param TValue $value
      */
-    protected mixed $value;
+    protected function __construct(protected mixed $value)
+    {
+        // Singleton
+    }
 
     public function and(OptionInterface $option): OptionInterface
     {
@@ -74,14 +71,8 @@ abstract class AbstractOption implements OptionInterface
     public function filter(callable $function): OptionInterface
     {
         return $this->andThen(
-            /**
-             * @param TValue $value
-             *
-             * @return OptionInterface
-             */
-            fn (mixed $value) => true === $function($value) ?
-                $this :
-                None::create()
+            /** @param TValue $value */
+            fn (mixed $value): OptionInterface => $function($value) ? $this : None::create()
         );
     }
 
@@ -122,7 +113,7 @@ abstract class AbstractOption implements OptionInterface
         return Some::create($function($this->value));
     }
 
-    public function mapOr(mixed $fallback, callable $function): mixed
+    public function mapOr(callable $function, mixed $fallback): mixed
     {
         if ($this instanceof NoneInterface) {
             return $fallback;
@@ -131,7 +122,7 @@ abstract class AbstractOption implements OptionInterface
         return $function($this->value);
     }
 
-    public function mapOrElse(callable $fallback, callable $function): mixed
+    public function mapOrElse(callable $function, callable $fallback): mixed
     {
         if ($this instanceof NoneInterface) {
             return $fallback();
@@ -140,42 +131,14 @@ abstract class AbstractOption implements OptionInterface
         return $function($this->value);
     }
 
-    public static function of(mixed $value, mixed $noneValue = null): OptionInterface
+    public static function of(mixed $value): OptionInterface
     {
-        if ($value instanceof OptionInterface) {
-            return $value;
-        }
-
-        if ($noneValue === $value) {
-            return None::create();
-        }
-
         if (null === $value) {
             return None::create();
         }
 
-        if (is_callable($value)) {
-            /** @var array{0:class-string|object,1:string}|callable $value */
-            $returnType = is_array($value) ?
-                (new ReflectionClass($value[0]))->getMethod($value[1])->getReturnType() :
-                (new ReflectionFunction(Closure::fromCallable($value)))->getReturnType();
-
-            if ($returnType instanceof ReflectionNamedType) {
-                $returnTypeName = $returnType->getName();
-                if (array_key_exists(
-                    $returnTypeName,
-                    [
-                        OptionInterface::class=>0,
-                        SomeInterface::class=>0,
-                        NoneInterface::class=>0,
-                    ]
-                )) {
-                    return None::create()->orElse(static function () use ($value): OptionInterface {
-                        /** @var callable():OptionInterface<TValue> $value */
-                        return $value();
-                    });
-                }
-            }
+        if ($value instanceof OptionInterface) {
+            return $value;
         }
 
         return Some::create($value);
@@ -229,22 +192,5 @@ abstract class AbstractOption implements OptionInterface
         }
 
         return $function();
-    }
-
-    public function xor(OptionInterface $option): OptionInterface
-    {
-        if ($this instanceof SomeInterface) {
-            if ($option instanceof SomeInterface) {
-                return None::create();
-            }
-
-            return $this;
-        }
-
-        if ($option instanceof SomeInterface) {
-            return $option;
-        }
-
-        return $this;
     }
 }

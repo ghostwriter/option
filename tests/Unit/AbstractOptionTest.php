@@ -10,7 +10,6 @@ use Ghostwriter\Option\Contract\SomeInterface;
 use Ghostwriter\Option\None;
 use Ghostwriter\Option\Some;
 use PHPUnit\Framework\TestCase;
-use ReflectionException;
 use stdClass;
 use Traversable;
 
@@ -40,7 +39,7 @@ final class AbstractOptionTest extends TestCase
         yield 'array' => [SomeInterface::class, []];
         yield 'Some::class' => [SomeInterface::class, Some::create(1337)];
         yield 'null' => [NoneInterface::class, null];
-        yield 'Some::class' => [NoneInterface::class, None::create()];
+        yield 'None::class' => [NoneInterface::class, None::create()];
     }
 
     /**

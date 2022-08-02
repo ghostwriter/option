@@ -6,7 +6,6 @@ namespace Ghostwriter\Option\Contract;
 
 use Ghostwriter\Option\Exception\NullPointerException;
 use IteratorAggregate;
-use ReflectionException;
 use Throwable;
 use Traversable;
 
@@ -43,9 +42,8 @@ interface OptionInterface extends IteratorAggregate
     public function expect(Throwable $throwable): mixed;
 
     /**
-     * Returns None if the option is None, otherwise calls $function with the wrapped value
-     * and returns: Some(TValue) if $function returns true (where TValue is the wrapped value),
-     * and None if $function returns false.
+     * Returns None if the option is None, otherwise calls $function with the wrapped value and returns: Some(TValue) if
+     * $function returns true (where TValue is the wrapped value), and None if $function returns false.
      *
      * @param callable(TValue): bool $function
      */
@@ -115,8 +113,8 @@ interface OptionInterface extends IteratorAggregate
     /**
      * Returns the option if it contains a value, otherwise returns $option.
      *
-     * Arguments passed to or are eagerly evaluated; if you are passing the result of a function call,
-     * it is recommended to use orElse, which is lazily evaluated.
+     * Arguments passed to or are eagerly evaluated; if you are passing the result of a function call, it is recommended
+     * to use orElse, which is lazily evaluated.
      */
     public function or(self $option): self;
 

@@ -16,27 +16,13 @@ use Ghostwriter\Option\Exception\NullPointerException;
 final class Some extends AbstractOption implements SomeInterface
 {
     /**
-     * @param TValue $value
-     */
-    private function __construct(mixed $value)
-    {
-        // Singleton
-        $this->value = $value;
-    }
-
-    /**
-     * @template TNoneValue
+     * @template TSomeValue
      *
-     * @param TValue          $value
-     * @param null|TNoneValue $noneValue
+     * @param TSomeValue $value
      */
-    public static function create(mixed $value, mixed $noneValue = null): SomeInterface
+    public static function create(mixed $value): SomeInterface
     {
         if (null === $value) {
-            throw new NullPointerException();
-        }
-
-        if ($noneValue === $value) {
             throw new NullPointerException();
         }
 

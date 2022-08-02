@@ -11,8 +11,6 @@ namespace Ghostwriter\Option\Contract;
  */
 interface NoneInterface extends OptionInterface
 {
-    /**
-     * @return self<TValue>
-     */
+    /** @return self<TValue> */
     public static function create(): self;
 }

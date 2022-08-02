@@ -23,7 +23,7 @@ use Traversable;
 final class AbstractOptionTest extends TestCase
 {
     /**
-     * @return Traversable<array-key, array{0:class-string,1:mixed,2:mixed}>
+     * @return Traversable<array-key, array{0:class-string,1:mixed}>
      */
     public function ofDataProvider(): Traversable
     {
@@ -39,13 +39,8 @@ final class AbstractOptionTest extends TestCase
         yield 'object' => [SomeInterface::class, new stdClass()];
         yield 'array' => [SomeInterface::class, []];
         yield 'Some::class' => [SomeInterface::class, Some::create(1337)];
-        yield 'None' => [NoneInterface::class, [None::class, 'create']];
-        yield 'null:null' => [NoneInterface::class, null, null];
-        yield 'null:false' => [NoneInterface::class, null, false];
-        yield 'true:true' => [NoneInterface::class, true, true];
-        yield 'false:false' => [NoneInterface::class, false, false];
-        yield 'null:true' => [NoneInterface::class, null, true];
-        yield 'string:string' => [NoneInterface::class, 'string', 'string'];
+        yield 'null' => [NoneInterface::class, null];
+        yield 'Some::class' => [NoneInterface::class, None::create()];
     }
 
     /**
@@ -56,11 +51,9 @@ final class AbstractOptionTest extends TestCase
      * @dataProvider ofDataProvider
      *
      * @param class-string $expected
-     *
-     * @throws ReflectionException
      */
-    public function testOf(string $expected, mixed $value, mixed $noneValue = null): void
+    public function testOf(string $expected, mixed $value): void
     {
-        self::assertInstanceOf($expected, AbstractOption::of($value, $noneValue));
+        self::assertInstanceOf($expected, AbstractOption::of($value));
     }
 }

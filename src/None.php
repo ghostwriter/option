@@ -16,13 +16,8 @@ final class None extends AbstractOption implements NoneInterface
 {
     private static ?NoneInterface $instance = null;
 
-    private function __construct()
-    {
-        // Singleton
-    }
-
     public static function create(): NoneInterface
     {
-        return self::$instance ??= new self();
+        return self::$instance ??= new self(null);
     }
 }

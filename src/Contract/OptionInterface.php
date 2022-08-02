@@ -43,8 +43,9 @@ interface OptionInterface extends IteratorAggregate
     public function expect(Throwable $throwable): mixed;
 
     /**
-     * Returns None if the option is None, otherwise calls predicate with the wrapped value and returns: Some(TValue) if
-     * $function returns true (where TValue is the wrapped value), and None if $function returns false.
+     * Returns None if the option is None, otherwise calls $function with the wrapped value
+     * and returns: Some(TValue) if $function returns true (where TValue is the wrapped value),
+     * and None if $function returns false.
      *
      * @param callable(TValue): bool $function
      */
@@ -83,44 +84,39 @@ interface OptionInterface extends IteratorAggregate
      *
      * @template TFallbackValue
      *
-     * @param TFallbackValue                   $fallback
      * @param callable(TValue): TFallbackValue $function
+     * @param TFallbackValue                   $fallback
      *
      * @return TFallbackValue
      */
-    public function mapOr(mixed $fallback, callable $function): mixed;
+    public function mapOr(callable $function, mixed $fallback): mixed;
 
     /**
      * Applies a function to the contained value (if any), or computes a default (if not).
      *
      * @template TFallbackValue
      *
-     * @param callable(): mixed      $fallback
      * @param callable(mixed): mixed $function
+     * @param callable(): mixed      $fallback
      */
-    public function mapOrElse(callable $fallback, callable $function): mixed;
+    public function mapOrElse(callable $function, callable $fallback): mixed;
 
     /**
      * Creates an option with the given value.
      *
-     * This is intended for consuming existing APIs and allows you to easily convert them to an option.
-     *
      * By default, we treat null as the None case, and everything else as Some.
      *
-     * @template TNoneValue
+     * @template TNullableValue
      *
-     * @param TValue     $value     the actual return value
-     * @param TNoneValue $noneValue the value which should be considered "None"; null by default
-     *
-     * @throws ReflectionException
+     * @param TNullableValue $value the actual value
      */
-    public static function of(mixed $value, mixed $noneValue = null): self;
+    public static function of(mixed $value): self;
 
     /**
      * Returns the option if it contains a value, otherwise returns $option.
      *
-     * Arguments passed to or are eagerly evaluated; if you are passing the result of a function call, it is recommended
-     * to use orElse, which is lazily evaluated.
+     * Arguments passed to or are eagerly evaluated; if you are passing the result of a function call,
+     * it is recommended to use orElse, which is lazily evaluated.
      */
     public function or(self $option): self;
 
@@ -163,9 +159,4 @@ interface OptionInterface extends IteratorAggregate
      * @return TCallableResultValue|TValue
      */
     public function unwrapOrElse(callable $function): mixed;
-
-    /**
-     * Returns Some if exactly one of self, $option is Some, otherwise returns None.
-     */
-    public function xor(self $option): self;
 }

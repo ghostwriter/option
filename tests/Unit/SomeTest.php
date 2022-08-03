@@ -6,7 +6,6 @@ namespace Ghostwriter\Option\Tests\Unit;
 
 use Ghostwriter\Option\Contract\OptionInterface;
 use Ghostwriter\Option\Contract\SomeInterface;
-use Ghostwriter\Option\Exception\InvalidReturnTypeException;
 use Ghostwriter\Option\Exception\NullPointerException;
 use Ghostwriter\Option\None;
 use Ghostwriter\Option\Some;
@@ -55,6 +54,7 @@ final class SomeTest extends TestCase
 
     /**
      * @covers \Ghostwriter\Option\AbstractOption::__construct
+     * @covers \Ghostwriter\Option\AbstractOption::of
      * @covers \Ghostwriter\Option\AbstractOption::andThen
      * @covers \Ghostwriter\Option\AbstractOption::unwrap
      * @covers \Ghostwriter\Option\Some::__construct
@@ -62,13 +62,10 @@ final class SomeTest extends TestCase
      */
     public function testAndThen(): void
     {
-        $option = $this->some->andThen(static fn ($x) => Some::create($x));
+        $option = $this->some->andThen(static fn (mixed $x): string => (string) $x);
 
         self::assertInstanceOf(SomeInterface::class, $option);
         self::assertSame('foo', $option->unwrap());
-
-        $this->expectException(InvalidReturnTypeException::class);
-        $option->andThen(static fn (mixed $x) => /** @var OptionInterface $x */ $x);
     }
 
     /**
@@ -112,6 +109,7 @@ final class SomeTest extends TestCase
 
     /**
      * @covers \Ghostwriter\Option\AbstractOption::__construct
+     * @covers \Ghostwriter\Option\AbstractOption::of
      * @covers \Ghostwriter\Option\AbstractOption::andThen
      * @covers \Ghostwriter\Option\AbstractOption::filter
      * @covers \Ghostwriter\Option\AbstractOption::isNone
@@ -145,6 +143,7 @@ final class SomeTest extends TestCase
         self::assertSame('foo', $option->unwrap());
 
         // returns the instance if the wrapped value is not an instance of Some.
+        self::assertSame('foo', $this->some->flatten()->unwrap());
         self::assertSame($this->some, $this->some->flatten());
     }
 
@@ -184,6 +183,7 @@ final class SomeTest extends TestCase
     /**
      * @covers \Ghostwriter\Option\AbstractOption::__construct
      * @covers \Ghostwriter\Option\AbstractOption::isSome
+     * @covers \Ghostwriter\Option\AbstractOption::of
      * @covers \Ghostwriter\Option\AbstractOption::map
      * @covers \Ghostwriter\Option\AbstractOption::unwrap
      * @covers \Ghostwriter\Option\Some::__construct

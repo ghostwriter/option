@@ -7,7 +7,6 @@ namespace Ghostwriter\Option;
 use Ghostwriter\Option\Contract\NoneInterface;
 use Ghostwriter\Option\Contract\OptionInterface;
 use Ghostwriter\Option\Contract\SomeInterface;
-use Ghostwriter\Option\Exception\InvalidReturnTypeException;
 use Ghostwriter\Option\Exception\NullPointerException;
 use Throwable;
 use Traversable;
@@ -42,12 +41,7 @@ abstract class AbstractOption implements OptionInterface
             return $this;
         }
 
-        $result = $function($this->value);
-        if ($result instanceof OptionInterface) {
-            return $result;
-        }
-
-        throw new InvalidReturnTypeException();
+        return self::of($function($this->value));
     }
 
     public function contains(mixed $value): bool
@@ -83,8 +77,11 @@ abstract class AbstractOption implements OptionInterface
         }
 
         $unwrapped = $this->value;
+        if ($unwrapped instanceof SomeInterface) {
+            return $unwrapped;
+        }
 
-        return $unwrapped instanceof SomeInterface ? $unwrapped : $this;
+        return $this;
     }
 
     public function getIterator(): Traversable
@@ -110,7 +107,7 @@ abstract class AbstractOption implements OptionInterface
             return $this;
         }
 
-        return Some::create($function($this->value));
+        return self::of($function($this->value));
     }
 
     public function mapOr(callable $function, mixed $fallback): mixed
@@ -159,12 +156,7 @@ abstract class AbstractOption implements OptionInterface
             return $this;
         }
 
-        $result = $function();
-        if ($result instanceof OptionInterface) {
-            return $result;
-        }
-
-        throw new InvalidReturnTypeException();
+        return self::of($function());
     }
 
     public function unwrap(): mixed

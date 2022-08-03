@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ghostwriter\Option\Tests\Unit;
 
-use Ghostwriter\Option\Contract\OptionInterface;
 use Ghostwriter\Option\Contract\SomeInterface;
 use Ghostwriter\Option\Exception\NullPointerException;
 use Ghostwriter\Option\None;
@@ -12,7 +11,6 @@ use Ghostwriter\Option\Some;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use Throwable;
-use Traversable;
 use function sprintf;
 
 /**
@@ -32,14 +30,6 @@ final class SomeTest extends TestCase
     }
 
     /**
-     * @return Traversable<array-key, array>
-     */
-    public function invalidNoneValueDataProvider(): Traversable
-    {
-        yield 'value: null' =>[null];
-    }
-
-    /**
      * @covers \Ghostwriter\Option\AbstractOption::__construct
      * @covers \Ghostwriter\Option\AbstractOption::and
      * @covers \Ghostwriter\Option\Some::create
@@ -48,8 +38,8 @@ final class SomeTest extends TestCase
      */
     public function testAnd(): void
     {
-        $foo = Some::create('foo');
-        self::assertSame($foo, $this->some->and($foo));
+        $some = Some::create('foo');
+        self::assertSame($some, $this->some->and($some));
     }
 
     /**
@@ -85,13 +75,11 @@ final class SomeTest extends TestCase
      * @covers \Ghostwriter\Option\AbstractOption::__construct
      * @covers \Ghostwriter\Option\Some::__construct
      * @covers \Ghostwriter\Option\Some::create
-     * @dataProvider invalidNoneValueDataProvider
      */
-    public function testCreate(mixed $value): void
+    public function testCreate(): void
     {
         $this->expectException(NullPointerException::class);
-        self::assertInstanceOf(OptionInterface::class, Some::create($value));
-        self::assertSame($this->some, Some::create($value));
+        Some::create(null);
     }
 
     /**

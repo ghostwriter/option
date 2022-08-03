@@ -64,7 +64,7 @@ Please see [CHANGELOG.md](./CHANGELOG.md) for more information what has changed 
 If you discover any security related issues, please email `nathanael.esayeas@protonmail.com` instead of using the issue tracker.
 
 ## Sponsors
-[[Become a GitHub Sponsor](https://github.com/sponsors/ghostwriter)]
+[[`Become a GitHub Sponsor`](https://github.com/sponsors/ghostwriter)]
 
 ## Credits
 

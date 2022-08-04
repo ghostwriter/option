@@ -72,16 +72,7 @@ abstract class AbstractOption implements OptionInterface
 
     public function flatten(): OptionInterface
     {
-        if ($this instanceof NoneInterface) {
-            return $this;
-        }
-
-        $unwrapped = $this->value;
-        if ($unwrapped instanceof SomeInterface) {
-            return $unwrapped;
-        }
-
-        return $this;
+        return $this->andThen(fn (mixed $value) => $value instanceof SomeInterface ? $value : $this);
     }
 
     public function getIterator(): Traversable

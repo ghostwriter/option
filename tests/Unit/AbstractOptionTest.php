@@ -6,6 +6,7 @@ namespace Ghostwriter\Option\Tests\Unit;
 
 use Ghostwriter\Option\AbstractOption;
 use Ghostwriter\Option\Contract\NoneInterface;
+use Ghostwriter\Option\Contract\OptionInterface;
 use Ghostwriter\Option\Contract\SomeInterface;
 use Ghostwriter\Option\None;
 use Ghostwriter\Option\Some;
@@ -49,10 +50,19 @@ final class AbstractOptionTest extends TestCase
      *
      * @dataProvider ofDataProvider
      *
+     * @template TValue
+     *
      * @param class-string $expected
+     * @param TValue       $value
      */
     public function testOf(string $expected, mixed $value): void
     {
-        self::assertInstanceOf($expected, AbstractOption::of($value));
+        $option = AbstractOption::of($value);
+
+        if ($value instanceof OptionInterface) {
+            self::assertSame($value, $option);
+        }
+
+        self::assertInstanceOf($expected, $option);
     }
 }

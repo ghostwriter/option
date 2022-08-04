@@ -5,14 +5,11 @@ declare(strict_types=1);
 namespace Ghostwriter\Option\Tests\Unit;
 
 use Ghostwriter\Option\Contract\NoneInterface;
-use Ghostwriter\Option\Contract\OptionInterface;
-use Ghostwriter\Option\Exception\InvalidReturnTypeException;
 use Ghostwriter\Option\Exception\NullPointerException;
 use Ghostwriter\Option\None;
 use Ghostwriter\Option\Some;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
-use stdClass;
 use Throwable;
 
 /**
@@ -56,7 +53,10 @@ final class NoneTest extends TestCase
      */
     public function testAndThen(): void
     {
-        self::assertInstanceOf(NoneInterface::class, $this->none->andThen(static fn ($x) => Some::create($x)));
+        self::assertInstanceOf(
+            NoneInterface::class,
+            $this->none->andThen(static fn (): bool => ! self::fail('Should not be called.'))
+        );
     }
 
     /**
@@ -108,6 +108,8 @@ final class NoneTest extends TestCase
 
     /**
      * @covers \Ghostwriter\Option\AbstractOption::__construct
+     * @covers \Ghostwriter\Option\AbstractOption::of
+     * @covers \Ghostwriter\Option\AbstractOption::andThen
      * @covers \Ghostwriter\Option\AbstractOption::flatten
      * @covers \Ghostwriter\Option\None::create
      */
@@ -176,7 +178,7 @@ final class NoneTest extends TestCase
      */
     public function testMapOrElse(): void
     {
-        $some = static fn (string $value): string => $value . 'bar';
+        $some = static fn (mixed $value): string => sprintf('%sbar', (string) $value);
 
         $none = static fn (): string => 'baz';
 
@@ -199,6 +201,7 @@ final class NoneTest extends TestCase
 
     /**
      * @covers \Ghostwriter\Option\AbstractOption::__construct
+     * @covers \Ghostwriter\Option\AbstractOption::of
      * @covers \Ghostwriter\Option\AbstractOption::orElse
      * @covers \Ghostwriter\Option\None::__construct
      * @covers \Ghostwriter\Option\None::create
@@ -207,16 +210,11 @@ final class NoneTest extends TestCase
      */
     public function testOrElse(): void
     {
+        $none = None::create();
         $some = Some::create('foo');
+        self::assertSame($none, $this->none);
+        self::assertSame($none, $this->none->orElse(static fn () => $none));
         self::assertSame($some, $this->none->orElse(static fn () => $some));
-        self::assertSame($this->none, $this->none->orElse(static fn () => None::create()));
-
-        $this->expectException(InvalidReturnTypeException::class);
-        self::assertSame($this->none, $this->none->orElse(static function () {
-            /** @var OptionInterface $x */
-            $x = new stdClass();
-            return $x;
-        }));
     }
 
     /**

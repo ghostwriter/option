@@ -19,22 +19,30 @@ composer require ghostwriter/option
 ## Usage
 
 ```php
-use Ghostwriter\Option\{Some, None, OptionInterface};
+use Ghostwriter\Option\Exception\NullPointerException;
+use Ghostwriter\Option\None;
+use Ghostwriter\Option\Some;
 
-// basic setting and getting of values
 $greeting = Some::create('Hello World!');
-echo $greeting->unwrap(); // echos 'Hello World!'
+echo $greeting->unwrap();        // echos: 'Hello World!'
 
 $name = None::create();
-echo $name->unwrap(); // throws an OptionException
-echo $name->unwrapOr('Unknown'); // echos 'Unknown'
+echo $name->unwrap();            // throws: NullPointerException
+echo $name->unwrapOr('Default Value'); // echos: 'Default Value'
+
+None::create();      // returns: None
+Some::of(null);      // returns: None
+Some::create(null);  // throws: NullPointerException
+
+--- Example
 
 function divide(int $x, int $y): OptionInterface
 {
-  if ($y === 0) {
-    return Nome::create();
-  }
-  return Some::create($x / $y);
+    if ($y === 0) {
+        return Nome::create();
+    }
+
+    return Some::create($x / $y);
 }
 
 divide(1, 0); // None
@@ -56,7 +64,7 @@ Please see [CHANGELOG.md](./CHANGELOG.md) for more information what has changed 
 If you discover any security related issues, please email `nathanael.esayeas@protonmail.com` instead of using the issue tracker.
 
 ## Sponsors
-[[Become a GitHub Sponsor](https://github.com/sponsors/ghostwriter)]
+[[`Become a GitHub Sponsor`](https://github.com/sponsors/ghostwriter)]
 
 ## Credits
 

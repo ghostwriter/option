@@ -4,16 +4,13 @@ declare(strict_types=1);
 
 namespace Ghostwriter\Option\Tests\Unit;
 
-use Ghostwriter\Option\Contract\OptionInterface;
 use Ghostwriter\Option\Contract\SomeInterface;
-use Ghostwriter\Option\Exception\InvalidReturnTypeException;
 use Ghostwriter\Option\Exception\NullPointerException;
 use Ghostwriter\Option\None;
 use Ghostwriter\Option\Some;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use Throwable;
-use Traversable;
 use function sprintf;
 
 /**
@@ -33,14 +30,6 @@ final class SomeTest extends TestCase
     }
 
     /**
-     * @return Traversable<array-key, array>
-     */
-    public function invalidNoneValueDataProvider(): Traversable
-    {
-        yield 'value: null' =>[null];
-    }
-
-    /**
      * @covers \Ghostwriter\Option\AbstractOption::__construct
      * @covers \Ghostwriter\Option\AbstractOption::and
      * @covers \Ghostwriter\Option\Some::create
@@ -49,12 +38,13 @@ final class SomeTest extends TestCase
      */
     public function testAnd(): void
     {
-        $foo = Some::create('foo');
-        self::assertSame($foo, $this->some->and($foo));
+        $some = Some::create('foo');
+        self::assertSame($some, $this->some->and($some));
     }
 
     /**
      * @covers \Ghostwriter\Option\AbstractOption::__construct
+     * @covers \Ghostwriter\Option\AbstractOption::of
      * @covers \Ghostwriter\Option\AbstractOption::andThen
      * @covers \Ghostwriter\Option\AbstractOption::unwrap
      * @covers \Ghostwriter\Option\Some::__construct
@@ -62,13 +52,10 @@ final class SomeTest extends TestCase
      */
     public function testAndThen(): void
     {
-        $option = $this->some->andThen(static fn ($x) => Some::create($x));
+        $option = $this->some->andThen(static fn (mixed $x): string => (string) $x);
 
         self::assertInstanceOf(SomeInterface::class, $option);
         self::assertSame('foo', $option->unwrap());
-
-        $this->expectException(InvalidReturnTypeException::class);
-        $option->andThen(static fn (mixed $x) => /** @var OptionInterface $x */ $x);
     }
 
     /**
@@ -88,13 +75,11 @@ final class SomeTest extends TestCase
      * @covers \Ghostwriter\Option\AbstractOption::__construct
      * @covers \Ghostwriter\Option\Some::__construct
      * @covers \Ghostwriter\Option\Some::create
-     * @dataProvider invalidNoneValueDataProvider
      */
-    public function testCreate(mixed $value): void
+    public function testCreate(): void
     {
         $this->expectException(NullPointerException::class);
-        self::assertInstanceOf(OptionInterface::class, Some::create($value));
-        self::assertSame($this->some, Some::create($value));
+        Some::create(null);
     }
 
     /**
@@ -112,6 +97,7 @@ final class SomeTest extends TestCase
 
     /**
      * @covers \Ghostwriter\Option\AbstractOption::__construct
+     * @covers \Ghostwriter\Option\AbstractOption::of
      * @covers \Ghostwriter\Option\AbstractOption::andThen
      * @covers \Ghostwriter\Option\AbstractOption::filter
      * @covers \Ghostwriter\Option\AbstractOption::isNone
@@ -130,6 +116,8 @@ final class SomeTest extends TestCase
 
     /**
      * @covers \Ghostwriter\Option\AbstractOption::__construct
+     * @covers \Ghostwriter\Option\AbstractOption::andThen
+     * @covers \Ghostwriter\Option\AbstractOption::of
      * @covers \Ghostwriter\Option\AbstractOption::flatten
      * @covers \Ghostwriter\Option\AbstractOption::unwrap
      * @covers \Ghostwriter\Option\Some::__construct
@@ -145,6 +133,7 @@ final class SomeTest extends TestCase
         self::assertSame('foo', $option->unwrap());
 
         // returns the instance if the wrapped value is not an instance of Some.
+        self::assertSame('foo', $this->some->flatten()->unwrap());
         self::assertSame($this->some, $this->some->flatten());
     }
 
@@ -184,6 +173,7 @@ final class SomeTest extends TestCase
     /**
      * @covers \Ghostwriter\Option\AbstractOption::__construct
      * @covers \Ghostwriter\Option\AbstractOption::isSome
+     * @covers \Ghostwriter\Option\AbstractOption::of
      * @covers \Ghostwriter\Option\AbstractOption::map
      * @covers \Ghostwriter\Option\AbstractOption::unwrap
      * @covers \Ghostwriter\Option\Some::__construct
@@ -245,7 +235,7 @@ final class SomeTest extends TestCase
      */
     public function testOrElse(): void
     {
-        self::assertSame($this->some, $this->some->orElse(static function () {
+        self::assertSame($this->some, $this->some->orElse(static function (): void {
             throw new RuntimeException('Should not be called!');
         }));
     }

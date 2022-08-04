@@ -23,7 +23,11 @@ interface OptionInterface extends IteratorAggregate
     /**
      * Returns None if the option is None, otherwise calls $function with the wrapped value and returns the result.
      *
-     * @param callable(TValue): OptionInterface $function
+     * @template TAndThen
+     *
+     * @param callable(TValue):TAndThen $function
+     *
+     * @return self<TAndThen|TValue>
      */
     public function andThen(callable $function): self;
 
@@ -38,6 +42,8 @@ interface OptionInterface extends IteratorAggregate
      * Returns the contained Some value, consuming the self value.
      *
      * @throws Throwable if the value is a None with a custom $throwable provided
+     *
+     * @return TValue
      */
     public function expect(Throwable $throwable): mixed;
 
@@ -45,7 +51,9 @@ interface OptionInterface extends IteratorAggregate
      * Returns None if the option is None, otherwise calls $function with the wrapped value and returns: Some(TValue) if
      * $function returns true (where TValue is the wrapped value), and None if $function returns false.
      *
-     * @param callable(TValue): bool $function
+     * @param callable(TValue):bool $function
+     *
+     * @return self<TValue>
      */
     public function filter(callable $function): self;
 
@@ -71,31 +79,37 @@ interface OptionInterface extends IteratorAggregate
     /**
      * Maps a Some<TValue> to Some<TValue> by applying the callable $function to the contained value.
      *
-     * @param callable(TValue):TValue $function
+     * @template TMap
      *
-     * @return self<TValue>
+     * @param callable(TValue):TMap $function
+     *
+     * @return self<TMap>
      */
     public function map(callable $function): self;
 
     /**
      * Applies a function to the contained value (if any), or returns the provided default (if not).
      *
-     * @template TFallbackValue
+     * @template TFunction
+     * @template TFallback
      *
-     * @param callable(TValue): TFallbackValue $function
-     * @param TFallbackValue                   $fallback
+     * @param callable(TValue): TFunction $function
+     * @param TFallback                   $fallback
      *
-     * @return TFallbackValue
+     * @return TFallback|TFunction
      */
     public function mapOr(callable $function, mixed $fallback): mixed;
 
     /**
      * Applies a function to the contained value (if any), or computes a default (if not).
      *
-     * @template TFallbackValue
+     * @template TFunction
+     * @template TFallback
      *
-     * @param callable(mixed): mixed $function
-     * @param callable(): mixed      $fallback
+     * @param callable(TValue):TFunction $function
+     * @param callable():TFallback       $fallback
+     *
+     * @return TFallback|TFunction
      */
     public function mapOrElse(callable $function, callable $fallback): mixed;
 
@@ -107,6 +121,8 @@ interface OptionInterface extends IteratorAggregate
      * @template TNullableValue
      *
      * @param TNullableValue $value the actual value
+     *
+     * @return self<TNullableValue|TValue>
      */
     public static function of(mixed $value): self;
 

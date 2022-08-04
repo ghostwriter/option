@@ -233,7 +233,7 @@ final class SomeTest extends TestCase
      */
     public function testOrElse(): void
     {
-        self::assertSame($this->some, $this->some->orElse(static function () {
+        self::assertSame($this->some, $this->some->orElse(static function (): void {
             throw new RuntimeException('Should not be called!');
         }));
     }

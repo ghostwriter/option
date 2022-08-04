@@ -53,7 +53,10 @@ final class NoneTest extends TestCase
      */
     public function testAndThen(): void
     {
-        self::assertInstanceOf(NoneInterface::class, $this->none->andThen(static fn (mixed $x): mixed => $x));
+        self::assertInstanceOf(
+            NoneInterface::class,
+            $this->none->andThen(static fn (): bool => ! self::fail('Should not be called.'))
+        );
     }
 
     /**

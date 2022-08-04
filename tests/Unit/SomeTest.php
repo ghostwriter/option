@@ -116,6 +116,8 @@ final class SomeTest extends TestCase
 
     /**
      * @covers \Ghostwriter\Option\AbstractOption::__construct
+     * @covers \Ghostwriter\Option\AbstractOption::andThen
+     * @covers \Ghostwriter\Option\AbstractOption::of
      * @covers \Ghostwriter\Option\AbstractOption::flatten
      * @covers \Ghostwriter\Option\AbstractOption::unwrap
      * @covers \Ghostwriter\Option\Some::__construct

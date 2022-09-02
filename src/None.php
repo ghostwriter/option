@@ -8,8 +8,11 @@ use Ghostwriter\Option\Contract\NoneInterface;
 
 /**
  * @extends AbstractOption<TValue>
+ *
  * @immutable
+ *
  * @implements NoneInterface<TValue>
+ *
  * @template TValue
  */
 final class None extends AbstractOption implements NoneInterface

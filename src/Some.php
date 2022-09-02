@@ -9,8 +9,11 @@ use Ghostwriter\Option\Exception\NullPointerException;
 
 /**
  * @extends AbstractOption<TValue>
+ *
  * @immutable
+ *
  * @implements SomeInterface<TValue>
+ *
  * @template TValue
  */
 final class Some extends AbstractOption implements SomeInterface

@@ -13,7 +13,9 @@ use Traversable;
 
 /**
  * @template TValue
+ *
  * @immutable
+ *
  * @implements OptionInterface<TValue>
  */
 abstract class AbstractOption implements OptionInterface

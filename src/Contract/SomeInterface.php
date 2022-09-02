@@ -6,7 +6,9 @@ namespace Ghostwriter\Option\Contract;
 
 /**
  * @immutable
+ *
  * @implements OptionInterface<TValue>
+ *
  * @template TValue
  */
 interface SomeInterface extends OptionInterface

@@ -11,6 +11,7 @@ use Traversable;
 
 /**
  * @implements IteratorAggregate<TValue>
+ *
  * @template TValue
  */
 interface OptionInterface extends IteratorAggregate

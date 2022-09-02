@@ -18,6 +18,7 @@ use Traversable;
  * @internal
  *
  * @small
+ *
  * @covers \Ghostwriter\Option\AbstractOption
  */
 final class AbstractOptionTest extends TestCase

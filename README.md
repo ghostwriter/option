@@ -6,7 +6,7 @@
 [![Latest Version on Packagist](https://badgen.net/packagist/v/ghostwriter/option?cache=600)](https://packagist.org/packages/ghostwriter/option)
 [![Downloads](https://badgen.net/packagist/dt/ghostwriter/option?cache=600&color=blue)](https://packagist.org/packages/ghostwriter/option)
 
-Provides an `Option` type implementation for PHP.
+Provides an **`Option`** type implementation for PHP.
 
 ## Installation
 
@@ -52,6 +52,7 @@ divide(1, 1); // Some(1)
 ## API
 
 ### `SomeInterface`
+
 ``` php
 /**
  * @immutable
@@ -74,6 +75,7 @@ interface SomeInterface extends OptionInterface
 ```
 
 ### `NoneInterface`
+
 ``` php
 /**
  * @immutable
@@ -90,6 +92,7 @@ interface NoneInterface extends OptionInterface
 ```
 
 ### `OptionInterface`
+
 ``` php
 /**
  * @implements IteratorAggregate<TValue>
@@ -274,6 +277,7 @@ Please see [CHANGELOG.md](./CHANGELOG.md) for more information what has changed 
 If you discover any security related issues, please email `nathanael.esayeas@protonmail.com` instead of using the issue tracker.
 
 ## Sponsors
+
 [[`Become a GitHub Sponsor`](https://github.com/sponsors/ghostwriter)]
 
 ## Credits

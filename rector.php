@@ -69,7 +69,7 @@ return static function (RectorConfig $rectorConfig): void {
         SetList::TYPE_DECLARATION_STRICT,
         SetList::EARLY_RETURN,
         SetList::PHP_81,
-        SetList::RECTOR_CONFIG,
+        // SetList::RECTOR_CONFIG,
     ]);
     $rectorConfig->paths([__DIR__ . '/src', __DIR__ . '/tests', __DIR__ . '/ecs.php', __DIR__ . '/rector.php']);
     $rectorConfig->phpVersion(PhpVersion::PHP_80);

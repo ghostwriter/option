@@ -23,8 +23,9 @@ abstract class AbstractOption implements OptionInterface
     /**
      * @param TValue $value
      */
-    protected function __construct(protected mixed $value)
-    {
+    protected function __construct(
+        protected mixed $value
+    ) {
         // Singleton
     }
 

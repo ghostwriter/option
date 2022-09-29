@@ -6,7 +6,7 @@
 [![Latest Version on Packagist](https://badgen.net/packagist/v/ghostwriter/option?cache=600)](https://packagist.org/packages/ghostwriter/option)
 [![Downloads](https://badgen.net/packagist/dt/ghostwriter/option?cache=600&color=blue)](https://packagist.org/packages/ghostwriter/option)
 
-Provides an Option type implementation for PHP
+Provides an `Option` type implementation for PHP.
 
 ## Installation
 
@@ -24,15 +24,15 @@ use Ghostwriter\Option\None;
 use Ghostwriter\Option\Some;
 
 $greeting = Some::create('Hello World!');
-echo $greeting->unwrap();        // echos: 'Hello World!'
+echo $greeting->unwrap();        // Hello World!
 
 $name = None::create();
-echo $name->unwrap();            // throws: NullPointerException
-echo $name->unwrapOr('Default Value'); // echos: 'Default Value'
+echo $name->unwrap();            // throw `NullPointerException`
+echo $name->unwrapOr('Default Value'); // Default Value
 
-None::create();      // returns: None
-Some::of(null);      // returns: None
-Some::create(null);  // throws: NullPointerException
+None::create();      // return `None`
+Some::of(null);      // return `None`
+Some::create(null);  // throw `NullPointerException`
 
 --- Example
 

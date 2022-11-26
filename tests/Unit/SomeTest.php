@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ghostwriter\Option\Tests\Unit;
 
+use Ghostwriter\Option\Contract\OptionInterface;
 use Ghostwriter\Option\Contract\SomeInterface;
 use Ghostwriter\Option\Exception\NullPointerException;
 use Ghostwriter\Option\None;
@@ -52,7 +53,7 @@ final class SomeTest extends TestCase
      */
     public function testAndThen(): void
     {
-        $option = $this->some->andThen(static fn (mixed $x): string => (string) $x);
+        $option = $this->some->andThen(static fn (mixed $x): OptionInterface => Some::create($x));
 
         self::assertInstanceOf(SomeInterface::class, $option);
         self::assertSame('foo', $option->unwrap());
@@ -108,10 +109,10 @@ final class SomeTest extends TestCase
     public function testFilter(): void
     {
         // returns the instance if its type is Some and the given function returns true.
-        self::assertSame($this->some, $this->some->filter(static fn ($x) => 'foo' === $x));
+        self::assertSame($this->some, $this->some->filter(static fn ($x): bool => 'foo' === $x));
 
         // returns an instance of None if called on an instance of Some and the given function returns false.
-        self::assertTrue($this->some->filter(static fn ($x) => 'bar' === $x)->isNone());
+        self::assertTrue($this->some->filter(static fn ($x): bool => 'bar' === $x)->isNone());
     }
 
     /**
@@ -181,7 +182,7 @@ final class SomeTest extends TestCase
      */
     public function testMap(): void
     {
-        $option = $this->some->map(static fn (mixed $x) => sprintf('%s%s', (string) $x, 'bar'));
+        $option = $this->some->map(static fn (mixed $x): string => sprintf('%s%s', (string) $x, 'bar'));
         self::assertTrue($option->isSome());
         self::assertSame('foobar', $option->unwrap());
     }
@@ -196,7 +197,7 @@ final class SomeTest extends TestCase
     {
         self::assertSame(
             'foobar',
-            $this->some->mapOr(static fn (mixed $x) => sprintf('%s%s', (string) $x, 'bar'), 'baz')
+            $this->some->mapOr(static fn (mixed $x): string => sprintf('%s%s', (string) $x, 'bar'), 'baz')
         );
     }
 
@@ -270,6 +271,6 @@ final class SomeTest extends TestCase
      */
     public function testUnwrapOrElse(): void
     {
-        self::assertSame('foo', $this->some->unwrapOrElse(static fn () => 'bar'));
+        self::assertSame('foo', $this->some->unwrapOrElse(static fn (): string => 'bar'));
     }
 }

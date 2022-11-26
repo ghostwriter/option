@@ -8,6 +8,7 @@ use Ghostwriter\Option\Contract\NoneInterface;
 use Ghostwriter\Option\Contract\OptionInterface;
 use Ghostwriter\Option\Contract\SomeInterface;
 use Ghostwriter\Option\Exception\NullPointerException;
+use RuntimeException;
 use Throwable;
 use Traversable;
 
@@ -44,7 +45,13 @@ abstract class AbstractOption implements OptionInterface
             return $this;
         }
 
-        return self::of($function($this->value));
+        $result = $function($this->value);
+
+        if (! $result instanceof OptionInterface) {
+            throw new RuntimeException('Callables passed to andThen() must return an instance of OptionInterface.');
+        }
+
+        return $result;
     }
 
     public function contains(mixed $value): bool

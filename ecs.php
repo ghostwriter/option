@@ -75,18 +75,19 @@ use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
 
 return static function (ECSConfig $ecsConfig): void {
     $ecsConfig->cacheDirectory(__DIR__ . '/.cache/ecs');
-
-    $ecsConfig->import(SetList::ARRAY);
-    $ecsConfig->import(SetList::CLEAN_CODE);
-    $ecsConfig->import(SetList::COMMON);
-    $ecsConfig->import(SetList::CONTROL_STRUCTURES);
-    $ecsConfig->import(SetList::NAMESPACES);
-    $ecsConfig->import(SetList::PSR_12);
-    $ecsConfig->import(SetList::DOCBLOCK);
-    $ecsConfig->import(SetList::PHPUNIT);
-    $ecsConfig->import(SetList::SPACES);
-    $ecsConfig->import(SetList::STRICT);
-    $ecsConfig->import(SetList::SYMPLIFY);
+    $ecsConfig->sets([
+        SetList::ARRAY,
+        SetList::CLEAN_CODE,
+        SetList::COMMON,
+        SetList::CONTROL_STRUCTURES,
+        SetList::NAMESPACES,
+        SetList::PSR_12,
+        SetList::DOCBLOCK,
+        SetList::PHPUNIT,
+        SetList::SPACES,
+        SetList::STRICT,
+        SetList::SYMPLIFY,
+    ]);
 
     $ecsConfig->parallel();
     $ecsConfig->paths([__DIR__ . '/rector.php', __DIR__ . '/ecs.php', __DIR__ . '/src', __DIR__ . '/tests']);

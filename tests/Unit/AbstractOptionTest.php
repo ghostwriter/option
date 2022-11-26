@@ -33,7 +33,7 @@ final class AbstractOptionTest extends TestCase
         yield 'string' => [SomeInterface::class, 'string'];
         yield 'Closure' => [
             SomeInterface::class,
-            static fn () => 'Testing!',
+            static fn (): string => 'Testing!',
         ];
         yield 'int' => [SomeInterface::class, 42];
         yield 'float' => [SomeInterface::class, 13.37];

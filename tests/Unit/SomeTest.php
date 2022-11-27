@@ -57,6 +57,10 @@ final class SomeTest extends TestCase
 
         self::assertInstanceOf(SomeInterface::class, $option);
         self::assertSame('foo', $option->unwrap());
+
+        $this->expectException(RuntimeException::class);
+        $option = $this->some->andThen(static fn (mixed $x): mixed => $x);
+        self::assertSame('foo', $option->unwrap());
     }
 
     /**
@@ -99,7 +103,7 @@ final class SomeTest extends TestCase
     /**
      * @covers \Ghostwriter\Option\AbstractOption::__construct
      * @covers \Ghostwriter\Option\AbstractOption::of
-     * @covers \Ghostwriter\Option\AbstractOption::andThen
+     * @covers \Ghostwriter\Option\AbstractOption::map
      * @covers \Ghostwriter\Option\AbstractOption::filter
      * @covers \Ghostwriter\Option\AbstractOption::isNone
      * @covers \Ghostwriter\Option\None::create
@@ -117,7 +121,7 @@ final class SomeTest extends TestCase
 
     /**
      * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::andThen
+     * @covers \Ghostwriter\Option\AbstractOption::map
      * @covers \Ghostwriter\Option\AbstractOption::of
      * @covers \Ghostwriter\Option\AbstractOption::flatten
      * @covers \Ghostwriter\Option\AbstractOption::unwrap

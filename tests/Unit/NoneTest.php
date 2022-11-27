@@ -49,15 +49,15 @@ final class NoneTest extends TestCase
     /**
      * @covers \Ghostwriter\Option\AbstractOption::__construct
      * @covers \Ghostwriter\Option\AbstractOption::andThen
+     * @covers \Ghostwriter\Option\AbstractOption::unwrapOr
      * @covers \Ghostwriter\Option\None::__construct
      * @covers \Ghostwriter\Option\None::create
      */
     public function testAndThen(): void
     {
-        $callCount = 0;
-        self::assertInstanceOf(NoneInterface::class, $this->none->andThen(static fn (): int => ++$callCount));
-
-        self::assertSame(0, $callCount);
+        $called = 0;
+        $none = $this->none->andThen(static fn (): SomeInterface => Some::create(1+$called));
+        self::assertSame(0, $none->unwrapOr($called));
     }
 
     /**
@@ -96,7 +96,7 @@ final class NoneTest extends TestCase
 
     /**
      * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::andThen
+     * @covers \Ghostwriter\Option\AbstractOption::map
      * @covers \Ghostwriter\Option\AbstractOption::filter
      * @covers \Ghostwriter\Option\None::__construct
      * @covers \Ghostwriter\Option\None::create
@@ -110,7 +110,7 @@ final class NoneTest extends TestCase
     /**
      * @covers \Ghostwriter\Option\AbstractOption::__construct
      * @covers \Ghostwriter\Option\AbstractOption::of
-     * @covers \Ghostwriter\Option\AbstractOption::andThen
+     * @covers \Ghostwriter\Option\AbstractOption::map
      * @covers \Ghostwriter\Option\AbstractOption::flatten
      * @covers \Ghostwriter\Option\None::create
      */

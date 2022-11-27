@@ -74,7 +74,7 @@ abstract class AbstractOption implements OptionInterface
 
     public function filter(callable $function): OptionInterface
     {
-        return $this->andThen(
+        return $this->map(
             /** @param TValue $value */
             fn (mixed $value): OptionInterface => $function($value) ? $this : None::create()
         );
@@ -82,7 +82,7 @@ abstract class AbstractOption implements OptionInterface
 
     public function flatten(): OptionInterface
     {
-        return $this->andThen(fn (mixed $value) => $value instanceof SomeInterface ? $value : $this);
+        return $this->map(fn (mixed $value) => $value instanceof SomeInterface ? $value : $this);
     }
 
     public function getIterator(): Traversable

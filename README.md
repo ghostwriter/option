@@ -111,7 +111,7 @@ interface OptionInterface extends IteratorAggregate
      *
      * @template TAndThen
      *
-     * @param callable(TValue):TAndThen $function
+     * @param callable(TValue):self $function
      *
      * @return self<TAndThen|TValue>
      */

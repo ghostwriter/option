@@ -5,18 +5,19 @@ declare(strict_types=1);
 namespace Ghostwriter\Option;
 
 use Ghostwriter\Option\Contract\NoneInterface;
+use Ghostwriter\Option\Traits\OptionTrait;
 
 /**
- * @extends AbstractOption<TValue>
- *
  * @immutable
  *
  * @implements NoneInterface<TValue>
  *
  * @template TValue
  */
-final class None extends AbstractOption implements NoneInterface
+final class None implements NoneInterface
 {
+    use OptionTrait;
+
     private static ?NoneInterface $instance = null;
 
     public static function create(): NoneInterface

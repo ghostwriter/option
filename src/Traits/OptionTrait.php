@@ -2,15 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Ghostwriter\Option;
+namespace Ghostwriter\Option\Traits;
 
-use Generator;
 use Ghostwriter\Option\Contract\NoneInterface;
 use Ghostwriter\Option\Contract\OptionInterface;
 use Ghostwriter\Option\Contract\SomeInterface;
 use Ghostwriter\Option\Exception\NullPointerException;
-use RuntimeException;
+use Ghostwriter\Option\Exception\RuntimeException;
+use Ghostwriter\Option\None;
+use Ghostwriter\Option\Some;
 use Throwable;
+use Traversable;
 
 /**
  * @template TValue
@@ -19,13 +21,13 @@ use Throwable;
  *
  * @implements OptionInterface<TValue>
  */
-abstract class AbstractOption implements OptionInterface
+trait OptionTrait
 {
     /**
      * @param TValue $value
      */
-    protected function __construct(
-        protected mixed $value
+    private function __construct(
+        private mixed $value
     ) {
         // Singleton
     }
@@ -85,7 +87,7 @@ abstract class AbstractOption implements OptionInterface
         return $this->map(fn (mixed $value) => $value instanceof SomeInterface ? $value : $this);
     }
 
-    public function getIterator(): Generator
+    public function getIterator(): Traversable
     {
         if ($this instanceof SomeInterface) {
             yield $this->value;

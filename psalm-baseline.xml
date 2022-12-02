@@ -1,18 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.0.0@4e177bf0c9f03c17d2fbfd83b7cc9c47605274d8">
-  <file src="src/Contract/NoneInterface.php">
-    <MissingTemplateParam occurrences="1">
-      <code>OptionInterface</code>
-    </MissingTemplateParam>
-  </file>
-  <file src="src/Contract/OptionInterface.php">
-    <MissingTemplateParam occurrences="1">
-      <code>IteratorAggregate</code>
-    </MissingTemplateParam>
-  </file>
-  <file src="src/Contract/SomeInterface.php">
-    <MissingTemplateParam occurrences="1">
-      <code>OptionInterface</code>
-    </MissingTemplateParam>
-  </file>
-</files>
+<files psalm-version="5.0.0@4e177bf0c9f03c17d2fbfd83b7cc9c47605274d8"/>

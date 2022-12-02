@@ -33,13 +33,13 @@
         "php": ">=8.0,<8.3"
     },
     "require-dev": {
-        "infection/infection": "^0.26.16",
-        "phpbench/phpbench": "^1.2.7",
-        "phpunit/phpunit": "^9.5.26",
-        "psalm/plugin-phpunit": "^0.17.0",
-        "rector/rector": "^0.14.8",
-        "symplify/easy-coding-standard": "^11.1.17",
-        "vimeo/psalm": "^4.30"
+        "infection/infection": "^0.26",
+        "phpbench/phpbench": "^1.2",
+        "phpunit/phpunit": "^9.5.",
+        "psalm/plugin-phpunit": "^0.18",
+        "rector/rector": "^0.14",
+        "symplify/easy-coding-standard": "^11.1",
+        "vimeo/psalm": "^5.0"
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
@@ -75,9 +75,10 @@
             "@cs-check",
             "@cs-fix",
             "@test",
-            "@psalm",
+            "@infection",
             "@rector:dry-run",
-            "@psalm:security"
+            "@psalm:security",
+            "@psalm"
         ],
         "cs-check": "vendor/bin/ecs check --clear-cache || true",
         "cs-fix": "vendor/bin/ecs check --fix --clear-cache",
@@ -89,7 +90,7 @@
         ],
         "infection": [
             "@putenv XDEBUG_MODE=coverage",
-            "vendor/bin/infection"
+            "vendor/bin/infection --show-mutations"
         ],
         "missing-returntypes": "psalm --alter --issues=MissingReturnType",
         "normalizer": "composer normalize --no-check-lock",
@@ -100,7 +101,10 @@
         "psalm:dry-run": "psalm --alter --issues=all --dry-run",
         "psalm:missing": "psalm --alter --issues=MissingReturnType",
         "psalm:security": "psalm --taint-analysis",
-        "psalm:shepherd": "psalm --shepherd --stats --no-diff --no-cache",
+        "psalm:shepherd": [
+            "psalm --clear-global-cache --clear-cache",
+            "psalm --shepherd --stats --no-diff --no-cache"
+        ],
         "rector": "vendor/bin/rector process",
         "rector:dry-run": "vendor/bin/rector process --dry-run || true",
         "test": [

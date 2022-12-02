@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ghostwriter\Option\Tests\Unit;
 
 use Ghostwriter\Option\Contract\NoneInterface;
+use Ghostwriter\Option\Contract\OptionInterface;
 use Ghostwriter\Option\Contract\SomeInterface;
 use Ghostwriter\Option\Exception\NullPointerException;
 use Ghostwriter\Option\None;
@@ -12,6 +13,7 @@ use Ghostwriter\Option\Some;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use Throwable;
+use Traversable;
 
 /**
  * @coversDefaultClass \Ghostwriter\Option\None
@@ -35,8 +37,17 @@ final class NoneTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::and
+     * @return Traversable<array-key, array{0:class-string,1:mixed}>
+     */
+    public function ofDataProvider(): Traversable
+    {
+        yield 'null' => [NoneInterface::class, null];
+        yield 'None::class' => [NoneInterface::class, None::create()];
+    }
+
+    /**
+     * @covers \Ghostwriter\Option\None::__construct
+     * @covers \Ghostwriter\Option\None::and
      * @covers \Ghostwriter\Option\None::__construct
      * @covers \Ghostwriter\Option\None::create
      * @covers \Ghostwriter\Option\Some::__construct
@@ -52,9 +63,9 @@ final class NoneTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::andThen
-     * @covers \Ghostwriter\Option\AbstractOption::unwrapOr
+     * @covers \Ghostwriter\Option\None::__construct
+     * @covers \Ghostwriter\Option\None::andThen
+     * @covers \Ghostwriter\Option\None::unwrapOr
      * @covers \Ghostwriter\Option\None::__construct
      * @covers \Ghostwriter\Option\None::create
      */
@@ -65,8 +76,8 @@ final class NoneTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::contains
+     * @covers \Ghostwriter\Option\None::__construct
+     * @covers \Ghostwriter\Option\None::contains
      * @covers \Ghostwriter\Option\None::__construct
      * @covers \Ghostwriter\Option\None::create
      */
@@ -84,8 +95,8 @@ final class NoneTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::expect
+     * @covers \Ghostwriter\Option\None::__construct
+     * @covers \Ghostwriter\Option\None::expect
      * @covers \Ghostwriter\Option\None::create
      *
      * @throws Throwable
@@ -99,9 +110,9 @@ final class NoneTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::map
-     * @covers \Ghostwriter\Option\AbstractOption::filter
+     * @covers \Ghostwriter\Option\None::__construct
+     * @covers \Ghostwriter\Option\None::map
+     * @covers \Ghostwriter\Option\None::filter
      * @covers \Ghostwriter\Option\None::__construct
      * @covers \Ghostwriter\Option\None::create
      */
@@ -112,10 +123,10 @@ final class NoneTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::of
-     * @covers \Ghostwriter\Option\AbstractOption::map
-     * @covers \Ghostwriter\Option\AbstractOption::flatten
+     * @covers \Ghostwriter\Option\None::__construct
+     * @covers \Ghostwriter\Option\None::of
+     * @covers \Ghostwriter\Option\None::map
+     * @covers \Ghostwriter\Option\None::flatten
      * @covers \Ghostwriter\Option\None::create
      */
     public function testFlatten(): void
@@ -126,8 +137,8 @@ final class NoneTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::getIterator
+     * @covers \Ghostwriter\Option\None::__construct
+     * @covers \Ghostwriter\Option\None::getIterator
      * @covers \Ghostwriter\Option\None::create
      */
     public function testGetIterator(): void
@@ -136,8 +147,8 @@ final class NoneTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::isNone
+     * @covers \Ghostwriter\Option\None::__construct
+     * @covers \Ghostwriter\Option\None::isNone
      * @covers \Ghostwriter\Option\None::create
      */
     public function testIsNone(): void
@@ -146,8 +157,8 @@ final class NoneTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::isSome
+     * @covers \Ghostwriter\Option\None::__construct
+     * @covers \Ghostwriter\Option\None::isSome
      * @covers \Ghostwriter\Option\None::create
      */
     public function testIsSome(): void
@@ -156,8 +167,8 @@ final class NoneTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::map
+     * @covers \Ghostwriter\Option\None::__construct
+     * @covers \Ghostwriter\Option\None::map
      * @covers \Ghostwriter\Option\None::create
      */
     public function testMap(): void
@@ -166,8 +177,8 @@ final class NoneTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::mapOr
+     * @covers \Ghostwriter\Option\None::__construct
+     * @covers \Ghostwriter\Option\None::mapOr
      * @covers \Ghostwriter\Option\None::create
      */
     public function testMapOr(): void
@@ -176,8 +187,8 @@ final class NoneTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::mapOrElse
+     * @covers \Ghostwriter\Option\None::__construct
+     * @covers \Ghostwriter\Option\None::mapOrElse
      * @covers \Ghostwriter\Option\None::__construct
      * @covers \Ghostwriter\Option\None::create
      */
@@ -191,8 +202,30 @@ final class NoneTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::or
+     * @covers       \Ghostwriter\Option\None::create
+     * @covers       \Ghostwriter\Option\None::of
+     *
+     * @dataProvider ofDataProvider
+     *
+     * @template TValue
+     *
+     * @param class-string $expected
+     * @param TValue       $value
+     */
+    public function testOf(string $expected, mixed $value): void
+    {
+        $option = None::of($value);
+
+        if ($value instanceof OptionInterface) {
+            self::assertSame($value, $option);
+        }
+
+        self::assertInstanceOf($expected, $option);
+    }
+
+    /**
+     * @covers \Ghostwriter\Option\None::__construct
+     * @covers \Ghostwriter\Option\None::or
      * @covers \Ghostwriter\Option\None::__construct
      * @covers \Ghostwriter\Option\None::create
      * @covers \Ghostwriter\Option\Some::__construct
@@ -205,9 +238,9 @@ final class NoneTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::of
-     * @covers \Ghostwriter\Option\AbstractOption::orElse
+     * @covers \Ghostwriter\Option\None::__construct
+     * @covers \Ghostwriter\Option\None::of
+     * @covers \Ghostwriter\Option\None::orElse
      * @covers \Ghostwriter\Option\None::__construct
      * @covers \Ghostwriter\Option\None::create
      * @covers \Ghostwriter\Option\Some::__construct
@@ -223,8 +256,8 @@ final class NoneTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::unwrap
+     * @covers \Ghostwriter\Option\None::__construct
+     * @covers \Ghostwriter\Option\None::unwrap
      * @covers \Ghostwriter\Option\None::__construct
      * @covers \Ghostwriter\Option\None::create
      */
@@ -235,8 +268,8 @@ final class NoneTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::unwrapOr
+     * @covers \Ghostwriter\Option\None::__construct
+     * @covers \Ghostwriter\Option\None::unwrapOr
      * @covers \Ghostwriter\Option\None::__construct
      * @covers \Ghostwriter\Option\None::create
      */
@@ -246,8 +279,8 @@ final class NoneTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::unwrapOrElse
+     * @covers \Ghostwriter\Option\None::__construct
+     * @covers \Ghostwriter\Option\None::unwrapOrElse
      * @covers \Ghostwriter\Option\None::__construct
      * @covers \Ghostwriter\Option\None::create
      */

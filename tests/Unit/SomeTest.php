@@ -11,7 +11,9 @@ use Ghostwriter\Option\None;
 use Ghostwriter\Option\Some;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
+use stdClass;
 use Throwable;
+use Traversable;
 use function sprintf;
 
 /**
@@ -31,8 +33,27 @@ final class SomeTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::and
+     * @return Traversable<array-key, array{0:class-string,1:mixed}>
+     */
+    public function ofDataProvider(): Traversable
+    {
+        yield 'true' => [SomeInterface::class, true];
+        yield 'false' => [SomeInterface::class, false];
+        yield 'string' => [SomeInterface::class, 'string'];
+        yield 'Closure' => [
+            SomeInterface::class,
+            static fn (): string => 'Testing!',
+        ];
+        yield 'int' => [SomeInterface::class, 42];
+        yield 'float' => [SomeInterface::class, 13.37];
+        yield 'object' => [SomeInterface::class, new stdClass()];
+        yield 'array' => [SomeInterface::class, []];
+        yield 'Some::class' => [SomeInterface::class, Some::create(1337)];
+    }
+
+    /**
+     * @covers \Ghostwriter\Option\Some::__construct
+     * @covers \Ghostwriter\Option\Some::and
      * @covers \Ghostwriter\Option\Some::create
      * @covers \Ghostwriter\Option\Some::__construct
      * @covers \Ghostwriter\Option\Some::create
@@ -44,10 +65,10 @@ final class SomeTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::of
-     * @covers \Ghostwriter\Option\AbstractOption::andThen
-     * @covers \Ghostwriter\Option\AbstractOption::unwrap
+     * @covers \Ghostwriter\Option\Some::__construct
+     * @covers \Ghostwriter\Option\Some::of
+     * @covers \Ghostwriter\Option\Some::andThen
+     * @covers \Ghostwriter\Option\Some::unwrap
      * @covers \Ghostwriter\Option\Some::__construct
      * @covers \Ghostwriter\Option\Some::create
      */
@@ -64,8 +85,8 @@ final class SomeTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::contains
+     * @covers \Ghostwriter\Option\Some::__construct
+     * @covers \Ghostwriter\Option\Some::contains
      * @covers \Ghostwriter\Option\Some::__construct
      * @covers \Ghostwriter\Option\Some::create
      */
@@ -77,7 +98,7 @@ final class SomeTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
+     * @covers \Ghostwriter\Option\Some::__construct
      * @covers \Ghostwriter\Option\Some::__construct
      * @covers \Ghostwriter\Option\Some::create
      */
@@ -88,8 +109,8 @@ final class SomeTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::expect
+     * @covers \Ghostwriter\Option\Some::__construct
+     * @covers \Ghostwriter\Option\Some::expect
      * @covers \Ghostwriter\Option\Some::__construct
      * @covers \Ghostwriter\Option\Some::create
      *
@@ -101,11 +122,11 @@ final class SomeTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::of
-     * @covers \Ghostwriter\Option\AbstractOption::map
-     * @covers \Ghostwriter\Option\AbstractOption::filter
-     * @covers \Ghostwriter\Option\AbstractOption::isNone
+     * @covers \Ghostwriter\Option\Some::__construct
+     * @covers \Ghostwriter\Option\Some::of
+     * @covers \Ghostwriter\Option\Some::map
+     * @covers \Ghostwriter\Option\Some::filter
+     * @covers \Ghostwriter\Option\Some::isNone
      * @covers \Ghostwriter\Option\None::create
      * @covers \Ghostwriter\Option\Some::__construct
      * @covers \Ghostwriter\Option\Some::create
@@ -120,11 +141,11 @@ final class SomeTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::map
-     * @covers \Ghostwriter\Option\AbstractOption::of
-     * @covers \Ghostwriter\Option\AbstractOption::flatten
-     * @covers \Ghostwriter\Option\AbstractOption::unwrap
+     * @covers \Ghostwriter\Option\Some::__construct
+     * @covers \Ghostwriter\Option\Some::map
+     * @covers \Ghostwriter\Option\Some::of
+     * @covers \Ghostwriter\Option\Some::flatten
+     * @covers \Ghostwriter\Option\Some::unwrap
      * @covers \Ghostwriter\Option\Some::__construct
      * @covers \Ghostwriter\Option\Some::create
      */
@@ -143,8 +164,8 @@ final class SomeTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::getIterator
+     * @covers \Ghostwriter\Option\Some::__construct
+     * @covers \Ghostwriter\Option\Some::getIterator
      * @covers \Ghostwriter\Option\Some::__construct
      * @covers \Ghostwriter\Option\Some::create
      */
@@ -154,8 +175,8 @@ final class SomeTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::isNone
+     * @covers \Ghostwriter\Option\Some::__construct
+     * @covers \Ghostwriter\Option\Some::isNone
      * @covers \Ghostwriter\Option\Some::__construct
      * @covers \Ghostwriter\Option\Some::create
      */
@@ -165,8 +186,8 @@ final class SomeTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::isSome
+     * @covers \Ghostwriter\Option\Some::__construct
+     * @covers \Ghostwriter\Option\Some::isSome
      * @covers \Ghostwriter\Option\Some::__construct
      * @covers \Ghostwriter\Option\Some::create
      */
@@ -176,11 +197,11 @@ final class SomeTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::isSome
-     * @covers \Ghostwriter\Option\AbstractOption::of
-     * @covers \Ghostwriter\Option\AbstractOption::map
-     * @covers \Ghostwriter\Option\AbstractOption::unwrap
+     * @covers \Ghostwriter\Option\Some::__construct
+     * @covers \Ghostwriter\Option\Some::isSome
+     * @covers \Ghostwriter\Option\Some::of
+     * @covers \Ghostwriter\Option\Some::map
+     * @covers \Ghostwriter\Option\Some::unwrap
      * @covers \Ghostwriter\Option\Some::__construct
      * @covers \Ghostwriter\Option\Some::create
      */
@@ -192,8 +213,8 @@ final class SomeTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::mapOr
+     * @covers \Ghostwriter\Option\Some::__construct
+     * @covers \Ghostwriter\Option\Some::mapOr
      * @covers \Ghostwriter\Option\Some::__construct
      * @covers \Ghostwriter\Option\Some::create
      */
@@ -206,8 +227,8 @@ final class SomeTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::mapOrElse
+     * @covers \Ghostwriter\Option\Some::__construct
+     * @covers \Ghostwriter\Option\Some::mapOrElse
      * @covers \Ghostwriter\Option\Some::__construct
      * @covers \Ghostwriter\Option\Some::create
      */
@@ -221,8 +242,31 @@ final class SomeTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::or
+     * @covers       \Ghostwriter\Option\Some::__construct
+     * @covers       \Ghostwriter\Option\Some::create
+     * @covers       \Ghostwriter\Option\Some::of
+     *
+     * @dataProvider ofDataProvider
+     *
+     * @template TValue
+     *
+     * @param class-string $expected
+     * @param TValue       $value
+     */
+    public function testOf(string $expected, mixed $value): void
+    {
+        $option = Some::of($value);
+
+        if ($value instanceof OptionInterface) {
+            self::assertSame($value, $option);
+        }
+
+        self::assertInstanceOf($expected, $option);
+    }
+
+    /**
+     * @covers \Ghostwriter\Option\Some::__construct
+     * @covers \Ghostwriter\Option\Some::or
      * @covers \Ghostwriter\Option\Some::__construct
      * @covers \Ghostwriter\Option\Some::create
      */
@@ -233,8 +277,8 @@ final class SomeTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::orElse
+     * @covers \Ghostwriter\Option\Some::__construct
+     * @covers \Ghostwriter\Option\Some::orElse
      * @covers \Ghostwriter\Option\Some::__construct
      * @covers \Ghostwriter\Option\Some::create
      */
@@ -246,8 +290,8 @@ final class SomeTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::unwrap
+     * @covers \Ghostwriter\Option\Some::__construct
+     * @covers \Ghostwriter\Option\Some::unwrap
      * @covers \Ghostwriter\Option\Some::__construct
      * @covers \Ghostwriter\Option\Some::create
      */
@@ -257,8 +301,8 @@ final class SomeTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::unwrapOr
+     * @covers \Ghostwriter\Option\Some::__construct
+     * @covers \Ghostwriter\Option\Some::unwrapOr
      * @covers \Ghostwriter\Option\Some::__construct
      * @covers \Ghostwriter\Option\Some::create
      */
@@ -268,8 +312,8 @@ final class SomeTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\AbstractOption::__construct
-     * @covers \Ghostwriter\Option\AbstractOption::unwrapOrElse
+     * @covers \Ghostwriter\Option\Some::__construct
+     * @covers \Ghostwriter\Option\Some::unwrapOrElse
      * @covers \Ghostwriter\Option\Some::__construct
      * @covers \Ghostwriter\Option\Some::create
      */

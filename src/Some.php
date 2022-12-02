@@ -6,18 +6,19 @@ namespace Ghostwriter\Option;
 
 use Ghostwriter\Option\Contract\SomeInterface;
 use Ghostwriter\Option\Exception\NullPointerException;
+use Ghostwriter\Option\Traits\OptionTrait;
 
 /**
- * @extends AbstractOption<TValue>
- *
  * @immutable
  *
  * @implements SomeInterface<TValue>
  *
  * @template TValue
  */
-final class Some extends AbstractOption implements SomeInterface
+final class Some implements SomeInterface
 {
+    use OptionTrait;
+
     /**
      * @template TSomeValue
      *

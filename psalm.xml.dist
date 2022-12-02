@@ -18,6 +18,9 @@
             <file name="rector.php"/>
         </ignoreFiles>
     </projectFiles>
+    <issueHandlers>
+        <MissingTemplateParam errorLevel="suppress"/>
+    </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
     </plugins>

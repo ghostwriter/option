@@ -13,7 +13,6 @@
         <directory name="tests"/>
         <ignoreFiles>
             <directory name=".github"/>
-            <directory name="tests/Fixture"/>
             <directory name="vendor"/>
             <file name="ecs.php"/>
             <file name="rector.php"/>

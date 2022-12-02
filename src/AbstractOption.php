@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Ghostwriter\Option;
 
+use Generator;
 use Ghostwriter\Option\Contract\NoneInterface;
 use Ghostwriter\Option\Contract\OptionInterface;
 use Ghostwriter\Option\Contract\SomeInterface;
 use Ghostwriter\Option\Exception\NullPointerException;
 use RuntimeException;
 use Throwable;
-use Traversable;
 
 /**
  * @template TValue
@@ -85,7 +85,7 @@ abstract class AbstractOption implements OptionInterface
         return $this->map(fn (mixed $value) => $value instanceof SomeInterface ? $value : $this);
     }
 
-    public function getIterator(): Traversable
+    public function getIterator(): Generator
     {
         if ($this instanceof SomeInterface) {
             yield $this->value;

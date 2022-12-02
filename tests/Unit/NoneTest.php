@@ -22,6 +22,11 @@ use Throwable;
  */
 final class NoneTest extends TestCase
 {
+    /**
+     * @var int
+     */
+    private const CALLED = 0;
+
     private NoneInterface $none;
 
     protected function setUp(): void
@@ -55,9 +60,8 @@ final class NoneTest extends TestCase
      */
     public function testAndThen(): void
     {
-        $called = 0;
-        $none = $this->none->andThen(static fn (): SomeInterface => Some::create(1+$called));
-        self::assertSame(0, $none->unwrapOr($called));
+        $option = $this->none->andThen(static fn (): SomeInterface => Some::create(1+self::CALLED));
+        self::assertSame(0, $option->unwrapOr(self::CALLED));
     }
 
     /**

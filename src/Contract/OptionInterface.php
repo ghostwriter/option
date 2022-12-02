@@ -10,7 +10,7 @@ use Throwable;
 use Traversable;
 
 /**
- * @implements IteratorAggregate<TValue>
+ * @implements IteratorAggregate<int,TValue>
  *
  * @template TValue
  */

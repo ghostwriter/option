@@ -8,7 +8,7 @@ use Ghostwriter\Option\Contract\NoneInterface;
 use Ghostwriter\Option\Contract\OptionInterface;
 use Ghostwriter\Option\Contract\SomeInterface;
 use Ghostwriter\Option\Exception\NullPointerException;
-use Ghostwriter\Option\Exception\RuntimeException;
+use Ghostwriter\Option\Exception\OptionException;
 use Ghostwriter\Option\None;
 use Ghostwriter\Option\Some;
 use Throwable;
@@ -27,7 +27,7 @@ trait OptionTrait
      * @param TValue $value
      */
     private function __construct(
-        private mixed $value
+        private mixed $value = null
     ) {
         // Singleton
     }
@@ -48,12 +48,11 @@ trait OptionTrait
         }
 
         $result = $function($this->value);
-
-        if (! $result instanceof OptionInterface) {
-            throw new RuntimeException('Callables passed to andThen() must return an instance of OptionInterface.');
+        if ($result instanceof OptionInterface) {
+            return $result;
         }
 
-        return $result;
+        throw new OptionException('Callables passed to andThen() must return an instance of OptionInterface.');
     }
 
     public function contains(mixed $value): bool
@@ -78,7 +77,7 @@ trait OptionTrait
     {
         return $this->map(
             /** @param TValue $value */
-            fn (mixed $value): OptionInterface => $function($value) ? $this : None::create()
+            fn (mixed $value): OptionInterface => true === $function($value) ? $this : None::create()
         );
     }
 

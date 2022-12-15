@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Ghostwriter\Option\Tests\Unit;
 
+use Ghostwriter\Option\Contract\Exception\OptionExceptionInterface;
 use Ghostwriter\Option\Contract\NoneInterface;
 use Ghostwriter\Option\Contract\OptionInterface;
 use Ghostwriter\Option\Contract\SomeInterface;
 use Ghostwriter\Option\Exception\NullPointerException;
+use Ghostwriter\Option\Exception\OptionException;
 use Ghostwriter\Option\None;
 use Ghostwriter\Option\Some;
 use PHPUnit\Framework\TestCase;
@@ -29,13 +31,6 @@ final class NoneTest extends TestCase
      */
     private const CALLED = 0;
 
-    private NoneInterface $none;
-
-    protected function setUp(): void
-    {
-        $this->none = None::create();
-    }
-
     /**
      * @return Traversable<array-key, array{0:class-string,1:mixed}>
      */
@@ -56,9 +51,10 @@ final class NoneTest extends TestCase
     public function testAnd(): void
     {
         $some = Some::create('foobar');
-        $option = $this->none->and($some);
+        $none = None::create();
+        $option = $none->and($some);
 
-        self::assertSame($this->none, $option);
+        self::assertSame($none, $option);
         self::assertInstanceOf(NoneInterface::class, $option);
     }
 
@@ -71,7 +67,7 @@ final class NoneTest extends TestCase
      */
     public function testAndThen(): void
     {
-        $option = $this->none->andThen(static fn (): SomeInterface => Some::create(1+self::CALLED));
+        $option = None::create()->andThen(static fn (): SomeInterface => Some::create(1+self::CALLED));
         self::assertSame(0, $option->unwrapOr(self::CALLED));
     }
 
@@ -83,7 +79,8 @@ final class NoneTest extends TestCase
      */
     public function testContains(): void
     {
-        self::assertFalse($this->none->contains(null));
+        $none = None::create();
+        self::assertFalse($none->contains(null));
     }
 
     /**
@@ -91,7 +88,8 @@ final class NoneTest extends TestCase
      */
     public function testCreate(): void
     {
-        self::assertSame($this->none, None::create());
+        $none = None::create();
+        self::assertSame($none, None::create());
     }
 
     /**
@@ -118,8 +116,7 @@ final class NoneTest extends TestCase
      */
     public function testFilter(): void
     {
-        $option = $this->none->filter(static fn ($x): bool => null === $x);
-        self::assertInstanceOf(NoneInterface::class, $option);
+        self::assertInstanceOf(NoneInterface::class, None::create()->filter(static fn ($x): bool => null === $x));
     }
 
     /**
@@ -131,8 +128,9 @@ final class NoneTest extends TestCase
      */
     public function testFlatten(): void
     {
-        $option = $this->none->flatten();
-        self::assertSame($this->none, $option);
+        $none = None::create();
+        $option = $none->flatten();
+        self::assertSame($none, $option);
         self::assertInstanceOf(NoneInterface::class, $option);
     }
 
@@ -143,7 +141,8 @@ final class NoneTest extends TestCase
      */
     public function testGetIterator(): void
     {
-        self::assertCount(0, $this->none);
+        $none = None::create();
+        self::assertCount(0, $none);
     }
 
     /**
@@ -153,7 +152,8 @@ final class NoneTest extends TestCase
      */
     public function testIsNone(): void
     {
-        self::assertTrue($this->none->isNone());
+        $none = None::create();
+        self::assertTrue($none->isNone());
     }
 
     /**
@@ -163,7 +163,8 @@ final class NoneTest extends TestCase
      */
     public function testIsSome(): void
     {
-        self::assertFalse($this->none->isSome());
+        $none = None::create();
+        self::assertFalse($none->isSome());
     }
 
     /**
@@ -173,7 +174,8 @@ final class NoneTest extends TestCase
      */
     public function testMap(): void
     {
-        self::assertInstanceOf(NoneInterface::class, $this->none->map(static fn (): int => 0));
+        $none = None::create();
+        self::assertInstanceOf(NoneInterface::class, $none->map(static fn (): int => 0));
     }
 
     /**
@@ -183,7 +185,8 @@ final class NoneTest extends TestCase
      */
     public function testMapOr(): void
     {
-        self::assertSame('baz', $this->none->mapOr(static fn (): int => 0, 'baz'));
+        $none = None::create();
+        self::assertSame('baz', $none->mapOr(static fn (): int => 0, 'baz'));
     }
 
     /**
@@ -194,11 +197,12 @@ final class NoneTest extends TestCase
      */
     public function testMapOrElse(): void
     {
-        $some = static fn (mixed $value): string => sprintf('%sbar', (string) $value);
+        $none = None::create();
 
-        $none = static fn (): string => 'baz';
+        $someFn = static fn (mixed $value): string => sprintf('%sbar', (string) $value);
+        $noneFn = static fn (): string => 'baz';
 
-        self::assertSame('baz', $this->none->mapOrElse($some, $none));
+        self::assertSame('baz', $none->mapOrElse($someFn, $noneFn));
     }
 
     /**
@@ -233,8 +237,9 @@ final class NoneTest extends TestCase
      */
     public function testOr(): void
     {
+        $none = None::create();
         $some = Some::create('foobar');
-        self::assertSame($some, $this->none->or($some));
+        self::assertSame($some, $none->or($some));
     }
 
     /**
@@ -250,9 +255,8 @@ final class NoneTest extends TestCase
     {
         $none = None::create();
         $some = Some::create('foo');
-        self::assertSame($none, $this->none);
-        self::assertSame($none, $this->none->orElse(static fn (): NoneInterface => $none));
-        self::assertSame($some, $this->none->orElse(static fn (): SomeInterface => $some));
+        self::assertSame($none, $none->orElse(static fn (): NoneInterface => $none));
+        self::assertSame($some, $none->orElse(static fn (): SomeInterface => $some));
     }
 
     /**
@@ -263,8 +267,9 @@ final class NoneTest extends TestCase
      */
     public function testUnwrap(): void
     {
+        $none = None::create();
         $this->expectException(NullPointerException::class);
-        $this->none->unwrap();
+        $none->unwrap();
     }
 
     /**
@@ -275,7 +280,8 @@ final class NoneTest extends TestCase
      */
     public function testUnwrapOr(): void
     {
-        self::assertSame('UnwrapOr', $this->none->unwrapOr('UnwrapOr'));
+        $none = None::create();
+        self::assertSame('UnwrapOr', $none->unwrapOr('UnwrapOr'));
     }
 
     /**
@@ -286,8 +292,9 @@ final class NoneTest extends TestCase
      */
     public function testUnwrapOrElse(): void
     {
+        $none = None::create();
         $function = static fn (): string => 'UnwrapOrElse';
 
-        self::assertSame('UnwrapOrElse', $this->none->unwrapOrElse($function));
+        self::assertSame('UnwrapOrElse', $none->unwrapOrElse($function));
     }
 }

@@ -22,6 +22,6 @@ final class None implements NoneInterface
 
     public static function create(): NoneInterface
     {
-        return self::$instance ??= new self(null);
+        return self::$instance ??= new self();
     }
 }

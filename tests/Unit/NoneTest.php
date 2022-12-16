@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace Ghostwriter\Option\Tests\Unit;
 
-use Ghostwriter\Option\Contract\Exception\OptionExceptionInterface;
 use Ghostwriter\Option\Contract\NoneInterface;
 use Ghostwriter\Option\Contract\OptionInterface;
 use Ghostwriter\Option\Contract\SomeInterface;
 use Ghostwriter\Option\Exception\NullPointerException;
-use Ghostwriter\Option\Exception\OptionException;
 use Ghostwriter\Option\None;
 use Ghostwriter\Option\Some;
 use PHPUnit\Framework\TestCase;
@@ -102,9 +100,9 @@ final class NoneTest extends TestCase
     public function testExpect(): void
     {
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Expect');
+        $this->expectExceptionMessage(__FUNCTION__);
 
-        $this->none->expect(new RuntimeException('Expect'));
+        None::create()->expect(new RuntimeException(__FUNCTION__));
     }
 
     /**

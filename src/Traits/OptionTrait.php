@@ -47,6 +47,7 @@ trait OptionTrait
             return $this;
         }
 
+        /** @var OptionInterface $result */
         $result = $function($this->value);
         if ($result instanceof OptionInterface) {
             return $result;

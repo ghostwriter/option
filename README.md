@@ -39,7 +39,7 @@ Some::create(null);  // throw `NullPointerException`
 function divide(int $x, int $y): OptionInterface
 {
     if ($y === 0) {
-        return Nome::create();
+        return None::create();
     }
 
     return Some::create($x / $y);

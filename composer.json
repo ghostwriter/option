@@ -33,11 +33,11 @@
         "php": ">=8.0,<8.3"
     },
     "require-dev": {
+        "ghostwriter/coding-standard": "dev-main",
         "infection/infection": "^0.26",
         "phpunit/phpunit": "^9.5",
         "psalm/plugin-phpunit": "^0.18",
         "rector/rector": "^0.14",
-        "symplify/easy-coding-standard": "^11.1",
         "vimeo/psalm": "^5.4"
     },
     "minimum-stability": "stable",
@@ -54,7 +54,8 @@
     },
     "config": {
         "allow-plugins": {
-            "infection/extension-installer": true
+            "infection/extension-installer": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
         },
         "classmap-authoritative": true,
         "discard-changes": true,

@@ -24,10 +24,10 @@ use Traversable;
 trait OptionTrait
 {
     /**
-     * @param TValue $value
+     * @param ?TValue $value
      */
     private function __construct(
-        private mixed $value = null
+        private readonly mixed $value = null
     ) {
         // Singleton
     }
@@ -47,7 +47,7 @@ trait OptionTrait
             return $this;
         }
 
-        /** @var OptionInterface $result */
+        /** @var ?OptionInterface $result */
         $result = $function($this->value);
         if ($result instanceof OptionInterface) {
             return $result;

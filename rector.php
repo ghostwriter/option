@@ -55,9 +55,9 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->parallel();
     $rectorConfig->sets([
         PHPUnitLevelSetList::UP_TO_PHPUNIT_90,
-        DowngradeLevelSetList::DOWN_TO_PHP_80,
-        DowngradeSetList::PHP_80,
-        LevelSetList::UP_TO_PHP_80,
+        DowngradeLevelSetList::DOWN_TO_PHP_81,
+        DowngradeSetList::PHP_81,
+        LevelSetList::UP_TO_PHP_81,
         SetList::CODE_QUALITY,
         SetList::CODING_STYLE,
         SetList::DEAD_CODE,
@@ -66,7 +66,7 @@ return static function (RectorConfig $rectorConfig): void {
         SetList::PSR_4,
         SetList::TYPE_DECLARATION,
         SetList::EARLY_RETURN,
-        SetList::PHP_80,
+        SetList::PHP_81,
     ]);
     $rectorConfig->paths([__DIR__ . '/src', __DIR__ . '/tests', __DIR__ . '/ecs.php', __DIR__ . '/rector.php']);
     $rectorConfig->phpVersion(PhpVersion::PHP_80);

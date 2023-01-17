@@ -18,10 +18,10 @@ final class None implements NoneInterface
 {
     use OptionTrait;
 
-    private static ?NoneInterface $instance = null;
+    private static ?NoneInterface $none = null;
 
     public static function create(): NoneInterface
     {
-        return self::$instance ??= new self();
+        return self::$none ??= new self();
     }
 }

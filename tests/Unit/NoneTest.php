@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ghostwriter\Option\Tests\Unit;
 
+use Generator;
 use Ghostwriter\Option\Contract\NoneInterface;
 use Ghostwriter\Option\Contract\OptionInterface;
 use Ghostwriter\Option\Contract\SomeInterface;
@@ -13,7 +14,6 @@ use Ghostwriter\Option\Some;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use Throwable;
-use Traversable;
 
 /**
  * @coversDefaultClass \Ghostwriter\Option\None
@@ -25,14 +25,9 @@ use Traversable;
 final class NoneTest extends TestCase
 {
     /**
-     * @var int
+     * @return Generator<array-key, array{0:class-string,1:mixed}>
      */
-    private const CALLED = 0;
-
-    /**
-     * @return Traversable<array-key, array{0:class-string,1:mixed}>
-     */
-    public function ofDataProvider(): Traversable
+    public static function ofDataProvider(): Generator
     {
         yield 'null' => [NoneInterface::class, null];
         yield 'None::class' => [NoneInterface::class, None::create()];
@@ -65,8 +60,8 @@ final class NoneTest extends TestCase
      */
     public function testAndThen(): void
     {
-        $option = None::create()->andThen(static fn (): SomeInterface => Some::create(1+self::CALLED));
-        self::assertSame(0, $option->unwrapOr(self::CALLED));
+        $option = None::create()->andThen(static fn (): SomeInterface => Some::create(true));
+        self::assertFalse($option->unwrapOr(false));
     }
 
     /**

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ghostwriter\Option\Tests\Unit;
 
+use Generator;
 use Ghostwriter\Option\Contract\OptionInterface;
 use Ghostwriter\Option\Contract\SomeInterface;
 use Ghostwriter\Option\Exception\NullPointerException;
@@ -14,7 +15,6 @@ use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use stdClass;
 use Throwable;
-use Traversable;
 use function sprintf;
 
 /**
@@ -27,9 +27,9 @@ use function sprintf;
 final class SomeTest extends TestCase
 {
     /**
-     * @return Traversable<array-key, array{0:class-string,1:mixed}>
+     * @return Generator<array-key, array{0:class-string,1:mixed}>
      */
-    public function ofDataProvider(): Traversable
+    public static function ofDataProvider(): Generator
     {
         yield 'true' => [SomeInterface::class, true];
         yield 'false' => [SomeInterface::class, false];

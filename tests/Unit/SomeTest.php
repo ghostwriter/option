@@ -170,7 +170,7 @@ final class SomeTest extends TestCase
     public function testGetIterator(): void
     {
         $some = Some::create('foo');
-        self::assertCount(1, $some);
+        self::assertCount(1, iterator_to_array($some));
     }
 
     /**

@@ -135,7 +135,7 @@ final class NoneTest extends TestCase
     public function testGetIterator(): void
     {
         $none = None::create();
-        self::assertCount(0, $none);
+        self::assertCount(0, iterator_to_array($none));
     }
 
     /**

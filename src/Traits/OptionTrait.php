@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ghostwriter\Option\Traits;
 
+use Generator;
 use Ghostwriter\Option\Contract\NoneInterface;
 use Ghostwriter\Option\Contract\OptionInterface;
 use Ghostwriter\Option\Contract\SomeInterface;
@@ -12,19 +13,16 @@ use Ghostwriter\Option\Exception\OptionException;
 use Ghostwriter\Option\None;
 use Ghostwriter\Option\Some;
 use Throwable;
-use Traversable;
 
 /**
  * @template TValue
- *
- * @immutable
- *
- * @implements OptionInterface<TValue>
  */
 trait OptionTrait
 {
+    private static ?NoneInterface $none = null;
+
     /**
-     * @param ?TValue $value
+     * @param TValue $value
      */
     private function __construct(
         private readonly mixed $value = null
@@ -87,10 +85,19 @@ trait OptionTrait
         return $this->map(fn (mixed $value) => $value instanceof SomeInterface ? $value : $this);
     }
 
-    public function getIterator(): Traversable
+    public function getIterator(): Generator
     {
         if ($this instanceof SomeInterface) {
-            yield $this->value;
+            /**
+             * @var TValue $value
+             */
+            $value = $this->value;
+
+            if (is_iterable($value)) {
+                yield from $value;
+            } else {
+                yield $value;
+            }
         }
     }
 

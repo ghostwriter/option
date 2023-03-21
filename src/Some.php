@@ -6,14 +6,15 @@ namespace Ghostwriter\Option;
 
 use Ghostwriter\Option\Contract\SomeInterface;
 use Ghostwriter\Option\Exception\NullPointerException;
+use Ghostwriter\Option\Tests\Unit\SomeTest;
 use Ghostwriter\Option\Traits\OptionTrait;
 
 /**
- * @immutable
+ * @template TValue
  *
  * @implements SomeInterface<TValue>
  *
- * @template TValue
+ * @see SomeTest
  */
 final class Some implements SomeInterface
 {

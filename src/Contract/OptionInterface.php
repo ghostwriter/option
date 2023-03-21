@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Ghostwriter\Option\Contract;
 
+use Generator;
 use Ghostwriter\Option\Exception\NullPointerException;
 use IteratorAggregate;
 use Throwable;
-use Traversable;
 
 /**
- * @implements IteratorAggregate<int,TValue>
- *
  * @template TValue
+ *
+ * @extends IteratorAggregate<int,TValue>
  */
 interface OptionInterface extends IteratorAggregate
 {
@@ -27,15 +27,15 @@ interface OptionInterface extends IteratorAggregate
      * @template TAndThen
      *
      * @param callable(TValue):TAndThen $function
-     *
-     * @return self<TAndThen|TValue>
      */
     public function andThen(callable $function): self;
 
     /**
      * Returns true if the option is a Some value containing the given $value.
      *
-     * @param TValue $value
+     * @template TContainsValue
+     *
+     * @param TContainsValue $value
      */
     public function contains(mixed $value): bool;
 
@@ -65,7 +65,7 @@ interface OptionInterface extends IteratorAggregate
      */
     public function flatten(): self;
 
-    public function getIterator(): Traversable;
+    public function getIterator(): Generator;
 
     /**
      * Returns true if the Option is an instance of None.
@@ -140,7 +140,7 @@ interface OptionInterface extends IteratorAggregate
      *
      * @template TCallableResultValue
      *
-     * @param callable(): OptionInterface<TCallableResultValue> $function
+     * @param callable(): self<TCallableResultValue> $function
      */
     public function orElse(callable $function): self;
 

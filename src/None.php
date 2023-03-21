@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace Ghostwriter\Option;
 
 use Ghostwriter\Option\Contract\NoneInterface;
+use Ghostwriter\Option\Tests\Unit\NoneTest;
 use Ghostwriter\Option\Traits\OptionTrait;
 
 /**
- * @immutable
+ * @template TValue
  *
  * @implements NoneInterface<TValue>
  *
- * @template TValue
+ * @see NoneTest
  */
 final class None implements NoneInterface
 {

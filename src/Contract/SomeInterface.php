@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace Ghostwriter\Option\Contract;
 
 /**
- * @immutable
- *
- * @implements OptionInterface<TValue>
- *
  * @template TValue
+ *
+ * @extends OptionInterface<TValue>
  */
 interface SomeInterface extends OptionInterface
 {

@@ -171,6 +171,9 @@ final class SomeTest extends TestCase
     {
         $some = Some::create('foo');
         self::assertCount(1, iterator_to_array($some));
+
+        $some = Some::create(['foo', 'bar']);
+        self::assertCount(2, iterator_to_array($some));
     }
 
     /**

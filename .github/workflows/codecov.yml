@@ -19,4 +19,4 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           directory: ./cache/phpunit/
-          files: .cache/phpunit/clover.xml
+          files: ./.cache/phpunit/clover.xml

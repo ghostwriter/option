@@ -11,26 +11,23 @@ use Ghostwriter\Option\Contract\SomeInterface;
 use Ghostwriter\Option\Exception\NullPointerException;
 use Ghostwriter\Option\Exception\OptionException;
 use Ghostwriter\Option\None;
-use Ghostwriter\Option\Some;
+use Ghostwriter\Option\Option;
 use Throwable;
 
-/**
- * @template TValue
- */
 trait OptionTrait
 {
-    private static ?NoneInterface $none = null;
-
     /**
-     * @param TValue $value
+     * @template TOption
+     *
+     * @param TOption $value
      */
     private function __construct(
-        private readonly mixed $value = null
+        private readonly mixed $value
     ) {
         // Singleton
     }
 
-    public function and(OptionInterface $option): OptionInterface
+    final public function and(OptionInterface $option): OptionInterface
     {
         if ($this instanceof NoneInterface) {
             return $this;
@@ -39,14 +36,15 @@ trait OptionTrait
         return $option;
     }
 
-    public function andThen(callable $function): OptionInterface
+    final public function andThen(callable $function): OptionInterface
     {
         if ($this instanceof NoneInterface) {
             return $this;
         }
 
-        /** @var ?OptionInterface $result */
+        /** @var OptionInterface<mixed> $result */
         $result = $function($this->value);
+
         if ($result instanceof OptionInterface) {
             return $result;
         }
@@ -54,7 +52,7 @@ trait OptionTrait
         throw new OptionException('Callables passed to andThen() must return an instance of OptionInterface.');
     }
 
-    public function contains(mixed $value): bool
+    final public function contains(mixed $value): bool
     {
         if ($this instanceof NoneInterface) {
             return false;
@@ -63,7 +61,7 @@ trait OptionTrait
         return $this->value === $value;
     }
 
-    public function expect(Throwable $throwable): mixed
+    final public function expect(Throwable $throwable): mixed
     {
         if ($this instanceof NoneInterface) {
             throw $throwable;
@@ -72,25 +70,25 @@ trait OptionTrait
         return $this->value;
     }
 
-    public function filter(callable $function): OptionInterface
+    final public function filter(callable $function): OptionInterface
     {
-        return $this->map(
-            /** @param TValue $value */
-            fn (mixed $value): OptionInterface => true === $function($value) ? $this : None::create()
-        );
+        return $this->map(fn (mixed $value): OptionInterface => match (true) {
+            $function($value) => $this,
+            default => None::create()
+        });
     }
 
-    public function flatten(): OptionInterface
+    final public function flatten(): OptionInterface
     {
-        return $this->map(fn (mixed $value) => $value instanceof SomeInterface ? $value : $this);
+        return $this->map(fn (mixed $value) => match (true) {
+            $value instanceof SomeInterface => $value,
+            default => $this
+        });
     }
 
-    public function getIterator(): Generator
+    final public function getIterator(): Generator
     {
         if ($this instanceof SomeInterface) {
-            /**
-             * @var TValue $value
-             */
             $value = $this->value;
 
             if (is_iterable($value)) {
@@ -101,26 +99,26 @@ trait OptionTrait
         }
     }
 
-    public function isNone(): bool
+    final public function isNone(): bool
     {
         return $this instanceof NoneInterface;
     }
 
-    public function isSome(): bool
+    final public function isSome(): bool
     {
         return $this instanceof SomeInterface;
     }
 
-    public function map(callable $function): OptionInterface
+    final public function map(callable $function): OptionInterface
     {
         if ($this instanceof NoneInterface) {
             return $this;
         }
 
-        return self::of($function($this->value));
+        return Option::create($function($this->value));
     }
 
-    public function mapOr(callable $function, mixed $fallback): mixed
+    final public function mapOr(callable $function, mixed $fallback): mixed
     {
         if ($this instanceof NoneInterface) {
             return $fallback;
@@ -129,7 +127,7 @@ trait OptionTrait
         return $function($this->value);
     }
 
-    public function mapOrElse(callable $function, callable $fallback): mixed
+    final public function mapOrElse(callable $function, callable $fallback): mixed
     {
         if ($this instanceof NoneInterface) {
             return $fallback();
@@ -138,20 +136,7 @@ trait OptionTrait
         return $function($this->value);
     }
 
-    public static function of(mixed $value): OptionInterface
-    {
-        if (null === $value) {
-            return None::create();
-        }
-
-        if ($value instanceof OptionInterface) {
-            return $value;
-        }
-
-        return Some::create($value);
-    }
-
-    public function or(OptionInterface $option): OptionInterface
+    final public function or(OptionInterface $option): OptionInterface
     {
         if ($this instanceof SomeInterface) {
             return $this;
@@ -160,16 +145,16 @@ trait OptionTrait
         return $option;
     }
 
-    public function orElse(callable $function): OptionInterface
+    final public function orElse(callable $function): OptionInterface
     {
         if ($this instanceof SomeInterface) {
             return $this;
         }
 
-        return self::of($function());
+        return Option::create($function());
     }
 
-    public function unwrap(): mixed
+    final public function unwrap(): mixed
     {
         if ($this instanceof NoneInterface) {
             throw new NullPointerException();
@@ -178,7 +163,7 @@ trait OptionTrait
         return $this->value;
     }
 
-    public function unwrapOr(mixed $fallback): mixed
+    final public function unwrapOr(mixed $fallback): mixed
     {
         if ($this instanceof SomeInterface) {
             return $this->value;
@@ -187,7 +172,7 @@ trait OptionTrait
         return $fallback;
     }
 
-    public function unwrapOrElse(callable $function): mixed
+    final public function unwrapOrElse(callable $function): mixed
     {
         if ($this instanceof SomeInterface) {
             return $this->value;

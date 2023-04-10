@@ -10,14 +10,20 @@ use IteratorAggregate;
 use Throwable;
 
 /**
- * @template TValue
+ * @template TOption
  *
- * @extends IteratorAggregate<int,TValue>
+ * @extends IteratorAggregate<int,TOption>
  */
 interface OptionInterface extends IteratorAggregate
 {
     /**
      * Returns None if the Option is None, otherwise returns $option.
+     *
+     * @template TAnd
+     *
+     * @param self<TAnd> $option
+     *
+     * @return self<TAnd|TOption>
      */
     public function and(self $option): self;
 
@@ -26,7 +32,9 @@ interface OptionInterface extends IteratorAggregate
      *
      * @template TAndThen
      *
-     * @param callable(TValue):TAndThen $function
+     * @param callable(TOption):TAndThen $function
+     *
+     * @return self<TAndThen|TOption>
      */
     public function andThen(callable $function): self;
 
@@ -44,24 +52,24 @@ interface OptionInterface extends IteratorAggregate
      *
      * @throws Throwable if the value is a None with a custom $throwable provided
      *
-     * @return TValue
+     * @return TOption
      */
     public function expect(Throwable $throwable): mixed;
 
     /**
-     * Returns None if the option is None, otherwise calls $function with the wrapped value and returns: Some(TValue) if
-     * $function returns true (where TValue is the wrapped value), and None if $function returns false.
+     * Returns None if the option is None, otherwise calls $function with the wrapped value and returns: Some(TOption) if
+     * $function returns true (where TOption is the wrapped value), and None if $function returns false.
      *
-     * @param callable(TValue):bool $function
+     * @param callable(TOption):bool $function
      *
-     * @return self<TValue>
+     * @return self<TOption>
      */
     public function filter(callable $function): self;
 
     /**
-     * Converts from Option<Option<TValue>> to Option<TValue>. Flattening only removes one level of nesting at a time.
+     * Converts from Option<Option<TOption>> to Option<TOption>. Flattening only removes one level of nesting at a time.
      *
-     * @return self<TValue>
+     * @return self<TOption>
      */
     public function flatten(): self;
 
@@ -78,13 +86,13 @@ interface OptionInterface extends IteratorAggregate
     public function isSome(): bool;
 
     /**
-     * Maps a Some<TValue> to Some<TValue> by applying the callable $function to the contained value.
+     * Maps a Some<TOption> to Some<TOption> by applying the callable $function to the contained value.
      *
      * @template TMap
      *
-     * @param callable(TValue):TMap $function
+     * @param callable(TOption):TMap $function
      *
-     * @return self<TMap>
+     * @return self<TMap|TOption>
      */
     public function map(callable $function): self;
 
@@ -94,8 +102,8 @@ interface OptionInterface extends IteratorAggregate
      * @template TFunction
      * @template TFallback
      *
-     * @param callable(TValue): TFunction $function
-     * @param TFallback                   $fallback
+     * @param callable(TOption): TFunction $function
+     * @param TFallback                    $fallback
      *
      * @return TFallback|TFunction
      */
@@ -107,31 +115,24 @@ interface OptionInterface extends IteratorAggregate
      * @template TFunction
      * @template TFallback
      *
-     * @param callable(TValue):TFunction $function
-     * @param callable():TFallback       $fallback
+     * @param callable(TOption):TFunction $function
+     * @param callable():TFallback        $fallback
      *
      * @return TFallback|TFunction
      */
     public function mapOrElse(callable $function, callable $fallback): mixed;
 
     /**
-     * Creates an option with the given value.
-     *
-     * By default, we treat null as the None case, and everything else as Some.
-     *
-     * @template TNullableValue
-     *
-     * @param TNullableValue $value the actual value
-     *
-     * @return self<TNullableValue|TValue>
-     */
-    public static function of(mixed $value): self;
-
-    /**
      * Returns the option if it contains a value, otherwise returns $option.
      *
      * Arguments passed to or are eagerly evaluated; if you are passing the result of a function call, it is recommended
      * to use orElse, which is lazily evaluated.
+     *
+     * @template TOr
+     *
+     * @param self<TOr> $option
+     *
+     * @return self<TOption|TOr>
      */
     public function or(self $option): self;
 
@@ -141,15 +142,17 @@ interface OptionInterface extends IteratorAggregate
      * @template TCallableResultValue
      *
      * @param callable(): self<TCallableResultValue> $function
+     *
+     * @return self<TCallableResultValue|TOption>
      */
     public function orElse(callable $function): self;
 
     /**
-     * Returns the value out of the option<TValue> if it is Some(TValue).
+     * Returns the value out of the option<TOption> if it is Some(TOption).
      *
-     * @throws NullPointerException if the Option<TValue> is None
+     * @throws NullPointerException if the Option<TOption> is None
      *
-     * @return TValue
+     * @return TOption
      */
     public function unwrap(): mixed;
 
@@ -160,7 +163,7 @@ interface OptionInterface extends IteratorAggregate
      *
      * @param TFallbackValue $fallback
      *
-     * @return TFallbackValue|TValue
+     * @return TFallbackValue|TOption
      */
     public function unwrapOr(mixed $fallback): mixed;
 
@@ -171,7 +174,7 @@ interface OptionInterface extends IteratorAggregate
      *
      * @param callable():TCallableResultValue $function
      *
-     * @return TCallableResultValue|TValue
+     * @return TCallableResultValue|TOption
      */
     public function unwrapOrElse(callable $function): mixed;
 }

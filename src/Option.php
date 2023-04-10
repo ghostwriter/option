@@ -31,9 +31,9 @@ final class Option
     }
 
     /**
-     * @template TValue
+     * @template TSomeValue
      *
-     * @param TValue $value
+     * @param TSomeValue $value
      */
     public static function some(mixed $value): SomeInterface
     {

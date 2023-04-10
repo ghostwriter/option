@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Ghostwriter\Option\Contract;
 
 /**
- * @template TValue
+ * @template TOption
  *
- * @extends OptionInterface<TValue>
+ * @extends OptionInterface<TOption>
  */
 interface NoneInterface extends OptionInterface
 {
-    /** @return self<TValue> */
+    /** @return self<TOption> */
     public static function create(): self;
 }

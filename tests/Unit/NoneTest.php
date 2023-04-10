@@ -10,18 +10,18 @@ use Ghostwriter\Option\Contract\OptionInterface;
 use Ghostwriter\Option\Contract\SomeInterface;
 use Ghostwriter\Option\Exception\NullPointerException;
 use Ghostwriter\Option\None;
+use Ghostwriter\Option\Option;
 use Ghostwriter\Option\Some;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use Throwable;
 
-/**
- * @coversDefaultClass \Ghostwriter\Option\None
- *
- * @internal
- *
- * @small
- */
+#[CoversClass(None::class)]
+#[CoversClass(Option::class)]
+#[CoversClass(Some::class)]
+#[Small]
 final class NoneTest extends TestCase
 {
     /**
@@ -33,14 +33,6 @@ final class NoneTest extends TestCase
         yield 'None::class' => [NoneInterface::class, None::create()];
     }
 
-    /**
-     * @covers \Ghostwriter\Option\None::__construct
-     * @covers \Ghostwriter\Option\None::and
-     * @covers \Ghostwriter\Option\None::__construct
-     * @covers \Ghostwriter\Option\None::create
-     * @covers \Ghostwriter\Option\Some::__construct
-     * @covers \Ghostwriter\Option\Some::create
-     */
     public function testAnd(): void
     {
         $some = Some::create('foobar');
@@ -51,34 +43,18 @@ final class NoneTest extends TestCase
         self::assertInstanceOf(NoneInterface::class, $option);
     }
 
-    /**
-     * @covers \Ghostwriter\Option\None::__construct
-     * @covers \Ghostwriter\Option\None::andThen
-     * @covers \Ghostwriter\Option\None::unwrapOr
-     * @covers \Ghostwriter\Option\None::__construct
-     * @covers \Ghostwriter\Option\None::create
-     */
     public function testAndThen(): void
     {
         $option = None::create()->andThen(static fn (): SomeInterface => Some::create(true));
         self::assertFalse($option->unwrapOr(false));
     }
 
-    /**
-     * @covers \Ghostwriter\Option\None::__construct
-     * @covers \Ghostwriter\Option\None::contains
-     * @covers \Ghostwriter\Option\None::__construct
-     * @covers \Ghostwriter\Option\None::create
-     */
     public function testContains(): void
     {
         $none = None::create();
         self::assertFalse($none->contains(null));
     }
 
-    /**
-     * @covers \Ghostwriter\Option\None::create
-     */
     public function testCreate(): void
     {
         $none = None::create();
@@ -86,9 +62,6 @@ final class NoneTest extends TestCase
     }
 
     /**
-     * @covers \Ghostwriter\Option\None::__construct
-     * @covers \Ghostwriter\Option\None::expect
-     * @covers \Ghostwriter\Option\None::create
      *
      * @throws Throwable
      */
@@ -100,25 +73,11 @@ final class NoneTest extends TestCase
         None::create()->expect(new RuntimeException(__FUNCTION__));
     }
 
-    /**
-     * @covers \Ghostwriter\Option\None::__construct
-     * @covers \Ghostwriter\Option\None::map
-     * @covers \Ghostwriter\Option\None::filter
-     * @covers \Ghostwriter\Option\None::__construct
-     * @covers \Ghostwriter\Option\None::create
-     */
     public function testFilter(): void
     {
-        self::assertInstanceOf(NoneInterface::class, None::create()->filter(static fn ($x): bool => null === $x));
+        self::assertInstanceOf(NoneInterface::class, None::create()->filter(static fn (mixed $x): bool => null === $x));
     }
 
-    /**
-     * @covers \Ghostwriter\Option\None::__construct
-     * @covers \Ghostwriter\Option\None::of
-     * @covers \Ghostwriter\Option\None::map
-     * @covers \Ghostwriter\Option\None::flatten
-     * @covers \Ghostwriter\Option\None::create
-     */
     public function testFlatten(): void
     {
         $none = None::create();
@@ -127,67 +86,36 @@ final class NoneTest extends TestCase
         self::assertInstanceOf(NoneInterface::class, $option);
     }
 
-    /**
-     * @covers \Ghostwriter\Option\None::__construct
-     * @covers \Ghostwriter\Option\None::getIterator
-     * @covers \Ghostwriter\Option\None::create
-     */
     public function testGetIterator(): void
     {
         $none = None::create();
         self::assertCount(0, iterator_to_array($none));
     }
 
-    /**
-     * @covers \Ghostwriter\Option\None::__construct
-     * @covers \Ghostwriter\Option\None::isNone
-     * @covers \Ghostwriter\Option\None::create
-     */
     public function testIsNone(): void
     {
         $none = None::create();
         self::assertTrue($none->isNone());
     }
 
-    /**
-     * @covers \Ghostwriter\Option\None::__construct
-     * @covers \Ghostwriter\Option\None::isSome
-     * @covers \Ghostwriter\Option\None::create
-     */
     public function testIsSome(): void
     {
         $none = None::create();
         self::assertFalse($none->isSome());
     }
 
-    /**
-     * @covers \Ghostwriter\Option\None::__construct
-     * @covers \Ghostwriter\Option\None::map
-     * @covers \Ghostwriter\Option\None::create
-     */
     public function testMap(): void
     {
         $none = None::create();
         self::assertInstanceOf(NoneInterface::class, $none->map(static fn (): int => 0));
     }
 
-    /**
-     * @covers \Ghostwriter\Option\None::__construct
-     * @covers \Ghostwriter\Option\None::mapOr
-     * @covers \Ghostwriter\Option\None::create
-     */
     public function testMapOr(): void
     {
         $none = None::create();
         self::assertSame('baz', $none->mapOr(static fn (): int => 0, 'baz'));
     }
 
-    /**
-     * @covers \Ghostwriter\Option\None::__construct
-     * @covers \Ghostwriter\Option\None::mapOrElse
-     * @covers \Ghostwriter\Option\None::__construct
-     * @covers \Ghostwriter\Option\None::create
-     */
     public function testMapOrElse(): void
     {
         $none = None::create();
@@ -199,9 +127,6 @@ final class NoneTest extends TestCase
     }
 
     /**
-     * @covers       \Ghostwriter\Option\None::create
-     * @covers       \Ghostwriter\Option\None::of
-     *
      * @dataProvider ofDataProvider
      *
      * @template TValue
@@ -209,9 +134,9 @@ final class NoneTest extends TestCase
      * @param class-string $expected
      * @param TValue       $value
      */
-    public function testOf(string $expected, mixed $value): void
+    public function testOptionCreate(string $expected, mixed $value): void
     {
-        $option = None::of($value);
+        $option = Option::create($value);
 
         if ($value instanceof OptionInterface) {
             self::assertSame($value, $option);
@@ -220,14 +145,6 @@ final class NoneTest extends TestCase
         self::assertInstanceOf($expected, $option);
     }
 
-    /**
-     * @covers \Ghostwriter\Option\None::__construct
-     * @covers \Ghostwriter\Option\None::or
-     * @covers \Ghostwriter\Option\None::__construct
-     * @covers \Ghostwriter\Option\None::create
-     * @covers \Ghostwriter\Option\Some::__construct
-     * @covers \Ghostwriter\Option\Some::create
-     */
     public function testOr(): void
     {
         $none = None::create();
@@ -235,15 +152,6 @@ final class NoneTest extends TestCase
         self::assertSame($some, $none->or($some));
     }
 
-    /**
-     * @covers \Ghostwriter\Option\None::__construct
-     * @covers \Ghostwriter\Option\None::of
-     * @covers \Ghostwriter\Option\None::orElse
-     * @covers \Ghostwriter\Option\None::__construct
-     * @covers \Ghostwriter\Option\None::create
-     * @covers \Ghostwriter\Option\Some::__construct
-     * @covers \Ghostwriter\Option\Some::create
-     */
     public function testOrElse(): void
     {
         $none = None::create();
@@ -252,12 +160,6 @@ final class NoneTest extends TestCase
         self::assertSame($some, $none->orElse(static fn (): SomeInterface => $some));
     }
 
-    /**
-     * @covers \Ghostwriter\Option\None::__construct
-     * @covers \Ghostwriter\Option\None::unwrap
-     * @covers \Ghostwriter\Option\None::__construct
-     * @covers \Ghostwriter\Option\None::create
-     */
     public function testUnwrap(): void
     {
         $none = None::create();
@@ -265,24 +167,12 @@ final class NoneTest extends TestCase
         $none->unwrap();
     }
 
-    /**
-     * @covers \Ghostwriter\Option\None::__construct
-     * @covers \Ghostwriter\Option\None::unwrapOr
-     * @covers \Ghostwriter\Option\None::__construct
-     * @covers \Ghostwriter\Option\None::create
-     */
     public function testUnwrapOr(): void
     {
         $none = None::create();
         self::assertSame('UnwrapOr', $none->unwrapOr('UnwrapOr'));
     }
 
-    /**
-     * @covers \Ghostwriter\Option\None::__construct
-     * @covers \Ghostwriter\Option\None::unwrapOrElse
-     * @covers \Ghostwriter\Option\None::__construct
-     * @covers \Ghostwriter\Option\None::create
-     */
     public function testUnwrapOrElse(): void
     {
         $none = None::create();

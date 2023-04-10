@@ -14,18 +14,15 @@ use Ghostwriter\Option\None;
 use Ghostwriter\Option\Option;
 use Throwable;
 
-/**
- * @template TValue
- */
 trait OptionTrait
 {
-    private static ?NoneInterface $none = null;
-
     /**
-     * @param null|TValue $value
+     * @template TOption
+     *
+     * @param TOption $value
      */
     private function __construct(
-        private readonly mixed $value = null
+        private readonly mixed $value
     ) {
         // Singleton
     }
@@ -45,8 +42,9 @@ trait OptionTrait
             return $this;
         }
 
-        /** @var null|OptionInterface $result */
+        /** @var OptionInterface<mixed> $result */
         $result = $function($this->value);
+
         if ($result instanceof OptionInterface) {
             return $result;
         }
@@ -74,23 +72,23 @@ trait OptionTrait
 
     final public function filter(callable $function): OptionInterface
     {
-        return $this->map(
-            /** @param TValue $value */
-            fn (mixed $value): OptionInterface => true === $function($value) ? $this : None::create()
-        );
+        return $this->map(fn (mixed $value): OptionInterface => match (true) {
+            $function($value) => $this,
+            default => None::create()
+        });
     }
 
     final public function flatten(): OptionInterface
     {
-        return $this->map(fn (mixed $value) => $value instanceof SomeInterface ? $value : $this);
+        return $this->map(fn (mixed $value) => match (true) {
+            $value instanceof SomeInterface => $value,
+            default => $this
+        });
     }
 
     final public function getIterator(): Generator
     {
         if ($this instanceof SomeInterface) {
-            /**
-             * @var TValue $value
-             */
             $value = $this->value;
 
             if (is_iterable($value)) {

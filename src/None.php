@@ -9,9 +9,9 @@ use Ghostwriter\Option\Tests\Unit\NoneTest;
 use Ghostwriter\Option\Traits\OptionTrait;
 
 /**
- * @template TValue
+ * @template TOption
  *
- * @implements NoneInterface<TValue>
+ * @implements NoneInterface<TOption>
  *
  * @see NoneTest
  */
@@ -19,10 +19,10 @@ final class None implements NoneInterface
 {
     use OptionTrait;
 
-    private static ?NoneInterface $none = null;
+    private static self|null $none = null;
 
-    public static function create(): NoneInterface
+    public static function create(): self
     {
-        return self::$none ??= new self();
+        return self::$none ??= new self(null);
     }
 }

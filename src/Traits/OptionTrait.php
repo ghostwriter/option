@@ -80,7 +80,7 @@ trait OptionTrait
 
     final public function flatten(): OptionInterface
     {
-        return $this->map(fn (mixed $value) => match (true) {
+        return $this->map(fn (mixed $value): OptionInterface => match (true) {
             $value instanceof SomeInterface => $value,
             default => $this
         });
@@ -88,14 +88,16 @@ trait OptionTrait
 
     final public function getIterator(): Generator
     {
-        if ($this instanceof SomeInterface) {
-            $value = $this->value;
+        if ($this instanceof NoneInterface) {
+            return;
+        }
 
-            if (is_iterable($value)) {
-                yield from $value;
-            } else {
-                yield $value;
-            }
+        $value = $this->value;
+
+        if (is_iterable($value)) {
+            yield from $value;
+        } else {
+            yield $value;
         }
     }
 

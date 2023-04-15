@@ -27,7 +27,7 @@ final class Some implements SomeInterface
      */
     public static function create(mixed $value): SomeInterface
     {
-        if (null === $value) {
+        if ($value === null) {
             throw new NullPointerException();
         }
 

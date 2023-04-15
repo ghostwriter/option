@@ -92,10 +92,10 @@ final class SomeTest extends TestCase
     {
         $some = Some::create('foo');
         // returns the instance if its type is Some and the given function returns true.
-        self::assertSame($some, $some->filter(static fn ($x): bool => 'foo' === $x));
+        self::assertSame($some, $some->filter(static fn ($x): bool => $x === 'foo'));
 
         // returns an instance of None if called on an instance of Some and the given function returns false.
-        self::assertTrue($some->filter(static fn ($x): bool => 'bar' === $x)->isNone());
+        self::assertTrue($some->filter(static fn ($x): bool => $x === 'bar')->isNone());
     }
 
     public function testFlatten(): void

@@ -20,7 +20,7 @@ final class Option
     {
         return match (true) {
             $value instanceof OptionInterface => $value,
-            null === $value => self::none(),
+            $value === null => self::none(),
             default => self::some($value)
         };
     }

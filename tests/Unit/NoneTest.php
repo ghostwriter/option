@@ -75,7 +75,7 @@ final class NoneTest extends TestCase
 
     public function testFilter(): void
     {
-        self::assertInstanceOf(NoneInterface::class, None::create()->filter(static fn (mixed $x): bool => null === $x));
+        self::assertInstanceOf(NoneInterface::class, None::create()->filter(static fn (mixed $x): bool => $x === null));
     }
 
     public function testFlatten(): void

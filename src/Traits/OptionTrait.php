@@ -46,9 +46,7 @@ trait OptionTrait
         $result = $function($this->value);
 
         if (! $result instanceof OptionInterface) {
-            throw new OptionException(
-                'Callables passed to andThen() must return an instance of OptionInterface.'
-            );
+            throw new OptionException('Callables passed to andThen() must return an instance of OptionInterface.');
         }
 
         return $result;

@@ -1130,12 +1130,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ghostwriter/coding-standard.git",
-                "reference": "ff4a24c068cbd1ad5cf32973e2c30c9c7f61b809"
+                "reference": "bae5ca1238c83628b03adf5f48e4723231c5f747"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ghostwriter/coding-standard/zipball/ff4a24c068cbd1ad5cf32973e2c30c9c7f61b809",
-                "reference": "ff4a24c068cbd1ad5cf32973e2c30c9c7f61b809",
+                "url": "https://api.github.com/repos/ghostwriter/coding-standard/zipball/bae5ca1238c83628b03adf5f48e4723231c5f747",
+                "reference": "bae5ca1238c83628b03adf5f48e4723231c5f747",
                 "shasum": ""
             },
             "require": {
@@ -1183,7 +1183,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-04-15T21:23:20+00:00"
+            "time": "2023-04-18T05:50:46+00:00"
         },
         {
             "name": "infection/abstract-testframework-adapter",
@@ -2194,16 +2194,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "10.1.0",
+            "version": "10.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "fc4f5ee614fa82d50ecf9014b51af0a9561f3df8"
+                "reference": "884a0da7f9f46f28b2cb69134217fd810b793974"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/fc4f5ee614fa82d50ecf9014b51af0a9561f3df8",
-                "reference": "fc4f5ee614fa82d50ecf9014b51af0a9561f3df8",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/884a0da7f9f46f28b2cb69134217fd810b793974",
+                "reference": "884a0da7f9f46f28b2cb69134217fd810b793974",
                 "shasum": ""
             },
             "require": {
@@ -2222,7 +2222,7 @@
                 "theseer/tokenizer": "^1.2.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^10.0"
+                "phpunit/phpunit": "^10.1"
             },
             "suggest": {
                 "ext-pcov": "PHP extension that provides line coverage",
@@ -2260,7 +2260,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
                 "security": "https://github.com/sebastianbergmann/php-code-coverage/security/policy",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/10.1.0"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/10.1.1"
             },
             "funding": [
                 {
@@ -2268,7 +2268,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-04-13T07:08:27+00:00"
+            "time": "2023-04-17T12:15:40+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -2513,16 +2513,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "10.1.0",
+            "version": "10.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "5a477aea03e61329132935689ae2d73f418f5e25"
+                "reference": "0d9401b7e8245d71079e249e3cb868e9d2337887"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/5a477aea03e61329132935689ae2d73f418f5e25",
-                "reference": "5a477aea03e61329132935689ae2d73f418f5e25",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/0d9401b7e8245d71079e249e3cb868e9d2337887",
+                "reference": "0d9401b7e8245d71079e249e3cb868e9d2337887",
                 "shasum": ""
             },
             "require": {
@@ -2536,7 +2536,7 @@
                 "phar-io/manifest": "^2.0.3",
                 "phar-io/version": "^3.0.2",
                 "php": ">=8.1",
-                "phpunit/php-code-coverage": "^10.1",
+                "phpunit/php-code-coverage": "^10.1.1",
                 "phpunit/php-file-iterator": "^4.0",
                 "phpunit/php-invoker": "^4.0",
                 "phpunit/php-text-template": "^3.0",
@@ -2594,7 +2594,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.1.0"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.1.1"
             },
             "funding": [
                 {
@@ -2610,7 +2610,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-04-14T05:15:09+00:00"
+            "time": "2023-04-17T12:17:05+00:00"
         },
         {
             "name": "psalm/plugin-phpunit",

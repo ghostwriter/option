@@ -50,68 +50,12 @@ use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->importNames();
-    $rectorConfig->importShortClasses();
-    $rectorConfig->parallel();
-    $rectorConfig->sets([
-        PHPUnitLevelSetList::UP_TO_PHPUNIT_90,
-        DowngradeLevelSetList::DOWN_TO_PHP_81,
-        DowngradeSetList::PHP_81,
-        LevelSetList::UP_TO_PHP_81,
-        SetList::CODE_QUALITY,
-        SetList::CODING_STYLE,
-        SetList::DEAD_CODE,
-        SetList::NAMING,
-        SetList::PRIVATIZATION,
-        SetList::PSR_4,
-        SetList::TYPE_DECLARATION,
-        SetList::EARLY_RETURN,
-        SetList::PHP_81,
-    ]);
+    $rectorConfig->import(__DIR__ . '/vendor/ghostwriter/coding-standard/rector.php');
+    $rectorConfig->phpVersion(PhpVersion::PHP_81);
+
     $rectorConfig->paths([__DIR__ . '/src', __DIR__ . '/tests', __DIR__ . '/ecs.php', __DIR__ . '/rector.php']);
-    $rectorConfig->phpVersion(PhpVersion::PHP_80);
     $rectorConfig->skip([
         __DIR__ . '*/tests/Fixture/*',
         __DIR__ . '*/vendor/*',
-        CallableThisArrayToAnonymousFunctionRector::class,
-        PseudoNamespaceToNamespaceRector::class,
-        StringClassNameToClassConstantRector::class,
-        AddDoesNotPerformAssertionToNonAssertingTestRector::class,
     ]);
-    // register single rule
-    $rectorConfig->rule(RestoreDefaultNullToNullableTypePropertyRector::class);
-    $rectorConfig->rule(AddSeeTestAnnotationRector::class);
-    $rectorConfig->rule(AssertCompareToSpecificMethodRector::class);
-    $rectorConfig->rule(AssertComparisonToSpecificMethodRector::class);
-    $rectorConfig->rule(AssertEqualsParameterToSpecificMethodsTypeRector::class);
-    $rectorConfig->rule(AssertEqualsToSameRector::class);
-    $rectorConfig->rule(AssertFalseStrposToContainsRector::class);
-    $rectorConfig->rule(AssertInstanceOfComparisonRector::class);
-    $rectorConfig->rule(AssertIssetToSpecificMethodRector::class);
-    $rectorConfig->rule(AssertNotOperatorRector::class);
-    $rectorConfig->rule(AssertPropertyExistsRector::class);
-    $rectorConfig->rule(AssertRegExpRector::class);
-    $rectorConfig->rule(AssertResourceToClosedResourceRector::class);
-    $rectorConfig->rule(AssertSameBoolNullToSpecificMethodRector::class);
-    $rectorConfig->rule(AssertSameTrueFalseToAssertTrueFalseRector::class);
-    $rectorConfig->rule(AssertTrueFalseInternalTypeToSpecificMethodRector::class);
-    $rectorConfig->rule(AssertTrueFalseToSpecificMethodRector::class);
-    $rectorConfig->rule(ConstructClassMethodToSetUpTestCaseRector::class);
-    $rectorConfig->rule(CreateMockToCreateStubRector::class);
-    $rectorConfig->rule(DelegateExceptionArgumentsRector::class);
-    $rectorConfig->rule(ExceptionAnnotationRector::class);
-    $rectorConfig->rule(ExplicitPhpErrorApiRector::class);
-    $rectorConfig->rule(GetMockBuilderGetMockToCreateMockRector::class);
-    $rectorConfig->rule(GetMockRector::class);
-    $rectorConfig->rule(RemoveDataProviderTestPrefixRector::class);
-    $rectorConfig->rule(RemoveEmptyTestMethodRector::class);
-    $rectorConfig->rule(RemoveExpectAnyFromMockRector::class);
-    $rectorConfig->rule(ReplaceAssertArraySubsetWithDmsPolyfillRector::class);
-    $rectorConfig->rule(SimplifyForeachInstanceOfRector::class);
-    $rectorConfig->rule(SpecificAssertContainsRector::class);
-    $rectorConfig->rule(SpecificAssertContainsWithoutIdentityRector::class);
-    $rectorConfig->rule(SpecificAssertInternalTypeRector::class);
-    $rectorConfig->rule(TestListenerToHooksRector::class);
-    $rectorConfig->rule(TryCatchToExpectExceptionRector::class);
-    $rectorConfig->rule(UseSpecificWillMethodRector::class);
 };

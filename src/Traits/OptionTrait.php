@@ -45,11 +45,13 @@ trait OptionTrait
         /** @var OptionInterface<mixed> $result */
         $result = $function($this->value);
 
-        if ($result instanceof OptionInterface) {
-            return $result;
+        if (! $result instanceof OptionInterface) {
+            throw new OptionException(
+                'Callables passed to andThen() must return an instance of OptionInterface.'
+            );
         }
 
-        throw new OptionException('Callables passed to andThen() must return an instance of OptionInterface.');
+        return $result;
     }
 
     final public function contains(mixed $value): bool

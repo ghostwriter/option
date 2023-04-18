@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ghostwriter\Option\Tests\Unit;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Generator;
 use Ghostwriter\Option\Contract\NoneInterface;
 use Ghostwriter\Option\Contract\OptionInterface;
@@ -127,13 +128,13 @@ final class NoneTest extends TestCase
     }
 
     /**
-     * @dataProvider ofDataProvider
      *
      * @template TValue
      *
      * @param class-string $expected
      * @param TValue       $value
      */
+    #[DataProvider('ofDataProvider')]
     public function testOptionCreate(string $expected, mixed $value): void
     {
         $option = Option::create($value);

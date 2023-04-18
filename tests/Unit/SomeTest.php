@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ghostwriter\Option\Tests\Unit;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Generator;
 use Ghostwriter\Option\Contract\OptionInterface;
 use Ghostwriter\Option\Contract\SomeInterface;
@@ -163,18 +164,14 @@ final class SomeTest extends TestCase
     }
 
     /**
-     * @covers       \Ghostwriter\Option\Some::__construct
-     * @covers       \Ghostwriter\Option\Some::create
-     * @covers       \Ghostwriter\Option\Option::create
-     * @covers       \Ghostwriter\Option\Option::some
      *
-     * @dataProvider ofDataProvider
      *
      * @template TValue
      *
      * @param class-string $expected
      * @param TValue       $value
      */
+    #[DataProvider('ofDataProvider')]
     public function testOptionCreate(string $expected, mixed $value): void
     {
         $option = Option::create($value);
@@ -198,7 +195,7 @@ final class SomeTest extends TestCase
     public function testOrElse(): void
     {
         $some = Some::create('foo');
-        self::assertSame($some, $some->orElse(static function (): void {
+        self::assertSame($some, $some->orElse(static function (): never {
             throw new RuntimeException('Should not be called!');
         }));
     }

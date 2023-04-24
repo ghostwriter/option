@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ghostwriter\Option\Tests\Unit;
 
 use Generator;
+use Ghostwriter\Option\AbstractOption;
 use Ghostwriter\Option\Contract\NoneInterface;
 use Ghostwriter\Option\Contract\OptionInterface;
 use Ghostwriter\Option\Contract\SomeInterface;
@@ -16,6 +17,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(AbstractOption::class)]
 #[CoversClass(None::class)]
 #[CoversClass(Option::class)]
 #[CoversClass(Some::class)]
@@ -41,7 +43,7 @@ final class OptionTest extends TestCase
 
     public function testNone(): void
     {
-        self::assertSame(None::create(), Option::none());
+        self::assertSame(None::create(), Option::create(null));
     }
 
     /**
@@ -64,6 +66,6 @@ final class OptionTest extends TestCase
 
     public function testSome(): void
     {
-        self::assertSame(self::BLACK_LIVES_MATTER, Option::some(self::BLACK_LIVES_MATTER)->unwrap());
+        self::assertSame(self::BLACK_LIVES_MATTER, Option::create(self::BLACK_LIVES_MATTER)->unwrap());
     }
 }

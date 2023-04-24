@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ghostwriter\Option\Tests\Unit;
 
 use Generator;
+use Ghostwriter\Option\AbstractOption;
 use Ghostwriter\Option\Contract\NoneInterface;
 use Ghostwriter\Option\Contract\OptionInterface;
 use Ghostwriter\Option\Contract\SomeInterface;
@@ -19,6 +20,7 @@ use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use Throwable;
 
+#[CoversClass(AbstractOption::class)]
 #[CoversClass(None::class)]
 #[CoversClass(Option::class)]
 #[CoversClass(Some::class)]

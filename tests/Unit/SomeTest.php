@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ghostwriter\Option\Tests\Unit;
 
 use Generator;
+use Ghostwriter\Option\AbstractOption;
 use Ghostwriter\Option\Contract\OptionInterface;
 use Ghostwriter\Option\Contract\SomeInterface;
 use Ghostwriter\Option\Exception\NullPointerException;
@@ -21,6 +22,7 @@ use stdClass;
 use Throwable;
 use function sprintf;
 
+#[CoversClass(AbstractOption::class)]
 #[CoversClass(None::class)]
 #[CoversClass(Option::class)]
 #[CoversClass(Some::class)]

@@ -1130,22 +1130,22 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ghostwriter/coding-standard.git",
-                "reference": "bae5ca1238c83628b03adf5f48e4723231c5f747"
+                "reference": "623fa70d4e8323c6a3deec37a63b79873a8d68c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ghostwriter/coding-standard/zipball/bae5ca1238c83628b03adf5f48e4723231c5f747",
-                "reference": "bae5ca1238c83628b03adf5f48e4723231c5f747",
+                "url": "https://api.github.com/repos/ghostwriter/coding-standard/zipball/623fa70d4e8323c6a3deec37a63b79873a8d68c5",
+                "reference": "623fa70d4e8323c6a3deec37a63b79873a8d68c5",
                 "shasum": ""
             },
             "require": {
                 "friendsofphp/php-cs-fixer": "^3.16.0",
                 "infection/infection": "^0.26.20",
                 "php": ">=8.1,<8.3",
-                "phpunit/phpunit": "^10.1.0",
+                "phpunit/phpunit": "^10.1.2",
                 "psalm/plugin-phpunit": "^0.18.4",
-                "rector/rector": "^0.15.24",
-                "slevomat/coding-standard": "^8.10.0",
+                "rector/rector": "^0.15.25",
+                "slevomat/coding-standard": "^8.11.1",
                 "squizlabs/php_codesniffer": "^3.7.2",
                 "symplify/easy-coding-standard": "^11.3.2",
                 "vimeo/psalm": "^5.9.0"
@@ -1183,7 +1183,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-04-18T05:50:46+00:00"
+            "time": "2023-04-24T09:24:51+00:00"
         },
         {
             "name": "infection/abstract-testframework-adapter",
@@ -2087,16 +2087,16 @@
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "1.18.1",
+            "version": "1.20.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "22dcdfd725ddf99583bfe398fc624ad6c5004a0f"
+                "reference": "90490bd8fd8530a272043c4950c180b6d0cf5f81"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/22dcdfd725ddf99583bfe398fc624ad6c5004a0f",
-                "reference": "22dcdfd725ddf99583bfe398fc624ad6c5004a0f",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/90490bd8fd8530a272043c4950c180b6d0cf5f81",
+                "reference": "90490bd8fd8530a272043c4950c180b6d0cf5f81",
                 "shasum": ""
             },
             "require": {
@@ -2126,22 +2126,22 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.18.1"
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.20.2"
             },
-            "time": "2023-04-07T11:51:11+00:00"
+            "time": "2023-04-22T12:59:35+00:00"
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.13",
+            "version": "1.10.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "f07bf8c6980b81bf9e49d44bd0caf2e737614a70"
+                "reference": "d232901b09e67538e5c86a724be841bea5768a7c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/f07bf8c6980b81bf9e49d44bd0caf2e737614a70",
-                "reference": "f07bf8c6980b81bf9e49d44bd0caf2e737614a70",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/d232901b09e67538e5c86a724be841bea5768a7c",
+                "reference": "d232901b09e67538e5c86a724be841bea5768a7c",
                 "shasum": ""
             },
             "require": {
@@ -2190,7 +2190,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-04-12T19:29:52+00:00"
+            "time": "2023-04-19T13:47:27+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -2513,16 +2513,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "10.1.1",
+            "version": "10.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "0d9401b7e8245d71079e249e3cb868e9d2337887"
+                "reference": "6f0cd95be71add539f8fd2be25b2a4a29789000b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/0d9401b7e8245d71079e249e3cb868e9d2337887",
-                "reference": "0d9401b7e8245d71079e249e3cb868e9d2337887",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/6f0cd95be71add539f8fd2be25b2a4a29789000b",
+                "reference": "6f0cd95be71add539f8fd2be25b2a4a29789000b",
                 "shasum": ""
             },
             "require": {
@@ -2594,7 +2594,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.1.1"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.1.2"
             },
             "funding": [
                 {
@@ -2610,7 +2610,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-04-17T12:17:05+00:00"
+            "time": "2023-04-22T07:38:19+00:00"
         },
         {
             "name": "psalm/plugin-phpunit",
@@ -2876,21 +2876,21 @@
         },
         {
             "name": "rector/rector",
-            "version": "0.15.24",
+            "version": "0.15.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "716473919bcfdc27bdd2a32afb72adbf4c224e59"
+                "reference": "015935c7ed9e48a4f5895ba974f337e20a263841"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/716473919bcfdc27bdd2a32afb72adbf4c224e59",
-                "reference": "716473919bcfdc27bdd2a32afb72adbf4c224e59",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/015935c7ed9e48a4f5895ba974f337e20a263841",
+                "reference": "015935c7ed9e48a4f5895ba974f337e20a263841",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.2|^8.0",
-                "phpstan/phpstan": "^1.10.1"
+                "phpstan/phpstan": "^1.10.14"
             },
             "conflict": {
                 "rector/rector-doctrine": "*",
@@ -2925,7 +2925,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/0.15.24"
+                "source": "https://github.com/rectorphp/rector/tree/0.15.25"
             },
             "funding": [
                 {
@@ -2933,7 +2933,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-04-05T08:49:11+00:00"
+            "time": "2023-04-20T16:07:39+00:00"
         },
         {
             "name": "sanmai/later",
@@ -2995,16 +2995,16 @@
         },
         {
             "name": "sanmai/pipeline",
-            "version": "v6.5",
+            "version": "v6.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sanmai/pipeline.git",
-                "reference": "dd7c3c890b6d2d40a2ea1cf0d49281c17832de2d"
+                "reference": "12289ac9c50819d28bf8171ea6ec9579de3325aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sanmai/pipeline/zipball/dd7c3c890b6d2d40a2ea1cf0d49281c17832de2d",
-                "reference": "dd7c3c890b6d2d40a2ea1cf0d49281c17832de2d",
+                "url": "https://api.github.com/repos/sanmai/pipeline/zipball/12289ac9c50819d28bf8171ea6ec9579de3325aa",
+                "reference": "12289ac9c50819d28bf8171ea6ec9579de3325aa",
                 "shasum": ""
             },
             "require": {
@@ -3018,7 +3018,7 @@
                 "phan/phan": ">=1.1",
                 "php-coveralls/php-coveralls": "^2.4.1",
                 "phpstan/phpstan": ">=0.10",
-                "phpunit/phpunit": "^7.4 || ^8.1 || ^9.4",
+                "phpunit/phpunit": ">=9.4",
                 "vimeo/psalm": ">=2"
             },
             "type": "library",
@@ -3048,7 +3048,7 @@
             "description": "General-purpose collections pipeline",
             "support": {
                 "issues": "https://github.com/sanmai/pipeline/issues",
-                "source": "https://github.com/sanmai/pipeline/tree/v6.5"
+                "source": "https://github.com/sanmai/pipeline/tree/v6.6"
             },
             "funding": [
                 {
@@ -3056,7 +3056,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-04-15T00:28:41+00:00"
+            "time": "2023-04-21T23:30:37+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -3970,32 +3970,32 @@
         },
         {
             "name": "slevomat/coding-standard",
-            "version": "8.10.0",
+            "version": "8.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/slevomat/coding-standard.git",
-                "reference": "c4e213e6e57f741451a08e68ef838802eec92287"
+                "reference": "af87461316b257e46e15bb041dca6fca3796d822"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/c4e213e6e57f741451a08e68ef838802eec92287",
-                "reference": "c4e213e6e57f741451a08e68ef838802eec92287",
+                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/af87461316b257e46e15bb041dca6fca3796d822",
+                "reference": "af87461316b257e46e15bb041dca6fca3796d822",
                 "shasum": ""
             },
             "require": {
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.6.2 || ^0.7 || ^1.0",
                 "php": "^7.2 || ^8.0",
-                "phpstan/phpdoc-parser": ">=1.18.0 <1.19.0",
+                "phpstan/phpdoc-parser": ">=1.20.0 <1.21.0",
                 "squizlabs/php_codesniffer": "^3.7.1"
             },
             "require-dev": {
                 "phing/phing": "2.17.4",
                 "php-parallel-lint/php-parallel-lint": "1.3.2",
-                "phpstan/phpstan": "1.4.10|1.10.11",
+                "phpstan/phpstan": "1.10.14",
                 "phpstan/phpstan-deprecation-rules": "1.1.3",
-                "phpstan/phpstan-phpunit": "1.0.0|1.3.11",
+                "phpstan/phpstan-phpunit": "1.3.11",
                 "phpstan/phpstan-strict-rules": "1.5.1",
-                "phpunit/phpunit": "7.5.20|8.5.21|9.6.6|10.0.19"
+                "phpunit/phpunit": "7.5.20|8.5.21|9.6.6|10.1.1"
             },
             "type": "phpcodesniffer-standard",
             "extra": {
@@ -4019,7 +4019,7 @@
             ],
             "support": {
                 "issues": "https://github.com/slevomat/coding-standard/issues",
-                "source": "https://github.com/slevomat/coding-standard/tree/8.10.0"
+                "source": "https://github.com/slevomat/coding-standard/tree/8.11.1"
             },
             "funding": [
                 {
@@ -4031,7 +4031,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-04-10T07:39:29+00:00"
+            "time": "2023-04-24T08:19:01+00:00"
         },
         {
             "name": "spatie/array-to-xml",

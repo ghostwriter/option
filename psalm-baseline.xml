@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="5.9.0@8b9ad1eb9e8b7d3101f949291da2b9f7767cd163">
-  <file src="src/Traits/OptionTrait.php">
-    <PossiblyUnusedReturnValue>
-      <code>mixed</code>
-      <code>mixed</code>
-    </PossiblyUnusedReturnValue>
+  <file src="tests/Unit/NoneTest.php">
+    <PossiblyUnusedMethod>
+      <code>ofDataProvider</code>
+    </PossiblyUnusedMethod>
   </file>
   <file src="tests/Unit/OptionTest.php">
     <PossiblyUnusedMethod>
       <code>createDataProvider</code>
     </PossiblyUnusedMethod>
+  </file>
+  <file src="tests/Unit/SomeTest.php">
+    <DocblockTypeContradiction>
+      <code><![CDATA[$x === 'bar']]></code>
+    </DocblockTypeContradiction>
+    <PossiblyUnusedMethod>
+      <code>ofDataProvider</code>
+    </PossiblyUnusedMethod>
+    <RedundantCastGivenDocblockType>
+      <code>(string) $x</code>
+      <code>(string) $x</code>
+    </RedundantCastGivenDocblockType>
   </file>
 </files>

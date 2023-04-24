@@ -7,25 +7,26 @@ namespace Ghostwriter\Option;
 use Ghostwriter\Option\Contract\SomeInterface;
 use Ghostwriter\Option\Exception\NullPointerException;
 use Ghostwriter\Option\Tests\Unit\SomeTest;
-use Ghostwriter\Option\Traits\OptionTrait;
 
 /**
- * @template TValue
+ * @template TSome
  *
- * @implements SomeInterface<TValue>
+ * @extends AbstractOption<TSome>
+ *
+ * @implements SomeInterface<TSome>
  *
  * @see SomeTest
  */
-final class Some implements SomeInterface
+final class Some extends AbstractOption implements SomeInterface
 {
-    use OptionTrait;
-
     /**
-     * @template TSomeValue
+     * @template TValue
      *
-     * @param TSomeValue $value
+     * @param TValue $value
+     *
+     * @return self<TValue>
      */
-    public static function create(mixed $value): SomeInterface
+    public static function create(mixed $value): self
     {
         if ($value === null) {
             throw new NullPointerException();

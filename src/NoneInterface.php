@@ -7,12 +7,12 @@ namespace Ghostwriter\Option;
 /**
  * @immutable
  *
- * @template TOption
+ * @template TNone of null
  *
- * @extends OptionInterface<TOption>
+ * @extends OptionInterface<TNone>
  */
 interface NoneInterface extends OptionInterface
 {
-    /** @return self<TOption> */
+    /** @return self<TNone> */
     public static function create(): self;
 }

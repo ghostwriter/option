@@ -58,18 +58,18 @@ divide(1, 1); // Some(1)
 /**
  * @immutable
  *
- * @implements OptionInterface<TValue>
+ * @template TSome
  *
- * @template TValue
+ * @extends OptionInterface<TSome>
  */
 interface SomeInterface extends OptionInterface
 {
     /**
-     * @template TSomeValue
+     * @template TValue
      *
-     * @param TSomeValue $value
+     * @param TValue $value
      *
-     * @return self<TSomeValue>
+     * @return self<TValue>
      */
     public static function create(mixed $value): self;
 }
@@ -81,13 +81,13 @@ interface SomeInterface extends OptionInterface
 /**
  * @immutable
  *
- * @implements OptionInterface<TValue>
+ * @template TNone of null
  *
- * @template TValue
+ * @extends OptionInterface<TNone>
  */
 interface NoneInterface extends OptionInterface
 {
-    /** @return self<TValue> */
+    /** @return self<TNone> */
     public static function create(): self;
 }
 ```
@@ -96,14 +96,22 @@ interface NoneInterface extends OptionInterface
 
 ``` php
 /**
- * @implements IteratorAggregate<TValue>
+ * @immutable
  *
  * @template TValue
+ *
+ * @extends IteratorAggregate<int,TValue>
  */
 interface OptionInterface extends IteratorAggregate
 {
     /**
      * Returns None if the Option is None, otherwise returns $option.
+     *
+     * @template TAnd
+     *
+     * @param self<TAnd> $option
+     *
+     * @return self<TAnd|TValue>
      */
     public function and(self $option): self;
 
@@ -112,7 +120,7 @@ interface OptionInterface extends IteratorAggregate
      *
      * @template TAndThen
      *
-     * @param callable(TValue):self $function
+     * @param callable(TValue):TAndThen $function
      *
      * @return self<TAndThen|TValue>
      */
@@ -121,7 +129,9 @@ interface OptionInterface extends IteratorAggregate
     /**
      * Returns true if the option is a Some value containing the given $value.
      *
-     * @param TValue $value
+     * @template TContainsValue
+     *
+     * @param TContainsValue $value
      */
     public function contains(mixed $value): bool;
 
@@ -151,7 +161,7 @@ interface OptionInterface extends IteratorAggregate
      */
     public function flatten(): self;
 
-    public function getIterator(): Traversable;
+    public function getIterator(): Generator;
 
     /**
      * Returns true if the Option is an instance of None.
@@ -170,7 +180,7 @@ interface OptionInterface extends IteratorAggregate
      *
      * @param callable(TValue):TMap $function
      *
-     * @return self<TMap>
+     * @return self<TMap|TValue>
      */
     public function map(callable $function): self;
 
@@ -201,23 +211,16 @@ interface OptionInterface extends IteratorAggregate
     public function mapOrElse(callable $function, callable $fallback): mixed;
 
     /**
-     * Creates an option with the given value.
-     *
-     * By default, we treat null as the None case, and everything else as Some.
-     *
-     * @template TNullableValue
-     *
-     * @param TNullableValue $value the actual value
-     *
-     * @return self<TNullableValue|TValue>
-     */
-    public static function of(mixed $value): self;
-
-    /**
      * Returns the option if it contains a value, otherwise returns $option.
      *
      * Arguments passed to or are eagerly evaluated; if you are passing the result of a function call, it is recommended
      * to use orElse, which is lazily evaluated.
+     *
+     * @template TOr
+     *
+     * @param self<TOr> $option
+     *
+     * @return self<TOr|TValue>
      */
     public function or(self $option): self;
 
@@ -226,7 +229,9 @@ interface OptionInterface extends IteratorAggregate
      *
      * @template TCallableResultValue
      *
-     * @param callable(): OptionInterface<TCallableResultValue> $function
+     * @param callable(): self<TCallableResultValue> $function
+     *
+     * @return self<TCallableResultValue|TValue>
      */
     public function orElse(callable $function): self;
 

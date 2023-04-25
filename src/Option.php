@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Ghostwriter\Option;
 
-use Ghostwriter\Option\Contract\OptionInterface;
-
 /** @see OptionTest */
 final class Option
 {

@@ -10,16 +10,22 @@ use Ghostwriter\Option\Contract\OptionInterface;
 final class Option
 {
     /**
-     * @template TOption
+     * @template TNone of null
+     * @template TSome of mixed
+     * @template TOption of TSome|TNone
      *
-     * @param TOption $value
+     * @param OptionInterface<TOption>|TOption $value
      *
      * @return OptionInterface<TOption>
      */
     public static function create(mixed $value): OptionInterface
     {
+        if ($value instanceof OptionInterface) {
+            /** @var OptionInterface<TOption> $value */
+            return $value;
+        }
+
         return match (true) {
-            $value instanceof OptionInterface => $value,
             $value === null => None::create(),
             default => Some::create($value)
         };

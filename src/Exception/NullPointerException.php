@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Ghostwriter\Option\Exception;
 
-use BadMethodCallException as PHPBadMethodCallException;
-use Ghostwriter\Option\Contract\Exception\OptionExceptionInterface;
+use InvalidArgumentException;
 
-final class NullPointerException extends PHPBadMethodCallException implements OptionExceptionInterface
+final class NullPointerException extends InvalidArgumentException implements OptionExceptionInterface
 {
 }

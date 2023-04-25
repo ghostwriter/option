@@ -6,12 +6,12 @@ namespace Ghostwriter\Option\Tests\Unit;
 
 use Generator;
 use Ghostwriter\Option\AbstractOption;
-use Ghostwriter\Option\Contract\NoneInterface;
-use Ghostwriter\Option\Contract\OptionInterface;
-use Ghostwriter\Option\Contract\SomeInterface;
 use Ghostwriter\Option\None;
+use Ghostwriter\Option\NoneInterface;
 use Ghostwriter\Option\Option;
+use Ghostwriter\Option\OptionInterface;
 use Ghostwriter\Option\Some;
+use Ghostwriter\Option\SomeInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Small;

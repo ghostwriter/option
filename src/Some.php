@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ghostwriter\Option;
 
-use Ghostwriter\Option\Contract\SomeInterface;
 use Ghostwriter\Option\Exception\NullPointerException;
 use Ghostwriter\Option\Tests\Unit\SomeTest;
 

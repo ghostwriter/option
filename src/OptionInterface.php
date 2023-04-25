@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ghostwriter\Option\Contract;
+namespace Ghostwriter\Option;
 
 use Generator;
 use Ghostwriter\Option\Exception\NullPointerException;
@@ -10,6 +10,8 @@ use IteratorAggregate;
 use Throwable;
 
 /**
+ * @immutable
+ *
  * @template TOption
  *
  * @extends IteratorAggregate<int,TOption>

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ghostwriter\Option\Contract\Exception;
+namespace Ghostwriter\Option\Exception;
 
 use Throwable;
 

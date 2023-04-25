@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Ghostwriter\Option\Contract;
+namespace Ghostwriter\Option;
 
 /**
+ * @immutable
+ *
  * @template TOption
  *
  * @extends OptionInterface<TOption>

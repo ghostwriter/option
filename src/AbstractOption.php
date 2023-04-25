@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace Ghostwriter\Option;
 
 use Generator;
-use Ghostwriter\Option\Contract\NoneInterface;
-use Ghostwriter\Option\Contract\OptionInterface;
-use Ghostwriter\Option\Contract\SomeInterface;
 use Ghostwriter\Option\Exception\NullPointerException;
 use Ghostwriter\Option\Exception\OptionException;
 use Throwable;

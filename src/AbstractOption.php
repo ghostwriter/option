@@ -7,6 +7,9 @@ namespace Ghostwriter\Option;
 use Generator;
 use Ghostwriter\Option\Exception\NullPointerException;
 use Ghostwriter\Option\Exception\OptionException;
+use Ghostwriter\Option\Tests\Unit\NoneTest;
+use Ghostwriter\Option\Tests\Unit\OptionTest;
+use Ghostwriter\Option\Tests\Unit\SomeTest;
 use Throwable;
 
 /**
@@ -23,13 +26,12 @@ abstract class AbstractOption implements OptionInterface
     /**
      * @param TOption $value
      */
-    protected function __construct(
+    public function __construct(
         private readonly mixed $value
     ) {
-        // Singleton
     }
 
-    public function and(OptionInterface $option): OptionInterface
+    final public function and(OptionInterface $option): OptionInterface
     {
         if ($this instanceof NoneInterface) {
             return $this;
@@ -38,7 +40,7 @@ abstract class AbstractOption implements OptionInterface
         return $option;
     }
 
-    public function andThen(callable $function): OptionInterface
+    final public function andThen(callable $function): OptionInterface
     {
         if ($this instanceof NoneInterface) {
             return $this;
@@ -54,7 +56,7 @@ abstract class AbstractOption implements OptionInterface
         throw new OptionException('Callables passed to andThen() must return an instance of OptionInterface.');
     }
 
-    public function contains(mixed $value): bool
+    final public function contains(mixed $value): bool
     {
         if ($this instanceof NoneInterface) {
             return false;
@@ -63,7 +65,7 @@ abstract class AbstractOption implements OptionInterface
         return $this->value === $value;
     }
 
-    public function expect(Throwable $throwable): mixed
+    final public function expect(Throwable $throwable): mixed
     {
         if ($this instanceof NoneInterface) {
             throw $throwable;
@@ -72,7 +74,7 @@ abstract class AbstractOption implements OptionInterface
         return $this->value;
     }
 
-    public function filter(callable $function): OptionInterface
+    final public function filter(callable $function): OptionInterface
     {
         return $this->map(
             /**
@@ -87,7 +89,7 @@ abstract class AbstractOption implements OptionInterface
         );
     }
 
-    public function flatten(): OptionInterface
+    final public function flatten(): OptionInterface
     {
         return $this->map(
             /**
@@ -102,7 +104,7 @@ abstract class AbstractOption implements OptionInterface
         );
     }
 
-    public function getIterator(): Generator
+    final public function getIterator(): Generator
     {
         if ($this instanceof NoneInterface) {
             return;
@@ -117,17 +119,17 @@ abstract class AbstractOption implements OptionInterface
         }
     }
 
-    public function isNone(): bool
+    final public function isNone(): bool
     {
         return $this instanceof NoneInterface;
     }
 
-    public function isSome(): bool
+    final public function isSome(): bool
     {
         return $this instanceof SomeInterface;
     }
 
-    public function map(callable $function): OptionInterface
+    final public function map(callable $function): OptionInterface
     {
         if ($this instanceof NoneInterface) {
             return $this;
@@ -136,7 +138,7 @@ abstract class AbstractOption implements OptionInterface
         return Option::create($function($this->value));
     }
 
-    public function mapOr(callable $function, mixed $fallback): mixed
+    final public function mapOr(callable $function, mixed $fallback): mixed
     {
         if ($this instanceof NoneInterface) {
             return $fallback;
@@ -145,7 +147,7 @@ abstract class AbstractOption implements OptionInterface
         return $function($this->value);
     }
 
-    public function mapOrElse(callable $function, callable $fallback): mixed
+    final public function mapOrElse(callable $function, callable $fallback): mixed
     {
         if ($this instanceof NoneInterface) {
             return $fallback();
@@ -154,7 +156,7 @@ abstract class AbstractOption implements OptionInterface
         return $function($this->value);
     }
 
-    public function or(OptionInterface $option): OptionInterface
+    final public function or(OptionInterface $option): OptionInterface
     {
         if ($this instanceof SomeInterface) {
             return $this;
@@ -163,7 +165,7 @@ abstract class AbstractOption implements OptionInterface
         return $option;
     }
 
-    public function orElse(callable $function): OptionInterface
+    final public function orElse(callable $function): OptionInterface
     {
         if ($this instanceof SomeInterface) {
             return $this;
@@ -175,7 +177,7 @@ abstract class AbstractOption implements OptionInterface
         return Option::create($result);
     }
 
-    public function unwrap(): mixed
+    final public function unwrap(): mixed
     {
         if ($this instanceof NoneInterface) {
             throw new NullPointerException();
@@ -184,7 +186,7 @@ abstract class AbstractOption implements OptionInterface
         return $this->value;
     }
 
-    public function unwrapOr(mixed $fallback): mixed
+    final public function unwrapOr(mixed $fallback): mixed
     {
         if ($this instanceof SomeInterface) {
             return $this->value;
@@ -193,7 +195,7 @@ abstract class AbstractOption implements OptionInterface
         return $fallback;
     }
 
-    public function unwrapOrElse(callable $function): mixed
+    final public function unwrapOrElse(callable $function): mixed
     {
         if ($this instanceof SomeInterface) {
             return $this->value;

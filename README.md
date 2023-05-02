@@ -22,6 +22,7 @@ composer require ghostwriter/option
 ```php
 use Ghostwriter\Option\Exception\NullPointerException;
 use Ghostwriter\Option\None;
+use Ghostwriter\Option\Option;
 use Ghostwriter\Option\Some;
 
 $greeting = Some::create('Hello World!');
@@ -32,7 +33,7 @@ echo $name->unwrap();            // throw `NullPointerException`
 echo $name->unwrapOr('Default Value'); // Default Value
 
 None::create();      // return `None`
-Some::of(null);      // return `None`
+Option::create(null);      // return `None`
 Some::create(null);  // throw `NullPointerException`
 
 --- Example

@@ -13,6 +13,9 @@
     },
     "timeout": 10,
     "logs": {
+        "stryker": {
+            "report": "/.*?/"
+        },
         "text": "php:\/\/stderr",
         "github": true
     },

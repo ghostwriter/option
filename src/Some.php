@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Ghostwriter\Option;
 
 use Ghostwriter\Option\Exception\NullPointerException;
-use Ghostwriter\Option\Tests\Unit\SomeTest;
 
 /**
  * @template TSome
@@ -14,7 +13,7 @@ use Ghostwriter\Option\Tests\Unit\SomeTest;
  *
  * @implements SomeInterface<TSome>
  *
- * @see SomeTest
+ * @see \Ghostwriter\Option\Tests\Unit\SomeTest
  */
 final class Some extends AbstractOption implements SomeInterface
 {

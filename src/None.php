@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace Ghostwriter\Option;
 
-use Ghostwriter\Option\Tests\Unit\NoneTest;
-
 /**
- * @template TNone of null
+ * @template TNone of never
  *
  * @extends AbstractOption<TNone>
  *
  * @implements NoneInterface<TNone>
  *
- * @see NoneTest
+ * @see \Ghostwriter\Option\Tests\Unit\NoneTest
  */
 final class None extends AbstractOption implements NoneInterface
 {
@@ -22,6 +20,9 @@ final class None extends AbstractOption implements NoneInterface
     /** @return self<TNone> */
     public static function create(): self
     {
-        return self::$none ??= new self(null);
+        /** @var TNone $none */
+        $none = null;
+
+        return self::$none ??= new self($none);
     }
 }

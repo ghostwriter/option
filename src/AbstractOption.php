@@ -7,9 +7,6 @@ namespace Ghostwriter\Option;
 use Generator;
 use Ghostwriter\Option\Exception\NullPointerException;
 use Ghostwriter\Option\Exception\OptionException;
-use Ghostwriter\Option\Tests\Unit\NoneTest;
-use Ghostwriter\Option\Tests\Unit\OptionTest;
-use Ghostwriter\Option\Tests\Unit\SomeTest;
 use Throwable;
 
 /**
@@ -17,9 +14,9 @@ use Throwable;
  *
  * @implements OptionInterface<TOption>
  *
- * @see OptionTest
- * @see SomeTest
- * @see NoneTest
+ * @see \Ghostwriter\Option\Tests\Unit\OptionTest
+ * @see \Ghostwriter\Option\Tests\Unit\SomeTest
+ * @see \Ghostwriter\Option\Tests\Unit\NoneTest
  */
 abstract class AbstractOption implements OptionInterface
 {

@@ -28,7 +28,9 @@ use Throwable;
 final class NoneTest extends TestCase
 {
     /**
-     * @return Generator<array-key, array{0:class-string,1:mixed}>
+     * @template TNone of null
+     *
+     * @return Generator<array-key, array{0:class-string<NoneInterface>,1:None|TNone}>
      */
     public static function ofDataProvider(): Generator
     {

@@ -83,7 +83,7 @@ interface SomeInterface extends OptionInterface
 /**
  * @immutable
  *
- * @template TNone of null
+ * @template TNone of never
  *
  * @extends OptionInterface<TNone>
  */

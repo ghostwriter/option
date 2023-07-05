@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Ghostwriter\Option;
 
-/** @see OptionTest */
+/**
+ * @see \Ghostwriter\Option\Tests\Unit\OptionTest
+ */
 final class Option
 {
     /**

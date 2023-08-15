@@ -30,7 +30,7 @@ use function sprintf;
 final class SomeTest extends TestCase
 {
     /**
-     * @return Generator<array-key, array{0:class-string,1:mixed}>
+     * @return Generator<string, array{0:class-string,1:mixed}>
      */
     public static function ofDataProvider(): Generator
     {
@@ -166,8 +166,6 @@ final class SomeTest extends TestCase
     }
 
     /**
-     *
-     *
      * @template TValue
      *
      * @param class-string $expected

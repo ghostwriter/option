@@ -98,7 +98,7 @@ final class SomeTest extends TestCase
         self::assertSame($some, $some->filter(static fn ($x): bool => $x === 'foo'));
 
         // returns an instance of None if called on an instance of Some and the given function returns false.
-        self::assertTrue($some->filter(static fn ($x): bool => $x === 'bar')->isNone());
+        self::assertTrue($some->filter(static fn (string $x): bool => $x === 'bar')->isNone());
     }
 
     public function testFlatten(): void
@@ -140,7 +140,7 @@ final class SomeTest extends TestCase
     public function testMap(): void
     {
         $some = Some::create('foo');
-        $option = $some->map(static fn (mixed $x): string => sprintf('%s%s', (string) $x, 'bar'));
+        $option = $some->map(static fn (mixed $x): string => sprintf('%s%s', $x, 'bar'));
         self::assertTrue($option->isSome());
         self::assertSame('foobar', $option->unwrap());
     }
@@ -150,7 +150,7 @@ final class SomeTest extends TestCase
         $some = Some::create('foo');
         self::assertSame(
             'foobar',
-            $some->mapOr(static fn (mixed $x): string => sprintf('%s%s', (string) $x, 'bar'), 'baz')
+            $some->mapOr(static fn (mixed $x): string => sprintf('%s%s', $x, 'bar'), 'baz')
         );
     }
 

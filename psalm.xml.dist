@@ -16,8 +16,6 @@
         <ignoreFiles>
             <directory name=".github"/>
             <directory name="vendor"/>
-            <file name="ecs.php"/>
-            <file name="rector.php"/>
         </ignoreFiles>
     </projectFiles>
     <plugins>

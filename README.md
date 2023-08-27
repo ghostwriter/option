@@ -3,7 +3,7 @@
 [![Compliance](https://github.com/ghostwriter/option/actions/workflows/compliance.yml/badge.svg)](https://github.com/ghostwriter/option/actions/workflows/compliance.yml)
 [![Supported PHP Version](https://badgen.net/packagist/php/ghostwriter/option?color=8892bf&cache=600&)](https://www.php.net/supported-versions)
 [![Mutation Coverage](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fghostwriter%2Foption%2Fmain)](https://dashboard.stryker-mutator.io/reports/github.com/ghostwriter/option/main)
-[![Code Coverage](https://codecov.io/gh/ghostwriter/option/branch/main/graph/badge.svg?token=DGVCESDZCN)](https://codecov.io/gh/ghostwriter/option)
+[![Code Coverage](https://codecov.io/gh/ghostwriter/option/branch/main/graph/badge.svg)](https://codecov.io/gh/ghostwriter/option)
 [![Type Coverage](https://shepherd.dev/github/ghostwriter/option/coverage.svg)](https://shepherd.dev/github/ghostwriter/option)
 [![Latest Version on Packagist](https://badgen.net/packagist/v/ghostwriter/option?cache=600)](https://packagist.org/packages/ghostwriter/option)
 [![Downloads](https://badgen.net/packagist/dt/ghostwriter/option?cache=600&color=blue)](https://packagist.org/packages/ghostwriter/option)

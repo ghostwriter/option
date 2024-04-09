@@ -20,6 +20,9 @@ use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use Throwable;
 
+use function iterator_to_array;
+use function sprintf;
+
 #[CoversClass(AbstractOption::class)]
 #[CoversClass(None::class)]
 #[CoversClass(Option::class)]

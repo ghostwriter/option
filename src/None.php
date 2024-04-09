@@ -15,7 +15,7 @@ namespace Ghostwriter\Option;
  */
 final class None extends AbstractOption implements NoneInterface
 {
-    private static self|null $none = null;
+    private static null|self $none = null;
 
     /** @return self<TNone> */
     public static function create(): self

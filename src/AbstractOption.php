@@ -9,6 +9,8 @@ use Ghostwriter\Option\Exception\NullPointerException;
 use Ghostwriter\Option\Exception\OptionException;
 use Throwable;
 
+use function is_iterable;
+
 /**
  * @template TOption
  *
@@ -25,8 +27,7 @@ abstract class AbstractOption implements OptionInterface
      */
     public function __construct(
         private readonly mixed $value
-    ) {
-    }
+    ) {}
 
     final public function and(OptionInterface $option): OptionInterface
     {

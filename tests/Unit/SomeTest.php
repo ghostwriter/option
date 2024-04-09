@@ -20,7 +20,9 @@ use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use stdClass;
 use Throwable;
+
 use function sprintf;
+use function iterator_to_array;
 
 #[CoversClass(AbstractOption::class)]
 #[CoversClass(None::class)]
@@ -148,10 +150,7 @@ final class SomeTest extends TestCase
     public function testMapOr(): void
     {
         $some = Some::create('foo');
-        self::assertSame(
-            'foobar',
-            $some->mapOr(static fn (mixed $x): string => sprintf('%s%s', $x, 'bar'), 'baz')
-        );
+        self::assertSame('foobar', $some->mapOr(static fn (mixed $x): string => sprintf('%s%s', $x, 'bar'), 'baz'));
     }
 
     public function testMapOrElse(): void

@@ -1,8 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.22.1@e9dad66e11274315dac27e08349c628c7d6a1a43">
+<files psalm-version="5.23.1@8471a896ccea3526b26d082f4461eeea467f10a4">
+  <file src="src/AbstractOption.php">
+    <LessSpecificReturnType>
+      <code><![CDATA[OptionInterface<TOption>]]></code>
+      <code><![CDATA[OptionInterface<TOption>]]></code>
+    </LessSpecificReturnType>
+    <MissingOverrideAttribute>
+      <code><![CDATA[final public function and(OptionInterface $option): OptionInterface]]></code>
+      <code><![CDATA[final public function andThen(callable $function): OptionInterface]]></code>
+      <code><![CDATA[final public function contains(mixed $value): bool]]></code>
+      <code><![CDATA[final public function expect(Throwable $throwable): mixed]]></code>
+      <code><![CDATA[final public function filter(callable $function): OptionInterface]]></code>
+      <code><![CDATA[final public function flatten(): OptionInterface]]></code>
+      <code><![CDATA[final public function getIterator(): Generator]]></code>
+      <code><![CDATA[final public function isNone(): bool]]></code>
+      <code><![CDATA[final public function isSome(): bool]]></code>
+      <code><![CDATA[final public function map(callable $function): OptionInterface]]></code>
+      <code><![CDATA[final public function mapOr(callable $function, mixed $fallback): mixed]]></code>
+      <code><![CDATA[final public function mapOrElse(callable $function, callable $fallback): mixed]]></code>
+      <code><![CDATA[final public function or(OptionInterface $option): OptionInterface]]></code>
+      <code><![CDATA[final public function orElse(callable $function): OptionInterface]]></code>
+      <code><![CDATA[final public function unwrap(): mixed]]></code>
+      <code><![CDATA[final public function unwrapOr(mixed $fallback): mixed]]></code>
+      <code><![CDATA[final public function unwrapOrElse(callable $function): mixed]]></code>
+    </MissingOverrideAttribute>
+    <MissingThrowsDocblock>
+      <code><![CDATA[throw new OptionException('Callables passed to andThen() must return an instance of OptionInterface.');]]></code>
+    </MissingThrowsDocblock>
+  </file>
+  <file src="src/None.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public static function create(): self]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="src/OptionInterface.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getIterator(): Generator;]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="src/Some.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public static function create(mixed $value): self]]></code>
+    </MissingOverrideAttribute>
+    <MissingThrowsDocblock>
+      <code><![CDATA[throw new NullPointerException();]]></code>
+    </MissingThrowsDocblock>
+  </file>
   <file src="tests/Unit/NoneTest.php">
+    <LessSpecificReturnType>
+      <code><![CDATA[NoneInterface]]></code>
+      <code><![CDATA[SomeInterface]]></code>
+      <code><![CDATA[SomeInterface]]></code>
+      <code><![CDATA[int]]></code>
+      <code><![CDATA[int]]></code>
+      <code><![CDATA[string]]></code>
+      <code><![CDATA[string]]></code>
+      <code><![CDATA[string]]></code>
+    </LessSpecificReturnType>
     <ReservedWord>
       <code><![CDATA[mixed]]></code>
     </ReservedWord>
+  </file>
+  <file src="tests/Unit/SomeTest.php">
+    <LessSpecificReturnType>
+      <code><![CDATA[OptionInterface]]></code>
+      <code><![CDATA[string]]></code>
+      <code><![CDATA[string]]></code>
+      <code><![CDATA[string]]></code>
+      <code><![CDATA[string]]></code>
+      <code><![CDATA[string]]></code>
+    </LessSpecificReturnType>
   </file>
 </files>

@@ -16,9 +16,9 @@ use function is_iterable;
  *
  * @implements OptionInterface<TOption>
  *
- * @see \Ghostwriter\Option\Tests\Unit\OptionTest
- * @see \Ghostwriter\Option\Tests\Unit\SomeTest
- * @see \Ghostwriter\Option\Tests\Unit\NoneTest
+ * @see Tests\Unit\OptionTest
+ * @see Tests\Unit\SomeTest
+ * @see Tests\Unit\NoneTest
  */
 abstract class AbstractOption implements OptionInterface
 {

@@ -11,7 +11,7 @@ namespace Ghostwriter\Option;
  *
  * @implements NoneInterface<TNone>
  *
- * @see \Ghostwriter\Option\Tests\Unit\NoneTest
+ * @see \Tests\Unit\NoneTest
  */
 final class None extends AbstractOption implements NoneInterface
 {

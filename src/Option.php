@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Ghostwriter\Option;
 
 /**
- * @see \Ghostwriter\Option\Tests\Unit\OptionTest
+ * @see \Tests\Unit\OptionTest
  */
 final class Option
 {

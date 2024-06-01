@@ -30,20 +30,45 @@
     <projectFiles>
         <directory name="src"/>
         <directory name="tests"/>
-        <ignoreFiles>
-            <directory name=".github"/>
-            <directory name="vendor"/>
-        </ignoreFiles>
         <ignoreFiles allowMissingFiles="true">
             <directory name=".cache"/>
-            <directory name="bin"/>
-            <directory name="docs"/>
-            <directory name="fixtures"/>
             <directory name="tests/Fixture"/>
-            <directory name="tests/fixtures"/>
+            <directory name="vendor"/>
         </ignoreFiles>
     </projectFiles>
     <plugins>
-        <pluginClass class="Ghostwriter\PsalmPlugin\Plugin"/>
+        <!-- <pluginClass class="Ghostwriter\PsalmPlugin\Plugin"/> -->
     </plugins>
+    <issueHandlers>
+        <MissingOverrideAttribute>
+            <errorLevel type="suppress">
+                <directory name="tests"/>
+            </errorLevel>
+        </MissingOverrideAttribute>
+        <MissingThrowsDocblock>
+            <errorLevel type="suppress">
+                <directory name="tests"/>
+            </errorLevel>
+        </MissingThrowsDocblock>
+        <PossiblyUnusedMethod>
+            <errorLevel type="suppress">
+                <directory name="tests"/>
+            </errorLevel>
+        </PossiblyUnusedMethod>
+        <PossiblyUnusedProperty>
+            <errorLevel type="suppress">
+                <directory name="tests"/>
+            </errorLevel>
+        </PossiblyUnusedProperty>
+        <PropertyNotSetInConstructor>
+            <errorLevel type="suppress">
+                <directory name="tests"/>
+            </errorLevel>
+        </PropertyNotSetInConstructor>
+        <UnusedClass>
+            <errorLevel type="suppress">
+                <directory name="tests"/>
+            </errorLevel>
+        </UnusedClass>
+    </issueHandlers>
 </psalm>

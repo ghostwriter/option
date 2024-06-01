@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ghostwriter\Option\Tests\Unit;
+namespace Tests\Unit;
 
 use Generator;
 use Ghostwriter\Option\AbstractOption;
@@ -27,7 +27,7 @@ final class OptionTest extends TestCase
     /**
      * @var string
      */
-    public const BLACK_LIVES_MATTER = '#BlackLivesMatter';
+    public const string BLACK_LIVES_MATTER = '#BlackLivesMatter';
 
     /**
      * @return Generator<array-key, array{0:class-string,1:mixed}>

@@ -13,7 +13,7 @@ use Ghostwriter\Option\Exception\NullPointerException;
  *
  * @implements SomeInterface<TSome>
  *
- * @see \Ghostwriter\Option\Tests\Unit\SomeTest
+ * @see \Tests\Unit\SomeTest
  */
 final class Some extends AbstractOption implements SomeInterface
 {

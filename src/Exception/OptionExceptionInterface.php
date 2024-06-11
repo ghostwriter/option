@@ -6,4 +6,6 @@ namespace Ghostwriter\Option\Exception;
 
 use Throwable;
 
-interface OptionExceptionInterface extends Throwable {}
+interface OptionExceptionInterface extends Throwable
+{
+}

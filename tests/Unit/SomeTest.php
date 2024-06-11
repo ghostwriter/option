@@ -21,8 +21,8 @@ use RuntimeException;
 use stdClass;
 use Throwable;
 
-use function sprintf;
 use function iterator_to_array;
+use function sprintf;
 
 #[CoversClass(AbstractOption::class)]
 #[CoversClass(None::class)]
@@ -31,25 +31,6 @@ use function iterator_to_array;
 #[Small]
 final class SomeTest extends TestCase
 {
-    /**
-     * @return Generator<string, array{0:class-string,1:mixed}>
-     */
-    public static function ofDataProvider(): Generator
-    {
-        yield 'true' => [SomeInterface::class, true];
-        yield 'false' => [SomeInterface::class, false];
-        yield 'string' => [SomeInterface::class, 'string'];
-        yield 'Closure' => [
-            SomeInterface::class,
-            static fn (): string => 'Testing!',
-        ];
-        yield 'int' => [SomeInterface::class, 42];
-        yield 'float' => [SomeInterface::class, 13.37];
-        yield 'object' => [SomeInterface::class, new stdClass()];
-        yield 'array' => [SomeInterface::class, []];
-        yield 'Some::class' => [SomeInterface::class, Some::create(1337)];
-    }
-
     public function testAnd(): void
     {
         $some = Some::create('foo');
@@ -215,5 +196,24 @@ final class SomeTest extends TestCase
     {
         $some = Some::create('foo');
         self::assertSame('foo', $some->unwrapOrElse(static fn (): string => 'bar'));
+    }
+
+    /**
+     * @return Generator<string, array{0:class-string,1:mixed}>
+     */
+    public static function ofDataProvider(): Generator
+    {
+        yield 'true' => [SomeInterface::class, true];
+        yield 'false' => [SomeInterface::class, false];
+        yield 'string' => [SomeInterface::class, 'string'];
+        yield 'Closure' => [
+            SomeInterface::class,
+            static fn (): string => 'Testing!',
+        ];
+        yield 'int' => [SomeInterface::class, 42];
+        yield 'float' => [SomeInterface::class, 13.37];
+        yield 'object' => [SomeInterface::class, new stdClass()];
+        yield 'array' => [SomeInterface::class, []];
+        yield 'Some::class' => [SomeInterface::class, Some::create(1337)];
     }
 }

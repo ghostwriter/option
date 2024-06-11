@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Ghostwriter\Option;
 
+use Override;
+
 /**
  * @template TNone of never
  *
@@ -18,6 +20,7 @@ final class None extends AbstractOption implements NoneInterface
     private static null|self $none = null;
 
     /** @return self<TNone> */
+    #[Override]
     public static function create(): self
     {
         /** @var TNone $none */

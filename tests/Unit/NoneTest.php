@@ -30,17 +30,6 @@ use function sprintf;
 #[Small]
 final class NoneTest extends TestCase
 {
-    /**
-     * @template TNone of null
-     *
-     * @return Generator<array-key, array{0:class-string<NoneInterface>,1:None|TNone}>
-     */
-    public static function ofDataProvider(): Generator
-    {
-        yield 'null' => [NoneInterface::class, null];
-        yield 'None::class' => [NoneInterface::class, None::create()];
-    }
-
     public function testAnd(): void
     {
         $some = Some::create('foobar');
@@ -187,5 +176,16 @@ final class NoneTest extends TestCase
         $function = static fn (): string => 'UnwrapOrElse';
 
         self::assertSame('UnwrapOrElse', $none->unwrapOrElse($function));
+    }
+
+    /**
+     * @template TNone of null
+     *
+     * @return Generator<array-key, array{0:class-string<NoneInterface>,1:None|TNone}>
+     */
+    public static function ofDataProvider(): Generator
+    {
+        yield 'null' => [NoneInterface::class, null];
+        yield 'None::class' => [NoneInterface::class, None::create()];
     }
 }

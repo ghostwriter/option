@@ -29,18 +29,6 @@ final class OptionTest extends TestCase
      */
     public const string BLACK_LIVES_MATTER = '#BlackLivesMatter';
 
-    /**
-     * @return Generator<array-key, array{0:class-string,1:mixed}>
-     */
-    public static function createDataProvider(): Generator
-    {
-        yield self::BLACK_LIVES_MATTER => [SomeInterface::class, self::BLACK_LIVES_MATTER];
-        yield 'null' => [NoneInterface::class, null];
-
-        yield 'SomeInterface::class' => [Some::class, Some::create(self::BLACK_LIVES_MATTER)];
-        yield 'NoneInterface::class' => [None::class, None::create()];
-    }
-
     public function testNone(): void
     {
         self::assertSame(None::create(), Option::create(null));
@@ -67,5 +55,17 @@ final class OptionTest extends TestCase
     public function testSome(): void
     {
         self::assertSame(self::BLACK_LIVES_MATTER, Option::create(self::BLACK_LIVES_MATTER)->unwrap());
+    }
+
+    /**
+     * @return Generator<array-key, array{0:class-string,1:mixed}>
+     */
+    public static function createDataProvider(): Generator
+    {
+        yield self::BLACK_LIVES_MATTER => [SomeInterface::class, self::BLACK_LIVES_MATTER];
+        yield 'null' => [NoneInterface::class, null];
+
+        yield 'SomeInterface::class' => [Some::class, Some::create(self::BLACK_LIVES_MATTER)];
+        yield 'NoneInterface::class' => [None::class, None::create()];
     }
 }

@@ -6,4 +6,6 @@ namespace Ghostwriter\Option\Exception;
 
 use InvalidArgumentException;
 
-final class NullPointerException extends InvalidArgumentException implements OptionExceptionInterface {}
+final class NullPointerException extends InvalidArgumentException implements OptionExceptionInterface
+{
+}

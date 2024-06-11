@@ -6,4 +6,6 @@ namespace Ghostwriter\Option\Exception;
 
 use RuntimeException;
 
-final class OptionException extends RuntimeException implements OptionExceptionInterface {}
+final class OptionException extends RuntimeException implements OptionExceptionInterface
+{
+}

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ghostwriter\Option;
 
 use Ghostwriter\Option\Exception\NullPointerException;
+use Override;
 
 /**
  * @template TSome
@@ -24,6 +25,7 @@ final class Some extends AbstractOption implements SomeInterface
      *
      * @return self<TValue>
      */
+    #[Override]
     public static function create(mixed $value): self
     {
         if ($value === null) {

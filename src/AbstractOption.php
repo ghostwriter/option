@@ -7,6 +7,7 @@ namespace Ghostwriter\Option;
 use Generator;
 use Ghostwriter\Option\Exception\NullPointerException;
 use Ghostwriter\Option\Exception\OptionException;
+use Override;
 use Throwable;
 
 use function is_iterable;
@@ -16,9 +17,9 @@ use function is_iterable;
  *
  * @implements OptionInterface<TOption>
  *
- * @see Tests\Unit\OptionTest
- * @see Tests\Unit\SomeTest
- * @see Tests\Unit\NoneTest
+ * @see \Tests\Unit\OptionTest
+ * @see \Tests\Unit\SomeTest
+ * @see \Tests\Unit\NoneTest
  */
 abstract class AbstractOption implements OptionInterface
 {
@@ -27,8 +28,10 @@ abstract class AbstractOption implements OptionInterface
      */
     public function __construct(
         private readonly mixed $value
-    ) {}
+    ) {
+    }
 
+    #[Override]
     final public function and(OptionInterface $option): OptionInterface
     {
         if ($this instanceof NoneInterface) {
@@ -38,6 +41,7 @@ abstract class AbstractOption implements OptionInterface
         return $option;
     }
 
+    #[Override]
     final public function andThen(callable $function): OptionInterface
     {
         if ($this instanceof NoneInterface) {
@@ -54,6 +58,7 @@ abstract class AbstractOption implements OptionInterface
         throw new OptionException('Callables passed to andThen() must return an instance of OptionInterface.');
     }
 
+    #[Override]
     final public function contains(mixed $value): bool
     {
         if ($this instanceof NoneInterface) {
@@ -63,6 +68,7 @@ abstract class AbstractOption implements OptionInterface
         return $this->value === $value;
     }
 
+    #[Override]
     final public function expect(Throwable $throwable): mixed
     {
         if ($this instanceof NoneInterface) {
@@ -72,6 +78,7 @@ abstract class AbstractOption implements OptionInterface
         return $this->value;
     }
 
+    #[Override]
     final public function filter(callable $function): OptionInterface
     {
         return $this->map(
@@ -87,6 +94,7 @@ abstract class AbstractOption implements OptionInterface
         );
     }
 
+    #[Override]
     final public function flatten(): OptionInterface
     {
         return $this->map(
@@ -102,6 +110,7 @@ abstract class AbstractOption implements OptionInterface
         );
     }
 
+    #[Override]
     final public function getIterator(): Generator
     {
         if ($this instanceof NoneInterface) {
@@ -117,16 +126,19 @@ abstract class AbstractOption implements OptionInterface
         }
     }
 
+    #[Override]
     final public function isNone(): bool
     {
         return $this instanceof NoneInterface;
     }
 
+    #[Override]
     final public function isSome(): bool
     {
         return $this instanceof SomeInterface;
     }
 
+    #[Override]
     final public function map(callable $function): OptionInterface
     {
         if ($this instanceof NoneInterface) {
@@ -136,6 +148,7 @@ abstract class AbstractOption implements OptionInterface
         return Option::create($function($this->value));
     }
 
+    #[Override]
     final public function mapOr(callable $function, mixed $fallback): mixed
     {
         if ($this instanceof NoneInterface) {
@@ -145,6 +158,7 @@ abstract class AbstractOption implements OptionInterface
         return $function($this->value);
     }
 
+    #[Override]
     final public function mapOrElse(callable $function, callable $fallback): mixed
     {
         if ($this instanceof NoneInterface) {
@@ -154,6 +168,7 @@ abstract class AbstractOption implements OptionInterface
         return $function($this->value);
     }
 
+    #[Override]
     final public function or(OptionInterface $option): OptionInterface
     {
         if ($this instanceof SomeInterface) {
@@ -163,6 +178,7 @@ abstract class AbstractOption implements OptionInterface
         return $option;
     }
 
+    #[Override]
     final public function orElse(callable $function): OptionInterface
     {
         if ($this instanceof SomeInterface) {
@@ -175,6 +191,7 @@ abstract class AbstractOption implements OptionInterface
         return Option::create($result);
     }
 
+    #[Override]
     final public function unwrap(): mixed
     {
         if ($this instanceof NoneInterface) {
@@ -184,6 +201,7 @@ abstract class AbstractOption implements OptionInterface
         return $this->value;
     }
 
+    #[Override]
     final public function unwrapOr(mixed $fallback): mixed
     {
         if ($this instanceof SomeInterface) {
@@ -193,6 +211,7 @@ abstract class AbstractOption implements OptionInterface
         return $fallback;
     }
 
+    #[Override]
     final public function unwrapOrElse(callable $function): mixed
     {
         if ($this instanceof SomeInterface) {

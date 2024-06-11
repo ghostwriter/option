@@ -41,6 +41,9 @@ abstract class AbstractOption implements OptionInterface
         return $option;
     }
 
+    /**
+     * @throws OptionException
+     */
     #[Override]
     final public function andThen(callable $function): OptionInterface
     {
@@ -68,6 +71,9 @@ abstract class AbstractOption implements OptionInterface
         return $this->value === $value;
     }
 
+    /**
+     * @throws Throwable
+     */
     #[Override]
     final public function expect(Throwable $throwable): mixed
     {
@@ -191,6 +197,9 @@ abstract class AbstractOption implements OptionInterface
         return Option::create($result);
     }
 
+    /**
+     * @throws NullPointerException
+     */
     #[Override]
     final public function unwrap(): mixed
     {

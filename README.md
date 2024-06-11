@@ -18,6 +18,10 @@ You can install the package via composer:
 composer require ghostwriter/option
 ```
 
+### Star ⭐️ this repo if you find it useful
+
+You can also star (🌟) this repo to find it easier later.
+
 ## Usage
 
 ```php
@@ -295,4 +299,4 @@ If you discover any security related issues, please email `nathanael.esayeas@pro
 
 ## License
 
-The BSD-3-Clause. Please see [License File](./LICENSE) for more information.
+The BSD-3-Clause. Please see [LICENSE](./LICENSE) for more information.

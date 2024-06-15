@@ -62,7 +62,7 @@
     },
     "scripts": {
         "bin_ecs": "ecs check --clear-cache --no-interaction",
-        "bin_infection": "infection --ansi --verbose --threads=max --min-msi=0 --min-covered-msi=0",
+        "bin_infection": "infection --ansi --show-mutations --threads=max --min-msi=0 --min-covered-msi=0",
         "bin_phive": "phive",
         "bin_phpunit": "phpunit --do-not-cache-result --colors=always",
         "bin_psalm": "psalm --no-cache",

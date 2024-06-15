@@ -200,6 +200,8 @@ final readonly class Some implements SomeInterface
     public static function nullable(mixed $value): OptionInterface
     {
         return match (true) {
+            $value instanceof OptionInterface => $value,
+
             $value === null => None::new(),
 
             default => self::new($value),

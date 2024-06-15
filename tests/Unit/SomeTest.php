@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace Tests\Unit;
 
 use Generator;
-use Ghostwriter\Option\AbstractOption;
 use Ghostwriter\Option\Exception\NullPointerException;
 use Ghostwriter\Option\Exception\OptionException;
+use Ghostwriter\Option\Interface\NoneInterface;
+use Ghostwriter\Option\Interface\OptionInterface;
+use Ghostwriter\Option\Interface\SomeInterface;
 use Ghostwriter\Option\None;
-use Ghostwriter\Option\Option;
-use Ghostwriter\Option\OptionInterface;
 use Ghostwriter\Option\Some;
-use Ghostwriter\Option\SomeInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Small;
@@ -24,36 +23,60 @@ use Throwable;
 use function iterator_to_array;
 use function sprintf;
 
-#[CoversClass(AbstractOption::class)]
 #[CoversClass(None::class)]
-#[CoversClass(Option::class)]
 #[CoversClass(Some::class)]
 #[Small]
 final class SomeTest extends TestCase
 {
+    /**
+     * @var string
+     */
+    public const string BLACK_LIVES_MATTER = '#BlackLivesMatter';
+
     public function testAnd(): void
     {
-        $some = Some::create('foo');
-        $other = Some::create('foo');
+        $some = Some::new('foo');
+
+        $other = Some::new('foo');
+
         self::assertSame($some, $other->and($some));
     }
 
+    /**
+     * @psalm-suppress RedundantConditionGivenDocblockType
+     * @psalm-suppress DocblockTypeContradiction
+     *
+     * @throws Throwable
+     */
     public function testAndThen(): void
     {
-        $some = Some::create('foo');
-        $option = $some->andThen(static fn (mixed $x): OptionInterface => Some::create($x));
+        $foo = 'foo';
+
+        $some = Some::new($foo);
+
+        $option = $some->andThen(
+            /**
+             * @param string $x
+             *
+             * @return SomeInterface<string>
+             */
+            static fn (mixed $x): SomeInterface => Some::new($x)
+        );
 
         self::assertInstanceOf(SomeInterface::class, $option);
-        self::assertSame('foo', $option->unwrap());
+
+        self::assertSame($foo, $option->unwrap());
 
         $this->expectException(OptionException::class);
+
         $option = $some->andThen(static fn (mixed $x): mixed => $x);
-        self::assertSame('foo', $option->unwrap());
+
+        self::assertSame($foo, $option->unwrap());
     }
 
     public function testContains(): void
     {
-        $some = Some::create('foo');
+        $some = Some::new('foo');
         self::assertTrue($some->contains('foo'));
 
         self::assertFalse($some->contains(true));
@@ -62,7 +85,7 @@ final class SomeTest extends TestCase
     public function testCreate(): void
     {
         $this->expectException(NullPointerException::class);
-        Some::create(null);
+        Some::new(null);
     }
 
     /**
@@ -71,12 +94,12 @@ final class SomeTest extends TestCase
      */
     public function testExpect(): void
     {
-        self::assertSame('foo', Some::create('foo')->expect(new RuntimeException(__FUNCTION__)));
+        self::assertSame('foo', Some::new('foo')->expect(new RuntimeException(__FUNCTION__)));
     }
 
     public function testFilter(): void
     {
-        $some = Some::create('foo');
+        $some = Some::new('foo');
         // returns the instance if its type is Some and the given function returns true.
         self::assertSame($some, $some->filter(static fn ($x): bool => $x === 'foo'));
 
@@ -84,65 +107,99 @@ final class SomeTest extends TestCase
         self::assertTrue($some->filter(static fn (string $x): bool => $x[0] === 'b')->isNone());
     }
 
+    /**
+     * @psalm-suppress RedundantConditionGivenDocblockType
+     */
     public function testFlatten(): void
     {
-        $some = Some::create('foo');
+        $some = Some::new('foo');
+
         // unwraps Some containing a Some and returns the unwrapped Some.
-        $other = Some::create($some);
-        $option = $other->flatten();
+        $option = Some::new($some)->flatten();
 
         self::assertInstanceOf(SomeInterface::class, $option);
+
+        self::assertSame($some, $option);
+        self::assertSame($some, $option->flatten());
+
+        self::assertSame('foo', $some->unwrap());
         self::assertSame('foo', $option->unwrap());
 
-        // returns the instance if the wrapped value is not an instance of Some.
         self::assertSame('foo', $some->flatten()->unwrap());
-        self::assertSame($some, $some->flatten());
+        self::assertSame('foo', $option->flatten()->unwrap());
     }
 
     public function testGetIterator(): void
     {
-        $some = Some::create('foo');
+        $some = Some::new('foo');
         self::assertCount(1, iterator_to_array($some));
 
-        $some = Some::create(['foo', 'bar']);
+        $some = Some::new(['foo', 'bar']);
         self::assertCount(2, iterator_to_array($some));
     }
 
     public function testIsNone(): void
     {
-        $some = Some::create('foo');
+        $some = Some::new('foo');
         self::assertFalse($some->isNone());
     }
 
     public function testIsSome(): void
     {
-        $some = Some::create('foo');
+        $some = Some::new('foo');
         self::assertTrue($some->isSome());
     }
 
     public function testMap(): void
     {
-        $some = Some::create('foo');
-        $option = $some->map(static fn (mixed $x): string => sprintf('%s%s', $x, 'bar'));
+        $some = Some::new('foo');
+        $option = $some->map(
+            /**
+             * @param non-empty-string $x
+             *
+             * @return non-empty-string
+             */
+            static fn (mixed $x): string => sprintf('%s%s', $x, 'bar')
+        );
         self::assertTrue($option->isSome());
         self::assertSame('foobar', $option->unwrap());
     }
 
     public function testMapOr(): void
     {
-        $some = Some::create('foo');
-        self::assertSame('foobar', $some->mapOr(static fn (mixed $x): string => sprintf('%s%s', $x, 'bar'), 'baz'));
+        $some = Some::new('foo');
+
+        self::assertSame(
+            'foobar',
+            $some->mapOr(
+                /**
+                 * @param non-empty-string $x
+                 *
+                 * @return non-empty-string
+                 */
+                static fn (mixed $x): string => sprintf('%s%s', $x, 'bar'),
+                'baz'
+            )
+        );
     }
 
     public function testMapOrElse(): void
     {
-        $some = Some::create('foo');
+        $some = Some::new('foo');
 
         $someFn = static fn (mixed $value): string => (string) $value;
 
-        $noneFn = static fn (): string => 'failed!';
+        $noneFn = /** @return 'failed' */ static fn (): string => 'failed';
 
         self::assertSame('foo', $some->mapOrElse($someFn, $noneFn));
+    }
+
+    /**
+     * @throws Throwable
+     */
+    public function testNone(): void
+    {
+        self::assertSame(None::new(), Some::nullable(null));
     }
 
     /**
@@ -154,7 +211,7 @@ final class SomeTest extends TestCase
     #[DataProvider('ofDataProvider')]
     public function testOptionCreate(string $expected, mixed $value): void
     {
-        $option = Option::create($value);
+        $option = Some::nullable($value);
 
         if ($value instanceof OptionInterface) {
             self::assertSame($value, $option);
@@ -165,37 +222,81 @@ final class SomeTest extends TestCase
 
     public function testOr(): void
     {
-        $some = Some::create('foo');
+        $some = Some::new('foo');
         self::assertSame($some, $some->or($some));
 
-        $some2 = Some::create('foo');
+        $some2 = Some::new('foo');
         self::assertSame($some, $some->or($some2));
     }
 
     public function testOrElse(): void
     {
-        $some = Some::create('foo');
+        $some = Some::new('foo');
         self::assertSame($some, $some->orElse(static function (): never {
             throw new RuntimeException('Should not be called!');
         }));
     }
 
+    /**
+     * @throws Throwable
+     */
+    public function testSome(): void
+    {
+        self::assertSame(self::BLACK_LIVES_MATTER, Some::nullable(self::BLACK_LIVES_MATTER)->unwrap());
+    }
+
+    /**
+     * @template TValue
+     *
+     * @param class-string $expected
+     * @param TValue       $value
+     */
+    #[DataProvider('nullableDataProvider')]
+    public function testSomeNullable(string $expected, mixed $value): void
+    {
+        $option = Some::nullable($value);
+
+        if ($value instanceof OptionInterface) {
+            self::assertSame($value, $option);
+        }
+
+        self::assertInstanceOf($expected, $option);
+    }
+
     public function testUnwrap(): void
     {
-        $some = Some::create('foo');
+        $some = Some::new('foo');
+
+        /** @psalm-suppress RedundantConditionGivenDocblockType */
         self::assertSame('foo', $some->unwrap());
     }
 
     public function testUnwrapOr(): void
     {
-        $some = Some::create('foo');
+        $some = Some::new('foo');
+
         self::assertSame('foo', $some->unwrapOr('fallback'));
     }
 
     public function testUnwrapOrElse(): void
     {
-        $some = Some::create('foo');
-        self::assertSame('foo', $some->unwrapOrElse(static fn (): string => 'bar'));
+        $some = Some::new('foo');
+        self::assertSame('foo', $some->unwrapOrElse(/** @return 'bar' */ static fn (): string => 'bar'));
+    }
+
+    /**
+     * @throws Throwable
+     *
+     * @return Generator<array-key, array{0:class-string,1:mixed}>
+     *
+     */
+    public static function nullableDataProvider(): Generator
+    {
+        yield self::BLACK_LIVES_MATTER => [SomeInterface::class, self::BLACK_LIVES_MATTER];
+        yield 'null' => [NoneInterface::class, null];
+
+        yield 'SomeInterface::class' => [Some::class, Some::new(self::BLACK_LIVES_MATTER)];
+        yield 'NoneOptionInterface::class' => [None::class, None::new()];
     }
 
     /**
@@ -208,12 +309,12 @@ final class SomeTest extends TestCase
         yield 'string' => [SomeInterface::class, 'string'];
         yield 'Closure' => [
             SomeInterface::class,
-            static fn (): string => 'Testing!',
+/** @return 'Closure' */ static fn (): string => 'Closure',
         ];
         yield 'int' => [SomeInterface::class, 42];
         yield 'float' => [SomeInterface::class, 13.37];
         yield 'object' => [SomeInterface::class, new stdClass()];
         yield 'array' => [SomeInterface::class, []];
-        yield 'Some::class' => [SomeInterface::class, Some::create(1337)];
+        yield 'Some::class' => [SomeInterface::class, Some::new(1337)];
     }
 }

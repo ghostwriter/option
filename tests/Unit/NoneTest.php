@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace Tests\Unit;
 
 use Generator;
-use Ghostwriter\Option\AbstractOption;
 use Ghostwriter\Option\Exception\NullPointerException;
+use Ghostwriter\Option\Interface\NoneInterface;
+use Ghostwriter\Option\Interface\OptionInterface;
+use Ghostwriter\Option\Interface\SomeInterface;
 use Ghostwriter\Option\None;
-use Ghostwriter\Option\NoneInterface;
-use Ghostwriter\Option\Option;
-use Ghostwriter\Option\OptionInterface;
 use Ghostwriter\Option\Some;
-use Ghostwriter\Option\SomeInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Small;
@@ -20,46 +18,60 @@ use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use Throwable;
 
+use function get_debug_type;
 use function iterator_to_array;
 use function sprintf;
 
-#[CoversClass(AbstractOption::class)]
 #[CoversClass(None::class)]
-#[CoversClass(Option::class)]
 #[CoversClass(Some::class)]
 #[Small]
 final class NoneTest extends TestCase
 {
+    /**
+     * @throws Throwable
+     */
     public function testAnd(): void
     {
-        $some = Some::create('foobar');
-        $none = None::create();
+        $some = Some::new('foobar');
+        $none = None::new();
         $option = $none->and($some);
 
         self::assertSame($none, $option);
         self::assertInstanceOf(NoneInterface::class, $option);
     }
 
+    /**
+     * @throws Throwable
+     */
     public function testAndThen(): void
     {
-        $option = None::create()->andThen(static fn (): SomeInterface => Some::create(true));
+        $option = None::new()->andThen(
+            /** @return SomeInterface<true> */
+            static fn (): SomeInterface => Some::new(true)
+        );
+
         self::assertFalse($option->unwrapOr(false));
     }
 
+    /**
+     * @throws Throwable
+     */
     public function testContains(): void
     {
-        $none = None::create();
+        $none = None::new();
         self::assertFalse($none->contains(null));
     }
 
+    /**
+     * @throws Throwable
+     */
     public function testCreate(): void
     {
-        $none = None::create();
-        self::assertSame($none, None::create());
+        $none = None::new();
+        self::assertSame($none, None::new());
     }
 
     /**
-     *
      * @throws Throwable
      */
     public function testExpect(): void
@@ -67,58 +79,91 @@ final class NoneTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage(__FUNCTION__);
 
-        None::create()->expect(new RuntimeException(__FUNCTION__));
+        None::new()->expect(new RuntimeException(__FUNCTION__));
     }
 
+    /**
+     * @throws Throwable
+     */
     public function testFilter(): void
     {
-        self::assertInstanceOf(NoneInterface::class, None::create()->filter(static fn (mixed $x): bool => $x === null));
+        self::assertInstanceOf(NoneInterface::class, None::new()->filter(static fn (mixed $x): bool => $x === null));
     }
 
+    /**
+     * @throws Throwable
+     */
     public function testFlatten(): void
     {
-        $none = None::create();
+        $none = None::new();
         $option = $none->flatten();
         self::assertSame($none, $option);
         self::assertInstanceOf(NoneInterface::class, $option);
     }
 
+    /**
+     * @throws Throwable
+     */
     public function testGetIterator(): void
     {
-        $none = None::create();
+        $none = None::new();
         self::assertCount(0, iterator_to_array($none));
     }
 
+    /**
+     * @throws Throwable
+     */
     public function testIsNone(): void
     {
-        $none = None::create();
+        $none = None::new();
         self::assertTrue($none->isNone());
     }
 
+    /**
+     * @throws Throwable
+     */
     public function testIsSome(): void
     {
-        $none = None::create();
+        $none = None::new();
         self::assertFalse($none->isSome());
     }
 
+    /**
+     * @throws Throwable
+     */
     public function testMap(): void
     {
-        $none = None::create();
-        self::assertInstanceOf(NoneInterface::class, $none->map(static fn (): int => 0));
+        $none = None::new();
+        self::assertInstanceOf(NoneInterface::class, $none->map(/** @return 0 */ static fn (): int => 0));
     }
 
+    /**
+     * @throws Throwable
+     */
     public function testMapOr(): void
     {
-        $none = None::create();
-        self::assertSame('baz', $none->mapOr(static fn (): int => 0, 'baz'));
+        $none = None::new();
+        self::assertSame('baz', $none->mapOr(/** @return 0 */ static fn (): int => 0, 'baz'));
     }
 
+    /**
+     * @template TMixed
+     *
+     * @throws Throwable
+     */
     public function testMapOrElse(): void
     {
-        $none = None::create();
+        $none = None::new();
 
-        $someFn = static fn (mixed $value): string => sprintf('%sbar', (string) $value);
-        $noneFn = static fn (): string => 'baz';
+        $someFn =
+            /**
+             * @param TMixed $value
+             *
+             * @return non-empty-string
+             */
+            static fn (mixed $value): string => sprintf('%sbar', get_debug_type($value));
+
+        $noneFn = /** @return 'baz' */ static fn (): string => 'baz';
 
         self::assertSame('baz', $none->mapOrElse($someFn, $noneFn));
     }
@@ -129,11 +174,13 @@ final class NoneTest extends TestCase
      *
      * @param class-string $expected
      * @param TValue       $value
+     *
+     * @throws Throwable
      */
     #[DataProvider('ofDataProvider')]
     public function testOptionCreate(string $expected, mixed $value): void
     {
-        $option = Option::create($value);
+        $option = Some::nullable($value);
 
         if ($value instanceof OptionInterface) {
             self::assertSame($value, $option);
@@ -142,50 +189,73 @@ final class NoneTest extends TestCase
         self::assertInstanceOf($expected, $option);
     }
 
+    /**
+     * @throws Throwable
+     */
     public function testOr(): void
     {
-        $none = None::create();
-        $some = Some::create('foobar');
+        $none = None::new();
+        $some = Some::new('foobar');
         self::assertSame($some, $none->or($some));
     }
 
+    /**
+     * @throws Throwable
+     */
     public function testOrElse(): void
     {
-        $none = None::create();
-        $some = Some::create('foo');
+        $none = None::new();
+
+        $some = Some::new('foo');
+
         self::assertSame($none, $none->orElse(static fn (): NoneInterface => $none));
-        self::assertSame($some, $none->orElse(static fn (): SomeInterface => $some));
+
+        self::assertSame($some, $none->orElse(
+            /**
+             * @return SomeInterface<'foo'>
+             */
+            static fn (): SomeInterface => $some
+        ));
     }
 
+    /**
+     * @throws Throwable
+     */
     public function testUnwrap(): void
     {
-        $none = None::create();
+        $none = None::new();
         $this->expectException(NullPointerException::class);
         $none->unwrap();
     }
 
+    /**
+     * @throws Throwable
+     */
     public function testUnwrapOr(): void
     {
-        $none = None::create();
+        $none = None::new();
+
         self::assertSame('UnwrapOr', $none->unwrapOr('UnwrapOr'));
     }
 
+    /**
+     * @throws Throwable
+     */
     public function testUnwrapOrElse(): void
     {
-        $none = None::create();
-        $function = static fn (): string => 'UnwrapOrElse';
+        $none = None::new();
+
+        $function = /** @return 'UnwrapOrElse'  */ static fn (): string => 'UnwrapOrElse';
 
         self::assertSame('UnwrapOrElse', $none->unwrapOrElse($function));
     }
 
     /**
-     * @template TNone of null
-     *
-     * @return Generator<array-key, array{0:class-string<NoneInterface>,1:None|TNone}>
+     * @return Generator<'None::class'|'null',array{0:class-string<NoneInterface>,1:null|NoneInterface}>
      */
     public static function ofDataProvider(): Generator
     {
         yield 'null' => [NoneInterface::class, null];
-        yield 'None::class' => [NoneInterface::class, None::create()];
+        yield 'None::class' => [NoneInterface::class, None::new()];
     }
 }

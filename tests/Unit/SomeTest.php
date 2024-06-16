@@ -43,7 +43,6 @@ final class SomeTest extends TestCase
     }
 
     /**
-     * @psalm-suppress RedundantConditionGivenDocblockType
      * @psalm-suppress DocblockTypeContradiction
      *
      * @throws Throwable
@@ -74,22 +73,29 @@ final class SomeTest extends TestCase
         self::assertSame($foo, $option->unwrap());
     }
 
+    /**
+     * @throws Throwable
+     */
     public function testContains(): void
     {
         $some = Some::new('foo');
+
         self::assertTrue($some->contains('foo'));
 
         self::assertFalse($some->contains(true));
     }
 
+    /**
+     * @throws Throwable
+     */
     public function testCreate(): void
     {
         $this->expectException(NullPointerException::class);
+
         Some::new(null);
     }
 
     /**
-     *
      * @throws Throwable
      */
     public function testExpect(): void
@@ -107,9 +113,6 @@ final class SomeTest extends TestCase
         self::assertTrue($some->filter(static fn (string $x): bool => $x[0] === 'b')->isNone());
     }
 
-    /**
-     * @psalm-suppress RedundantConditionGivenDocblockType
-     */
     public function testFlatten(): void
     {
         $some = Some::new('foo');
@@ -267,7 +270,6 @@ final class SomeTest extends TestCase
     {
         $some = Some::new('foo');
 
-        /** @psalm-suppress RedundantConditionGivenDocblockType */
         self::assertSame('foo', $some->unwrap());
     }
 

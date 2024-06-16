@@ -66,7 +66,7 @@
         "bin_phive": "phive",
         "bin_phpunit": "phpunit --do-not-cache-result --colors=always",
         "bin_psalm": "psalm --no-cache",
-        "bin_rector": "rector process --no-ansi --no-interaction --clear-cache",
+        "bin_rector": "rector process --no-ansi --clear-cache",
         "cache:clear": "rm -rf ./.cache/*",
         "check": [
             "@composer validate",

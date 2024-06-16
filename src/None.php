@@ -18,7 +18,7 @@ use Throwable;
  */
 final class None implements NoneInterface
 {
-    private static ?self $instance;
+    private static ?self $instance = null;
 
     private function __construct()
     {

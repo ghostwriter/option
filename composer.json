@@ -21,7 +21,8 @@
         "forum": "https://github.com/ghostwriter/option/discussions",
         "source": "https://github.com/ghostwriter/option",
         "docs": "https://github.com/ghostwriter/option",
-        "rss": "https://github.com/ghostwriter/option/releases.atom"
+        "rss": "https://github.com/ghostwriter/option/releases.atom",
+        "security": "https://github.com/ghostwriter/option/security/advisories/new"
     },
     "funding": [
         {
@@ -29,6 +30,7 @@
             "url": "https://github.com/sponsors/ghostwriter"
         }
     ],
+    "_comment": "#BlackLivesMatter",
     "require": {
         "php": ">=8.3"
     },
@@ -54,6 +56,9 @@
         "classmap-authoritative": false,
         "discard-changes": true,
         "optimize-autoloader": true,
+        "platform": {
+            "php": "8.3.999"
+        },
         "preferred-install": "dist",
         "prepend-autoloader": true,
         "process-timeout": 5000,

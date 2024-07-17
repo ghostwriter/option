@@ -172,18 +172,15 @@ final class SomeTest extends TestCase
     {
         $some = Some::new('foo');
 
-        self::assertSame(
-            'foobar',
-            $some->mapOr(
-                /**
-                 * @param non-empty-string $x
-                 *
-                 * @return non-empty-string
-                 */
-                static fn (mixed $x): string => sprintf('%s%s', $x, 'bar'),
-                'baz'
-            )
-        );
+        self::assertSame('foobar', $some->mapOr(
+            /**
+             * @param non-empty-string $x
+             *
+             * @return non-empty-string
+             */
+            static fn (mixed $x): string => sprintf('%s%s', $x, 'bar'),
+            'baz'
+        ));
     }
 
     public function testMapOrElse(): void

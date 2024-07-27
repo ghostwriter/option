@@ -1,6 +1,6 @@
 # Option
 
-[![Compliance](https://github.com/ghostwriter/option/actions/workflows/compliance.yml/badge.svg)](https://github.com/ghostwriter/option/actions/workflows/compliance.yml)
+[![Compliance](https://github.com/ghostwriter/option/actions/workflows/automation.yml/badge.svg)](https://github.com/ghostwriter/option/actions/workflows/automation.yml)
 [![Supported PHP Version](https://badgen.net/packagist/php/ghostwriter/option?color=8892bf&cache=600&)](https://www.php.net/supported-versions)
 [![Mutation Coverage](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fghostwriter%2Foption%2Fmain)](https://dashboard.stryker-mutator.io/reports/github.com/ghostwriter/option/main)
 [![Code Coverage](https://codecov.io/gh/ghostwriter/option/branch/main/graph/badge.svg)](https://codecov.io/gh/ghostwriter/option)

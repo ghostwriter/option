@@ -87,7 +87,7 @@ final class NoneTest extends TestCase
      */
     public function testFilter(): void
     {
-        self::assertInstanceOf(NoneInterface::class, None::new()->filter(static fn (mixed $x): bool => $x === null));
+        self::assertInstanceOf(NoneInterface::class, None::new()->filter(static fn (mixed $x): bool => null === $x));
     }
 
     /**
@@ -155,13 +155,10 @@ final class NoneTest extends TestCase
     {
         $none = None::new();
 
-        $someFn =
-            /**
-             * @param TMixed $value
-             *
-             * @return non-empty-string
-             */
-            static fn (mixed $value): string => sprintf('%sbar', get_debug_type($value));
+        /**
+         * @var Closure(TMixed):non-empty-string $someFn
+         */
+        $someFn = static fn (mixed $value): mixed => sprintf('%sbar', get_debug_type($value));
 
         $noneFn = /** @return 'baz' */ static fn (): string => 'baz';
 

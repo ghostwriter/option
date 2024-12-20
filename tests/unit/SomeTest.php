@@ -68,13 +68,13 @@ final class SomeTest extends TestCase
 
         self::assertInstanceOf(SomeInterface::class, $option);
 
-        self::assertSame($foo, $option->unwrap());
+        self::assertSame($foo, $option->get());
 
         $this->expectException(OptionException::class);
 
         $option = $some->andThen(static fn (mixed $x): mixed => $x);
 
-        self::assertSame($foo, $option->unwrap());
+        self::assertSame($foo, $option->get());
     }
 
     /**
@@ -135,11 +135,11 @@ final class SomeTest extends TestCase
         self::assertSame($some, $option);
         self::assertSame($some, $option->flatten());
 
-        self::assertSame('foo', $some->unwrap());
-        self::assertSame('foo', $option->unwrap());
+        self::assertSame('foo', $some->get());
+        self::assertSame('foo', $option->get());
 
-        self::assertSame('foo', $some->flatten()->unwrap());
-        self::assertSame('foo', $option->flatten()->unwrap());
+        self::assertSame('foo', $some->flatten()->get());
+        self::assertSame('foo', $option->flatten()->get());
     }
 
     /**
@@ -187,7 +187,7 @@ final class SomeTest extends TestCase
             static fn (mixed $x): string => sprintf('%s%s', $x, 'bar')
         );
         self::assertTrue($option->isSome());
-        self::assertSame('foobar', $option->unwrap());
+        self::assertSame('foobar', $option->get());
     }
 
     /**
@@ -278,7 +278,7 @@ final class SomeTest extends TestCase
      */
     public function testSome(): void
     {
-        self::assertSame(self::BLACK_LIVES_MATTER, Some::nullable(self::BLACK_LIVES_MATTER)->unwrap());
+        self::assertSame(self::BLACK_LIVES_MATTER, Some::nullable(self::BLACK_LIVES_MATTER)->get());
     }
 
     /**
@@ -308,7 +308,7 @@ final class SomeTest extends TestCase
     {
         $some = Some::new('foo');
 
-        self::assertSame('foo', $some->unwrap());
+        self::assertSame('foo', $some->get());
     }
 
     /**
@@ -318,7 +318,7 @@ final class SomeTest extends TestCase
     {
         $some = Some::new('foo');
 
-        self::assertSame('foo', $some->unwrapOr('fallback'));
+        self::assertSame('foo', $some->getOr('fallback'));
     }
 
     /**
@@ -327,7 +327,7 @@ final class SomeTest extends TestCase
     public function testUnwrapOrElse(): void
     {
         $some = Some::new('foo');
-        self::assertSame('foo', $some->unwrapOrElse(/** @return 'bar' */ static fn (): string => 'bar'));
+        self::assertSame('foo', $some->getOrElse(/** @return 'bar' */ static fn (): string => 'bar'));
     }
 
     /**

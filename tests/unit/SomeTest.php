@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
+use Closure;
 use Generator;
 use Ghostwriter\Option\Exception\NullPointerException;
 use Ghostwriter\Option\Exception\OptionException;
@@ -33,6 +34,9 @@ final class SomeTest extends TestCase
      */
     public const string BLACK_LIVES_MATTER = '#BlackLivesMatter';
 
+    /**
+     * @throws Throwable
+     */
     public function testAnd(): void
     {
         $some = Some::new('foo');
@@ -64,13 +68,13 @@ final class SomeTest extends TestCase
 
         self::assertInstanceOf(SomeInterface::class, $option);
 
-        self::assertSame($foo, $option->unwrap());
+        self::assertSame($foo, $option->get());
 
         $this->expectException(OptionException::class);
 
         $option = $some->andThen(static fn (mixed $x): mixed => $x);
 
-        self::assertSame($foo, $option->unwrap());
+        self::assertSame($foo, $option->get());
     }
 
     /**
@@ -103,16 +107,22 @@ final class SomeTest extends TestCase
         self::assertSame('foo', Some::new('foo')->expect(new RuntimeException(__FUNCTION__)));
     }
 
+    /**
+     * @throws Throwable
+     */
     public function testFilter(): void
     {
         $some = Some::new('foo');
         // returns the instance if its type is Some and the given function returns true.
-        self::assertSame($some, $some->filter(static fn ($x): bool => $x === 'foo'));
+        self::assertSame($some, $some->filter(static fn ($x): bool => 'foo' === $x));
 
         // returns an instance of None if called on an instance of Some and the given function returns false.
-        self::assertTrue($some->filter(static fn (string $x): bool => $x[0] === 'b')->isNone());
+        self::assertTrue($some->filter(static fn (string $x): bool => 'b' === $x[0])->isNone());
     }
 
+    /**
+     * @throws Throwable
+     */
     public function testFlatten(): void
     {
         $some = Some::new('foo');
@@ -125,13 +135,16 @@ final class SomeTest extends TestCase
         self::assertSame($some, $option);
         self::assertSame($some, $option->flatten());
 
-        self::assertSame('foo', $some->unwrap());
-        self::assertSame('foo', $option->unwrap());
+        self::assertSame('foo', $some->get());
+        self::assertSame('foo', $option->get());
 
-        self::assertSame('foo', $some->flatten()->unwrap());
-        self::assertSame('foo', $option->flatten()->unwrap());
+        self::assertSame('foo', $some->flatten()->get());
+        self::assertSame('foo', $option->flatten()->get());
     }
 
+    /**
+     * @throws Throwable
+     */
     public function testGetIterator(): void
     {
         $some = Some::new('foo');
@@ -141,18 +154,27 @@ final class SomeTest extends TestCase
         self::assertCount(2, iterator_to_array($some));
     }
 
+    /**
+     * @throws Throwable
+     */
     public function testIsNone(): void
     {
         $some = Some::new('foo');
         self::assertFalse($some->isNone());
     }
 
+    /**
+     * @throws Throwable
+     */
     public function testIsSome(): void
     {
         $some = Some::new('foo');
         self::assertTrue($some->isSome());
     }
 
+    /**
+     * @throws Throwable
+     */
     public function testMap(): void
     {
         $some = Some::new('foo');
@@ -165,9 +187,12 @@ final class SomeTest extends TestCase
             static fn (mixed $x): string => sprintf('%s%s', $x, 'bar')
         );
         self::assertTrue($option->isSome());
-        self::assertSame('foobar', $option->unwrap());
+        self::assertSame('foobar', $option->get());
     }
 
+    /**
+     * @throws Throwable
+     */
     public function testMapOr(): void
     {
         $some = Some::new('foo');
@@ -183,6 +208,9 @@ final class SomeTest extends TestCase
         ));
     }
 
+    /**
+     * @throws Throwable
+     */
     public function testMapOrElse(): void
     {
         $some = Some::new('foo');
@@ -207,6 +235,8 @@ final class SomeTest extends TestCase
      *
      * @param class-string $expected
      * @param TValue       $value
+     *
+     * @throws Throwable
      */
     #[DataProvider('ofDataProvider')]
     public function testOptionCreate(string $expected, mixed $value): void
@@ -220,6 +250,9 @@ final class SomeTest extends TestCase
         self::assertInstanceOf($expected, $option);
     }
 
+    /**
+     * @throws Throwable
+     */
     public function testOr(): void
     {
         $some = Some::new('foo');
@@ -229,6 +262,9 @@ final class SomeTest extends TestCase
         self::assertSame($some, $some->or($some2));
     }
 
+    /**
+     * @throws Throwable
+     */
     public function testOrElse(): void
     {
         $some = Some::new('foo');
@@ -242,7 +278,7 @@ final class SomeTest extends TestCase
      */
     public function testSome(): void
     {
-        self::assertSame(self::BLACK_LIVES_MATTER, Some::nullable(self::BLACK_LIVES_MATTER)->unwrap());
+        self::assertSame(self::BLACK_LIVES_MATTER, Some::nullable(self::BLACK_LIVES_MATTER)->get());
     }
 
     /**
@@ -250,6 +286,8 @@ final class SomeTest extends TestCase
      *
      * @param class-string $expected
      * @param TValue       $value
+     *
+     * @throws Throwable
      */
     #[DataProvider('nullableDataProvider')]
     public function testSomeNullable(string $expected, mixed $value): void
@@ -263,31 +301,39 @@ final class SomeTest extends TestCase
         self::assertInstanceOf($expected, $option);
     }
 
+    /**
+     * @throws Throwable
+     */
     public function testUnwrap(): void
     {
         $some = Some::new('foo');
 
-        self::assertSame('foo', $some->unwrap());
+        self::assertSame('foo', $some->get());
     }
 
+    /**
+     * @throws Throwable
+     */
     public function testUnwrapOr(): void
     {
         $some = Some::new('foo');
 
-        self::assertSame('foo', $some->unwrapOr('fallback'));
+        self::assertSame('foo', $some->getOr('fallback'));
     }
 
+    /**
+     * @throws Throwable
+     */
     public function testUnwrapOrElse(): void
     {
         $some = Some::new('foo');
-        self::assertSame('foo', $some->unwrapOrElse(/** @return 'bar' */ static fn (): string => 'bar'));
+        self::assertSame('foo', $some->getOrElse(/** @return 'bar' */ static fn (): string => 'bar'));
     }
 
     /**
      * @throws Throwable
      *
      * @return Generator<array-key, array{0:class-string,1:mixed}>
-     *
      */
     public static function nullableDataProvider(): Generator
     {
@@ -299,6 +345,8 @@ final class SomeTest extends TestCase
     }
 
     /**
+     * @throws Throwable
+     *
      * @return Generator<string, array{0:class-string,1:mixed}>
      */
     public static function ofDataProvider(): Generator
@@ -306,9 +354,10 @@ final class SomeTest extends TestCase
         yield 'true' => [SomeInterface::class, true];
         yield 'false' => [SomeInterface::class, false];
         yield 'string' => [SomeInterface::class, 'string'];
-        yield 'Closure' => [
+        yield Closure::class => [
             SomeInterface::class,
-/** @return 'Closure' */ static fn (): string => 'Closure',
+            /** @return Closure::class */
+            static fn (): string => Closure::class,
         ];
         yield 'int' => [SomeInterface::class, 42];
         yield 'float' => [SomeInterface::class, 13.37];

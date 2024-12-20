@@ -30,12 +30,12 @@ use Ghostwriter\Option\None;
 use Ghostwriter\Option\Some;
 
 $greeting = Some::new('Hello World!');
-echo $greeting->unwrap();        // 'Hello World!'
+echo $greeting->get();        // 'Hello World!'
 
 
 $name = None::new();
-echo $name->unwrap();                  // throw `NullPointerException`
-echo $name->unwrapOr('Default Value'); // 'Default Value'
+echo $name->get();                  // throw `NullPointerException`
+echo $name->getOr('Default Value'); // 'Default Value'
 
 None::new();            // return `None`
 Some::nullable(null);   // return `None`

@@ -129,19 +129,19 @@ final class None implements NoneInterface
      * @throws NullPointerException
      */
     #[Override]
-    public function unwrap(): mixed
+    public function get(): mixed
     {
         throw new NullPointerException();
     }
 
     #[Override]
-    public function unwrapOr(mixed $fallback): mixed
+    public function getOr(mixed $fallback): mixed
     {
         return $fallback;
     }
 
     #[Override]
-    public function unwrapOrElse(Closure $function): mixed
+    public function getOrElse(Closure $function): mixed
     {
         return $function();
     }

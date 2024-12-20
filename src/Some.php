@@ -184,19 +184,19 @@ final readonly class Some implements SomeInterface
     }
 
     #[Override]
-    public function unwrap(): mixed
+    public function get(): mixed
     {
         return $this->value;
     }
 
     #[Override]
-    public function unwrapOr(mixed $fallback): mixed
+    public function getOr(mixed $fallback): mixed
     {
         return $this->value;
     }
 
     #[Override]
-    public function unwrapOrElse(Closure $function): mixed
+    public function getOrElse(Closure $function): mixed
     {
         return $this->value;
     }

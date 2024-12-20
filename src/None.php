@@ -11,17 +11,22 @@ use Ghostwriter\Option\Exception\OptionException;
 use Ghostwriter\Option\Interface\NoneInterface;
 use Ghostwriter\Option\Interface\OptionInterface;
 use Override;
+use Tests\Unit\NoneTest;
 use Throwable;
 
 /**
- * @see \Tests\Unit\NoneTest
+ * @see NoneTest
  */
 final class None implements NoneInterface
 {
     private static ?self $instance = null;
 
-    private function __construct()
+    private function __construct() {}
+
+    #[Override]
+    public static function new(): NoneInterface
     {
+        return self::$instance ??= new self();
     }
 
     #[Override]
@@ -115,7 +120,7 @@ final class None implements NoneInterface
 
         return match (true) {
             $value instanceof OptionInterface => $value,
-            $value === null => self::new(),
+            null === $value => self::new(),
             default => Some::new($value),
         };
     }
@@ -124,26 +129,20 @@ final class None implements NoneInterface
      * @throws NullPointerException
      */
     #[Override]
-    public function unwrap(): mixed
+    public function get(): mixed
     {
         throw new NullPointerException();
     }
 
     #[Override]
-    public function unwrapOr(mixed $fallback): mixed
+    public function getOr(mixed $fallback): mixed
     {
         return $fallback;
     }
 
     #[Override]
-    public function unwrapOrElse(Closure $function): mixed
+    public function getOrElse(Closure $function): mixed
     {
         return $function();
-    }
-
-    #[Override]
-    public static function new(): NoneInterface
-    {
-        return self::$instance ??= new self();
     }
 }

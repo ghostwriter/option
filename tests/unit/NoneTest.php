@@ -50,7 +50,7 @@ final class NoneTest extends TestCase
             static fn (): SomeInterface => Some::new(true)
         );
 
-        self::assertFalse($option->unwrapOr(false));
+        self::assertFalse($option->getOr(false));
     }
 
     /**
@@ -87,7 +87,7 @@ final class NoneTest extends TestCase
      */
     public function testFilter(): void
     {
-        self::assertInstanceOf(NoneInterface::class, None::new()->filter(static fn (mixed $x): bool => $x === null));
+        self::assertInstanceOf(NoneInterface::class, None::new()->filter(static fn (mixed $x): bool => null === $x));
     }
 
     /**
@@ -155,13 +155,10 @@ final class NoneTest extends TestCase
     {
         $none = None::new();
 
-        $someFn =
-            /**
-             * @param TMixed $value
-             *
-             * @return non-empty-string
-             */
-            static fn (mixed $value): string => sprintf('%sbar', get_debug_type($value));
+        /**
+         * @var Closure(TMixed):non-empty-string $someFn
+         */
+        $someFn = static fn (mixed $value): mixed => sprintf('%sbar', get_debug_type($value));
 
         $noneFn = /** @return 'baz' */ static fn (): string => 'baz';
 
@@ -225,7 +222,7 @@ final class NoneTest extends TestCase
     {
         $none = None::new();
         $this->expectException(NullPointerException::class);
-        $none->unwrap();
+        $none->get();
     }
 
     /**
@@ -235,7 +232,7 @@ final class NoneTest extends TestCase
     {
         $none = None::new();
 
-        self::assertSame('UnwrapOr', $none->unwrapOr('UnwrapOr'));
+        self::assertSame('UnwrapOr', $none->getOr('UnwrapOr'));
     }
 
     /**
@@ -247,7 +244,7 @@ final class NoneTest extends TestCase
 
         $function = /** @return 'UnwrapOrElse'  */ static fn (): string => 'UnwrapOrElse';
 
-        self::assertSame('UnwrapOrElse', $none->unwrapOrElse($function));
+        self::assertSame('UnwrapOrElse', $none->getOrElse($function));
     }
 
     /**

@@ -5,6 +5,6 @@ declare(strict_types=1);
 namespace Ghostwriter\Option\Exception;
 
 use Ghostwriter\Option\Interface\ExceptionInterface;
-use InvalidArgumentException;
+use LogicException;
 
-final class OptionException extends InvalidArgumentException implements ExceptionInterface {}
+final class ShouldNotHappenException extends LogicException implements ExceptionInterface {}

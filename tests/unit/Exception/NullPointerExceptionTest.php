@@ -24,7 +24,7 @@ final class NullPointerExceptionTest extends TestCase
     {
         $this->expectException(NullPointerException::class);
 
-        None::new()->unwrap();
+        None::new()->get();
     }
 
     /**

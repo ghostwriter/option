@@ -8,10 +8,12 @@ use Closure;
 use Generator;
 use Ghostwriter\Option\Exception\NullPointerException;
 use Ghostwriter\Option\Exception\OptionException;
+use Ghostwriter\Option\Exception\ShouldNotHappenException;
 use Ghostwriter\Option\Interface\NoneInterface;
 use Ghostwriter\Option\Interface\OptionInterface;
 use Ghostwriter\Option\Interface\SomeInterface;
 use Override;
+use Tests\Unit\SomeTest;
 use Throwable;
 
 use function is_iterable;
@@ -22,7 +24,7 @@ use function sprintf;
  *
  * @implements SomeInterface<TSome>
  *
- * @see \Tests\Unit\SomeTest
+ * @see SomeTest
  */
 final readonly class Some implements SomeInterface
 {
@@ -31,7 +33,29 @@ final readonly class Some implements SomeInterface
      */
     public function __construct(
         private mixed $value
-    ) {
+    ) {}
+
+    /**
+     * @template TNew
+     *
+     * @param TNew $value
+     *
+     * @throws NullPointerException
+     *
+     * @return SomeInterface<TNew>
+     */
+    #[Override]
+    public static function new(mixed $value): SomeInterface
+    {
+        return match (true) {
+            null === $value => throw new NullPointerException(),
+
+            $value instanceof SomeInterface => $value,
+
+            default => /** @var SomeInterface<TNew> */ new self($value),
+
+            $value instanceof NoneInterface => throw new ShouldNotHappenException(),
+        };
     }
 
     #[Override]
@@ -129,7 +153,7 @@ final readonly class Some implements SomeInterface
         return match (true) {
             $value instanceof OptionInterface => $value,
 
-            $value === null => None::new(),
+            null === $value => None::new(),
 
             default => self::new($value),
         };
@@ -177,32 +201,13 @@ final readonly class Some implements SomeInterface
         return $this->value;
     }
 
-    /**
-     * @template TNew
-     *
-     * @param TNew $value
-     *
-     * @throws NullPointerException
-     *
-     * @return SomeInterface<TNew>
-     */
-    #[Override]
-    public static function new(mixed $value): SomeInterface
-    {
-        return match (true) {
-            $value === null => throw new NullPointerException(),
-
-            default => /** @var SomeInterface<TNew> */ new self($value),
-        };
-    }
-
     #[Override]
     public static function nullable(mixed $value): OptionInterface
     {
         return match (true) {
             $value instanceof OptionInterface => $value,
 
-            $value === null => None::new(),
+            null === $value => None::new(),
 
             default => self::new($value),
         };

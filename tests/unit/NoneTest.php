@@ -50,7 +50,7 @@ final class NoneTest extends TestCase
             static fn (): SomeInterface => Some::new(true)
         );
 
-        self::assertFalse($option->unwrapOr(false));
+        self::assertFalse($option->getOr(false));
     }
 
     /**
@@ -222,7 +222,7 @@ final class NoneTest extends TestCase
     {
         $none = None::new();
         $this->expectException(NullPointerException::class);
-        $none->unwrap();
+        $none->get();
     }
 
     /**
@@ -232,7 +232,7 @@ final class NoneTest extends TestCase
     {
         $none = None::new();
 
-        self::assertSame('UnwrapOr', $none->unwrapOr('UnwrapOr'));
+        self::assertSame('UnwrapOr', $none->getOr('UnwrapOr'));
     }
 
     /**
@@ -244,7 +244,7 @@ final class NoneTest extends TestCase
 
         $function = /** @return 'UnwrapOrElse'  */ static fn (): string => 'UnwrapOrElse';
 
-        self::assertSame('UnwrapOrElse', $none->unwrapOrElse($function));
+        self::assertSame('UnwrapOrElse', $none->getOrElse($function));
     }
 
     /**

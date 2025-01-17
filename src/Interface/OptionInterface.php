@@ -164,7 +164,7 @@ interface OptionInterface extends IteratorAggregate
      *
      * @return (TOption is null ? never : TOption)
      */
-    public function unwrap(): mixed;
+    public function get(): mixed;
 
     /**
      * Returns the contained value or a default $fallback value.
@@ -175,7 +175,7 @@ interface OptionInterface extends IteratorAggregate
      *
      * @return (TOption is null ? TUnwrapOr : TOption)
      */
-    public function unwrapOr(mixed $fallback): mixed;
+    public function getOr(mixed $fallback): mixed;
 
     /**
      * Returns the contained value or computes it from the given $function.
@@ -186,5 +186,5 @@ interface OptionInterface extends IteratorAggregate
      *
      * @return (TOption is null ? TUnwrapOrElse : TOption)
      */
-    public function unwrapOrElse(Closure $function): mixed;
+    public function getOrElse(Closure $function): mixed;
 }

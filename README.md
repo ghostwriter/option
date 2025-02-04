@@ -1,11 +1,9 @@
 # Option
 
+[![GitHub Sponsors](https://img.shields.io/github/sponsors/ghostwriter?label=Sponsor+@ghostwriter/option&logo=GitHub+Sponsors)](https://github.com/sponsors/ghostwriter)
 [![Automation](https://github.com/ghostwriter/option/actions/workflows/automation.yml/badge.svg)](https://github.com/ghostwriter/option/actions/workflows/automation.yml)
-[![Supported PHP Version](https://badgen.net/packagist/php/ghostwriter/option?color=8892bf&cache=600&)](https://www.php.net/supported-versions)
-[![Mutation Coverage](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fghostwriter%2Foption%2Fmain)](https://dashboard.stryker-mutator.io/reports/github.com/ghostwriter/option/main)
-[![Code Coverage](https://codecov.io/gh/ghostwriter/option/branch/main/graph/badge.svg)](https://codecov.io/gh/ghostwriter/option)
-[![Latest Version on Packagist](https://badgen.net/packagist/v/ghostwriter/option?cache=600)](https://packagist.org/packages/ghostwriter/option)
-[![Downloads](https://badgen.net/packagist/dt/ghostwriter/option?cache=600&color=blue)](https://packagist.org/packages/ghostwriter/option)
+[![Supported PHP Version](https://badgen.net/packagist/php/ghostwriter/option?color=8892bf)](https://www.php.net/supported-versions)
+[![Downloads](https://badgen.net/packagist/dt/ghostwriter/option?color=blue)](https://packagist.org/packages/ghostwriter/option)
 
 Provides an **`Option`** type implementation for PHP.
 

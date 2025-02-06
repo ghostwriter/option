@@ -8,29 +8,32 @@ use Ghostwriter\Option\Exception\NullPointerException;
 use Ghostwriter\Option\None;
 use Ghostwriter\Option\Some;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\UsesClass;
-use PHPUnit\Framework\TestCase;
+use Tests\Unit\AbstractTestCase;
 use Throwable;
 
 #[CoversClass(NullPointerException::class)]
-#[UsesClass(None::class)]
-#[UsesClass(Some::class)]
-final class NullPointerExceptionTest extends TestCase
+#[CoversClass(None::class)]
+#[CoversClass(Some::class)]
+final class NullPointerExceptionTest extends AbstractTestCase
 {
-    /**
-     * @throws Throwable
-     */
-    public function testNoneUnwrap(): void
+    /** @throws Throwable */
+    public function testCallingGetOnNoneThrowsNullPointerException(): void
     {
         $this->expectException(NullPointerException::class);
 
-        None::new()->get();
+        $this->none->get();
     }
 
-    /**
-     * @throws Throwable
-     */
-    public function testSomeNew(): void
+    /** @throws Throwable */
+    public function testConstructingSomeWithNoneThrowsNullPointerException(): void
+    {
+        $this->expectException(NullPointerException::class);
+
+        Some::new($this->none);
+    }
+
+    /** @throws Throwable */
+    public function testConstructingSomeWithNullThrowsNullPointerException(): void
     {
         $this->expectException(NullPointerException::class);
 

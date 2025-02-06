@@ -1,7 +1,7 @@
 {
     "name": "ghostwriter/option",
     "description": "Provides an Option type implementation for PHP",
-    "license": "MIT",
+    "license": "BSD-3-Clause",
     "type": "library",
     "keywords": [
         "ghostwriter",
@@ -34,7 +34,7 @@
         "#StandWithUkraine"
     ],
     "require": {
-        "php": ">=8.3"
+        "php": ">=8.4"
     },
     "require-dev": {
         "ghostwriter/coding-standard": "dev-main"
@@ -43,28 +43,32 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "Ghostwriter\\Option\\": "src"
+            "Ghostwriter\\Option\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "Tests\\Unit\\": "tests/unit/"
         },
+        "files": [
+            "tests/bootstrap.php"
+        ],
         "exclude-from-classmap": [
             "tests/fixture/"
         ]
     },
     "config": {
         "allow-plugins": {
-            "ghostwriter/coding-standard": true,
-            "ghostwriter/handrail": true
+            "ghostwriter/coding-standard": true
         },
+        "bump-after-update": true,
         "classmap-authoritative": false,
         "discard-changes": true,
         "optimize-autoloader": true,
         "platform": {
             "php": "8.4.999"
         },
+        "platform-check": true,
         "preferred-install": "dist",
         "prepend-autoloader": true,
         "process-timeout": 5000,
@@ -72,49 +76,41 @@
         "use-parent-dir": false
     },
     "scripts": {
+        "bin_composer": "vendor/ghostwriter/coding-standard/tools/composer",
         "bin_ecs": "ecs check --clear-cache --no-interaction",
-        "bin_infection": [
-            "@xdebug",
-            "vendor/ghostwriter/coding-standard/tools/infection --ansi --show-mutations --threads=max --min-msi=0 --min-covered-msi=0"
-        ],
+        "bin_infection": "vendor/ghostwriter/coding-standard/tools/infection --ansi --min-covered-msi=0 --min-msi=0 --show-mutations --threads=max",
+        "bin_normalize": "vendor/ghostwriter/coding-standard/tools/composer-normalize",
         "bin_phive": "vendor/ghostwriter/coding-standard/tools/phive",
-        "bin_phpunit": [
-            "@xdebug",
-            "vendor/ghostwriter/coding-standard/tools/phpunit --do-not-cache-result --colors=always"
-        ],
+        "bin_phpunit": "vendor/ghostwriter/coding-standard/tools/phpunit --do-not-cache-result --colors=always",
         "bin_psalm": "vendor/ghostwriter/coding-standard/tools/psalm --no-cache",
-        "bin_rector": "rector process --no-ansi --clear-cache",
+        "bin_rector": "rector process --clear-cache --no-ansi",
         "cache:clear": "rm -rf ./.cache/*",
         "check": [
-            "vendor/ghostwriter/coding-standard/tools/composer validate",
+            "@cache:clear",
+            "@bin_composer validate",
+            "@composer-normalize",
             "@ecs",
             "@test"
         ],
-        "dev": [
-            "@cache:clear",
-            "@check",
-            "@psalm:update",
-            "@psalm:security",
-            "@psalm:dry-run"
-        ],
+        "composer-normalize": "@bin_normalize --no-cache --diff --no-check-lock --no-scripts --no-plugins",
         "ecs": "@bin_ecs --fix",
         "git:submodule:update": "git submodule update --depth=1 --init --recursive --recommend-shallow --remote",
-        "infection": "@bin_infection",
-        "phpunit": "@bin_phpunit",
-        "phpunit:migrate": "@bin_phpunit --migrate-configuration",
-        "psalm": "@bin_psalm --show-info=true",
-        "psalm:alter": "@bin_psalm --alter --allow-backwards-incompatible-changes=false --safe-types",
-        "psalm:baseline": "@psalm --no-diff --set-baseline=psalm-baseline.xml",
-        "psalm:dry-run": "@psalm:alter --issues=all --dry-run",
-        "psalm:fix": "@psalm:alter --issues=UnnecessaryVarAnnotation",
-        "psalm:security": "@psalm --no-diff --taint-analysis",
-        "psalm:shepherd": "@psalm --no-diff --shepherd --stats",
-        "psalm:update": "@psalm --no-diff --update-baseline=psalm-baseline.xml",
+        "infection": [
+            "@xdebug",
+            "@bin_infection"
+        ],
+        "phpunit": [
+            "@xdebug",
+            "@bin_phpunit"
+        ],
+        "phpunit:migrate": [
+            "@xdebug",
+            "@bin_phpunit --migrate-configuration"
+        ],
         "rector": "@bin_rector",
         "rector:dry-run": "@rector --dry-run",
         "test": [
             "@phpunit",
-            "@psalm:shepherd",
             "@infection"
         ],
         "xdebug": "@putenv XDEBUG_MODE=coverage"

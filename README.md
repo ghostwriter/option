@@ -35,18 +35,18 @@ echo $some->get(); // prints #BlackLivesMatter
 
 $none = None::new(); // return `None`
 
-// call `get` method on `None` will throw `NullPointerException`
+// calling the `get` method on `None` will throw `NullPointerException`
 echo $none->get(); // throw `NullPointerException`
 
 echo $none->getOr('#BLM'); // prints #BLM
 
-// call `new` static method with `null` will return `None`
+// calling the `new` static method with `null` will return `None`
 Option::new(null); // return `None`
 
-// call `new` static method with `null will throw `NullPointerException`
+// calling the `new` static method with `null will throw `NullPointerException`
 Some::new(null); // throws `NullPointerException`
 
-// call `new` static method with `None will throw `NullPointerException`
+// calling the `new` static method with `None will throw `NullPointerException`
 Some::new(None::new()); // throws `NullPointerException`
 
 --- Example

@@ -25,18 +25,29 @@ You can also star (🌟) this repo to find it easier later.
 use Ghostwriter\Option\Exception\NullPointerException;
 use Ghostwriter\Option\None;
 use Ghostwriter\Option\Some;
+use Ghostwriter\Option\Option;
 
-$greeting = Some::new('Hello World!');
-echo $greeting->get();        // 'Hello World!'
+$message = '#BlackLivesMatter';
+Option::new($message); // return `Some`
 
+$some = Some::new($message); // return `Some`
+echo $some->get(); // prints #BlackLivesMatter
 
-$name = None::new();
-echo $name->get();                  // throw `NullPointerException`
-echo $name->getOr('Default Value'); // 'Default Value'
+$none = None::new(); // return `None`
 
-None::new();            // return `None`
-Some::nullable(null);   // return `None`
-Some::new(null);        // throw `NullPointerException`
+// call `get` method on `None` will throw `NullPointerException`
+echo $none->get(); // throw `NullPointerException`
+
+echo $none->getOr('#BLM'); // prints #BLM
+
+// call `new` static method with `null` will return `None`
+Option::new(null); // return `None`
+
+// call `new` static method with `null will throw `NullPointerException`
+Some::new(null); // throws `NullPointerException`
+
+// call `new` static method with `None will throw `NullPointerException`
+Some::new(None::new()); // throws `NullPointerException`
 
 --- Example
 

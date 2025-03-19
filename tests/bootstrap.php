@@ -16,7 +16,7 @@ $path = __DIR__ . \DIRECTORY_SEPARATOR . 'Fixture';
 
 if (\is_dir($path)) {
     /** @psalm-suppress UncaughtThrowInGlobalScope */
-    $classLoader->addPsr4('Tests\Fixture\', $path);
+    $classLoader->addPsr4('Tests\\Fixture\\', $path);
 }
 
 return $classLoader;

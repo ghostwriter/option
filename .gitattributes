@@ -1,7 +1,12 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+*.bash text eol=lf
+*.css text diff=css
 *.md text diff=markdown
 *.php text eol=lf diff=php
+*.py text diff=python
+*.svg text
+*.txt text
 /.editorconfig export-ignore
 /.envrc export-ignore
 /.gitattributes export-ignore

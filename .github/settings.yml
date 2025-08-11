@@ -3,7 +3,6 @@
   "description": "Provides an Option type implementation for PHP"
   "homepage": "https://github.com/ghostwriter/option"
   "topics": "ghostwriter, maybe, option, option-type, php"
-  "private": false
   "has_issues": true
   "has_projects": false
   "has_wiki": false

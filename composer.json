@@ -101,7 +101,6 @@
         ],
         "docker:build": "docker buildx build --pull --tag workspace .",
         "docker:run": "docker run -v $(PWD):/github/workspace -w=/github/workspace -e GITHUB_DEBUG=1 -e GITHUB_WORKSPACE=/github/workspace -e GITHUB_TOKEN=github-token -e SIGNING_SECRET_KEY=secret-key workspace",
-        "ecs": "@bin_ecs --fix",
         "git:submodule:update": "git submodule update --depth=1 --init --recursive --recommend-shallow --remote",
         "infection": [
             "@xdebug",
@@ -127,7 +126,6 @@
         "psalm:fix": "@bin_psalm --alter --issues=UnnecessaryVarAnnotation",
         "psalm:security": "@bin_psalm --no-diff --taint-analysis",
         "psalm:update": "@bin_psalm --no-diff --update-baseline=psalm-baseline.xml",
-        "rector": "@bin_rector",
         "rector:dry-run": "@rector --dry-run",
         "test": [
             "@phpunit",

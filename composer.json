@@ -45,7 +45,6 @@
         "symfony/var-dumper": "~7.3.2",
         "vimeo/psalm": "~6.13.1"
     },
-    "minimum-stability": "stable",
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
@@ -65,7 +64,8 @@
     },
     "config": {
         "allow-plugins": {
-            "ghostwriter/coding-standard": true
+            "ghostwriter/coding-standard": true,
+            "ghostwriter/workbench": true
         },
         "bump-after-update": false,
         "classmap-authoritative": false,
@@ -83,7 +83,6 @@
     },
     "scripts": {
         "bin_composer": "vendor/ghostwriter/coding-standard/tools/phar/composer",
-        "bin_ecs": "ecs check --clear-cache --no-interaction",
         "bin_infection": "vendor/ghostwriter/coding-standard/tools/phar/infection --ansi --min-covered-msi=0 --min-msi=0 --show-mutations --threads=max",
         "bin_normalize": "vendor/ghostwriter/coding-standard/tools/phar/composer-normalize",
         "bin_phive": "vendor/ghostwriter/coding-standard/tools/phar/phive",

@@ -126,7 +126,6 @@
         "psalm:fix": "@bin_psalm --alter --issues=UnnecessaryVarAnnotation",
         "psalm:security": "@bin_psalm --no-diff --taint-analysis",
         "psalm:update": "@bin_psalm --no-diff --update-baseline=psalm-baseline.xml",
-        "rector:dry-run": "@rector --dry-run",
         "test": [
             "@phpunit",
             "@infection",

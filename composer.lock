@@ -766,12 +766,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ghostwriter/coding-standard.git",
-                "reference": "e36feb1383bc8bb3c86c9ffefa3a39c150bab091"
+                "reference": "0179b4d7e11176787d7fd01cf136ac32a79a6485"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ghostwriter/coding-standard/zipball/e36feb1383bc8bb3c86c9ffefa3a39c150bab091",
-                "reference": "e36feb1383bc8bb3c86c9ffefa3a39c150bab091",
+                "url": "https://api.github.com/repos/ghostwriter/coding-standard/zipball/0179b4d7e11176787d7fd01cf136ac32a79a6485",
+                "reference": "0179b4d7e11176787d7fd01cf136ac32a79a6485",
                 "shasum": ""
             },
             "require": {
@@ -826,10 +826,10 @@
             },
             "default-branch": true,
             "bin": [
+                "tools/phar/composer",
                 "tools/phar/composer-normalize",
                 "tools/phar/composer-require-checker",
                 "tools/phar/composer-unused",
-                "tools/phar/composer",
                 "tools/phar/infection",
                 "tools/phar/phive",
                 "tools/phar/phpactor",
@@ -928,7 +928,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-09-14T11:57:46+00:00"
+            "time": "2025-09-14T12:18:56+00:00"
         },
         {
             "name": "ghostwriter/config",

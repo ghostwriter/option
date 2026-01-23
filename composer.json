@@ -1,7 +1,7 @@
 {
     "name": "ghostwriter/option",
     "description": "Provides an Option type implementation for PHP",
-    "license": "BSD-4-Clause",
+    "license": "BSD-3-Clause",
     "type": "library",
     "keywords": [
         "ghostwriter",

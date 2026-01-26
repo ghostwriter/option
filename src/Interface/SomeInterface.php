@@ -18,16 +18,7 @@ interface SomeInterface extends OptionInterface
      *
      * @param TNew $value
      *
-     * @return self<TNew>
+     * @return (TNew is SomeInterface ? TNew : SomeInterface<TNew>)
      */
     public static function new(mixed $value): self;
-
-    /**
-     * @template TNullable
-     *
-     * @param TNullable $value
-     *
-     * @return OptionInterface<TNullable>
-     */
-    public static function nullable(mixed $value): OptionInterface;
 }

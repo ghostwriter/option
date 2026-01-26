@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace Ghostwriter\Option;
 
-use Closure;
-use Generator;
 use Ghostwriter\Option\Exception\NullPointerException;
-use Ghostwriter\Option\Exception\OptionException;
 use Ghostwriter\Option\Exception\ShouldNotHappenException;
 use Ghostwriter\Option\Interface\NoneInterface;
 use Ghostwriter\Option\Interface\OptionInterface;
@@ -16,7 +13,7 @@ use Override;
 use Tests\Unit\SomeTest;
 use Throwable;
 
-use function is_iterable;
+use function get_debug_type;
 use function sprintf;
 
 /**
@@ -28,10 +25,8 @@ use function sprintf;
  */
 final readonly class Some implements SomeInterface
 {
-    /**
-     * @param TSome $value
-     */
-    public function __construct(
+    /** @param TSome $value */
+    private function __construct(
         private mixed $value
     ) {}
 
@@ -42,19 +37,17 @@ final readonly class Some implements SomeInterface
      *
      * @throws NullPointerException
      *
-     * @return SomeInterface<TNew>
+     * @return (TNew is SomeInterface ? TNew : SomeInterface<TNew>)
      */
     #[Override]
     public static function new(mixed $value): SomeInterface
     {
         return match (true) {
-            null === $value => throw new NullPointerException(),
+            $value instanceof NoneInterface, null === $value => throw new NullPointerException(),
 
             $value instanceof SomeInterface => $value,
 
-            default => /** @var SomeInterface<TNew> */ new self($value),
-
-            $value instanceof NoneInterface => throw new ShouldNotHappenException(),
+            default => new self($value),
         };
     }
 
@@ -64,8 +57,11 @@ final readonly class Some implements SomeInterface
         return $option;
     }
 
+    /**
+     * @throws ShouldNotHappenException
+     */
     #[Override]
-    public function andThen(Closure $function): OptionInterface
+    public function andThen(callable $function): OptionInterface
     {
         /** @var null|OptionInterface<TSome> $result */
         $result = $function($this->value);
@@ -74,63 +70,62 @@ final readonly class Some implements SomeInterface
             return $result;
         }
 
-        throw new OptionException(sprintf(
-            'Closure passed to andThen() must return an instance of %s.',
+        throw new ShouldNotHappenException(sprintf(
+            'Callable passed to andThen() must return an instance of %s.',
             OptionInterface::class
         ));
     }
 
-    #[Override]
-    public function contains(mixed $value): bool
-    {
-        if ($this instanceof NoneInterface) {
-            return false;
-        }
-
-        return $this->value === $value;
-    }
-
-    /**
-     * @throws Throwable
-     */
+    /** @throws Throwable */
     #[Override]
     public function expect(Throwable $throwable): mixed
     {
-        if ($this instanceof NoneInterface) {
-            throw $throwable;
-        }
+        return $this->value;
+    }
 
+    /**
+     * @throws ShouldNotHappenException
+     */
+    #[Override]
+    public function filter(callable $function): OptionInterface
+    {
+        $result = $function($this->value);
+
+        return match ($result) {
+            true => $this,
+            false => None::new(),
+            default => throw new ShouldNotHappenException(sprintf(
+                'Callable passed to filter() must return a boolean, %s given.',
+                get_debug_type($result)
+            )),
+        };
+    }
+
+    /**
+     * @throws NullPointerException
+     */
+    #[Override]
+    public function get(): mixed
+    {
         return $this->value;
     }
 
     #[Override]
-    public function filter(Closure $function): OptionInterface
+    public function getOr(mixed $fallback): mixed
     {
-        return match (true) {
-            $function($this->value) => $this,
-            default => None::new()
-        };
+        return $this->value;
     }
 
     #[Override]
-    public function flatten(): OptionInterface
+    public function getOrElse(callable $function): mixed
     {
-        return match (true) {
-            $this->value instanceof SomeInterface => $this->value,
-            default => $this
-        };
+        return $this->value;
     }
 
     #[Override]
-    public function getIterator(): Generator
+    public function is(mixed $value): bool
     {
-        $value = $this->value;
-
-        if (is_iterable($value)) {
-            yield from $value;
-        } else {
-            yield $value;
-        }
+        return $this->value === $value;
     }
 
     #[Override]
@@ -146,27 +141,19 @@ final readonly class Some implements SomeInterface
     }
 
     #[Override]
-    public function map(Closure $function): OptionInterface
+    public function map(callable $function): OptionInterface
     {
-        $value = $function($this->value);
-
-        return match (true) {
-            $value instanceof OptionInterface => $value,
-
-            null === $value => None::new(),
-
-            default => self::new($value),
-        };
+        return Option::new($function($this->value));
     }
 
     #[Override]
-    public function mapOr(Closure $function, mixed $fallback): mixed
+    public function mapOr(callable $function, mixed $fallback): mixed
     {
         return $function($this->value);
     }
 
     #[Override]
-    public function mapOrElse(Closure $function, Closure $fallback): mixed
+    public function mapOrElse(callable $function, callable $fallback): mixed
     {
         return $function($this->value);
     }
@@ -178,38 +165,8 @@ final readonly class Some implements SomeInterface
     }
 
     #[Override]
-    public function orElse(Closure $function): OptionInterface
+    public function orElse(callable $function): OptionInterface
     {
         return $this;
-    }
-
-    #[Override]
-    public function get(): mixed
-    {
-        return $this->value;
-    }
-
-    #[Override]
-    public function getOr(mixed $fallback): mixed
-    {
-        return $this->value;
-    }
-
-    #[Override]
-    public function getOrElse(Closure $function): mixed
-    {
-        return $this->value;
-    }
-
-    #[Override]
-    public static function nullable(mixed $value): OptionInterface
-    {
-        return match (true) {
-            $value instanceof OptionInterface => $value,
-
-            null === $value => None::new(),
-
-            default => self::new($value),
-        };
     }
 }

@@ -9,31 +9,27 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+- Class `Ghostwriter\Option\Exception\NullPointerException`
+- Class `Ghostwriter\Option\Exception\ShouldNotHappenException`
 - Interface `Ghostwriter\Option\Interface\ExceptionInterface`
 - Interface `Ghostwriter\Option\Interface\NoneInterface`
 - Interface `Ghostwriter\Option\Interface\OptionInterface`
 - Interface `Ghostwriter\Option\Interface\SomeInterface`
 - Method `Ghostwriter\Option\None::new()`
+- Method `Ghostwriter\Option\Option::new()`
 - Method `Ghostwriter\Option\Some::new()`
-- Method `Ghostwriter\Option\Some::nullable()`
-
-### Changed
-
-- All `callable` parameters changed to `Closure`
-- Class `Ghostwriter\Option\None` no longer extends `Ghostwriter\Option\AbstractOption`
-- Class `Ghostwriter\Option\Some` no longer extends `Ghostwriter\Option\AbstractOption`
-- Class `Ghostwriter\Option\Exception\OptionException` no longer extends `RuntimeException`, now extends `InvalidArgumentException`
 
 ### Removed
 
-- Class `Ghostwriter\Option\AbstractOption`
-- Class `Ghostwriter\Option\Option`
-- Interface `Ghostwriter\Option\Exception\OptionExceptionInterface`
-- Interface `Ghostwriter\Option\NoneInterface`
-- Interface `Ghostwriter\Option\OptionInterface`
-- Interface `Ghostwriter\Option\SomeInterface`
-- Method `Ghostwriter\Option\None::create()`
-- Method `Ghostwriter\Option\Some::create()`
+- Class `Ghostwriter\Option\AbstractOption` was removed
+- Class `Ghostwriter\Option\Exception\OptionException` was removed
+- Interface `Ghostwriter\Option\Exception\OptionExceptionInterface` was removed
+- Interface `Ghostwriter\Option\NoneInterface` was removed
+- Interface `Ghostwriter\Option\OptionInterface` was removed
+- Interface `Ghostwriter\Option\SomeInterface` was removed
+- Method `Ghostwriter\Option\None::create()` was removed
+- Method `Ghostwriter\Option\Option::create()` was removed
+- Method `Ghostwriter\Option\Some::create()` was removed
 
 ## [1.5.1] - 2023-07-05
 

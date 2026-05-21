@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d60db1dc2e4f2e532c87ca8af40abf3b",
+    "content-hash": "b9114db3c90b705a978419ee79fe1d01",
     "packages": [],
     "packages-dev": [
         {
             "name": "boundwize/structarmed",
-            "version": "0.6.16",
+            "version": "0.6.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/boundwize/structarmed.git",
-                "reference": "8df4838a8266ed13867f9647ac52d98fc5a307d4"
+                "reference": "bb3f33323796807af7b3d9f439d6a6f2d9066afc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/boundwize/structarmed/zipball/8df4838a8266ed13867f9647ac52d98fc5a307d4",
-                "reference": "8df4838a8266ed13867f9647ac52d98fc5a307d4",
+                "url": "https://api.github.com/repos/boundwize/structarmed/zipball/bb3f33323796807af7b3d9f439d6a6f2d9066afc",
+                "reference": "bb3f33323796807af7b3d9f439d6a6f2d9066afc",
                 "shasum": ""
             },
             "require": {
@@ -67,7 +67,7 @@
             ],
             "support": {
                 "issues": "https://github.com/boundwize/structarmed/issues",
-                "source": "https://github.com/boundwize/structarmed/tree/0.6.16"
+                "source": "https://github.com/boundwize/structarmed/tree/0.6.17"
             },
             "funding": [
                 {
@@ -75,7 +75,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-05-21T05:21:20+00:00"
+            "time": "2026-05-21T09:45:33+00:00"
         },
         {
             "name": "fidry/cpu-core-counter",
@@ -144,16 +144,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ghostwriter/coding-standard.git",
-                "reference": "f40d7d3a923f6645a95b736fdeb625399bc8b0bb"
+                "reference": "154afe0378cd04b3bb6de6ab01b3c00ddfdd43fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ghostwriter/coding-standard/zipball/f40d7d3a923f6645a95b736fdeb625399bc8b0bb",
-                "reference": "f40d7d3a923f6645a95b736fdeb625399bc8b0bb",
+                "url": "https://api.github.com/repos/ghostwriter/coding-standard/zipball/154afe0378cd04b3bb6de6ab01b3c00ddfdd43fb",
+                "reference": "154afe0378cd04b3bb6de6ab01b3c00ddfdd43fb",
                 "shasum": ""
             },
             "require": {
-                "boundwize/structarmed": "^0.6.16",
+                "boundwize/structarmed": "^0.6.17",
                 "ext-apcu": "*",
                 "ext-bcmath": "*",
                 "ext-ctype": "*",
@@ -264,7 +264,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-05-21T06:37:46+00:00"
+            "time": "2026-05-21T12:10:41+00:00"
         },
         {
             "name": "hamcrest/hamcrest-php",
@@ -1498,16 +1498,16 @@
         },
         {
             "name": "sebastian/exporter",
-            "version": "8.0.3",
+            "version": "8.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/exporter.git",
-                "reference": "9b54f1afabb977a097ef353600d41a372ccde617"
+                "reference": "c0d29a945f8cf82f300a05e69874508e307ca4c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/9b54f1afabb977a097ef353600d41a372ccde617",
-                "reference": "9b54f1afabb977a097ef353600d41a372ccde617",
+                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/c0d29a945f8cf82f300a05e69874508e307ca4c6",
+                "reference": "c0d29a945f8cf82f300a05e69874508e307ca4c6",
                 "shasum": ""
             },
             "require": {
@@ -1521,7 +1521,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "8.0-dev"
+                    "dev-main": "8.1-dev"
                 }
             },
             "autoload": {
@@ -1564,7 +1564,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/exporter/issues",
                 "security": "https://github.com/sebastianbergmann/exporter/security/policy",
-                "source": "https://github.com/sebastianbergmann/exporter/tree/8.0.3"
+                "source": "https://github.com/sebastianbergmann/exporter/tree/8.1.0"
             },
             "funding": [
                 {
@@ -1584,7 +1584,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-20T04:38:47+00:00"
+            "time": "2026-05-21T11:50:56+00:00"
         },
         {
             "name": "sebastian/git-state",

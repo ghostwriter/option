@@ -47,10 +47,6 @@
 "repository":
   "name": "option"
   "description": "Provides an Option type implementation for PHP"
-  "topics":
-    - "ghostwriter"
-    - "option"
-    - "php"
   "homepage": "https://github.com/ghostwriter/option"
   "default_branch": "2.0.x"
   "allow_auto_merge": true

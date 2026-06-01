@@ -237,12 +237,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ghostwriter/coding-standard.git",
-                "reference": "5a7d517a2bd56f6b44e0c37ef21d8ec329319ff8"
+                "reference": "fd35d2745fe3812a99a68c840bd1622cec78784e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ghostwriter/coding-standard/zipball/5a7d517a2bd56f6b44e0c37ef21d8ec329319ff8",
-                "reference": "5a7d517a2bd56f6b44e0c37ef21d8ec329319ff8",
+                "url": "https://api.github.com/repos/ghostwriter/coding-standard/zipball/fd35d2745fe3812a99a68c840bd1622cec78784e",
+                "reference": "fd35d2745fe3812a99a68c840bd1622cec78784e",
                 "shasum": ""
             },
             "require": {
@@ -291,7 +291,7 @@
                 "ext-zend-opcache": "*",
                 "ext-zip": "*",
                 "ext-zlib": "*",
-                "php": "~8.4.0 || ~8.5.0"
+                "php": "~8.4.0 || ~8.5.0 || ~8.6.0"
             },
             "conflict": {
                 "pestphp/pest": "*"
@@ -351,9 +351,13 @@
                 {
                     "url": "https://github.com/sponsors/ghostwriter",
                     "type": "github"
+                },
+                {
+                    "url": "https://paypal.me/codepoet",
+                    "type": "paypal"
                 }
             ],
-            "time": "2026-05-31T01:19:25+00:00"
+            "time": "2026-06-01T02:09:13+00:00"
         },
         {
             "name": "ghostwriter/config",
